@@ -1,0 +1,315 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+  }
+}
+
+html {
+  scroll-behavior: auto !important;
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer utilities {
+  :where(.glass-card) {
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: 20px;
+    border: 1px solid transparent;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-card-flat {
+    border-radius: 0;
+  }
+
+  .glass-card-dark {
+    @apply bg-white border border-slate-100 shadow-xl rounded-2xl;
+  }
+
+  .glass-card-admin {
+    @apply bg-[#0B192C]/60 backdrop-blur-3xl border border-white/10 shadow-2xl rounded-2xl relative overflow-hidden;
+  }
+
+  .glass-card-admin-flat {
+    @apply rounded-none;
+  }
+
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .color-logo {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-700 via-cyan-400 to-blue-700;
+  }
+}
+
+/* Premium Glass Card */
+.glass-card-premium {
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    inset 0 35px 60px 15px rgba(0, 0, 0, 0.7),
+    inset 0 -35px 45px -5px rgba(34, 211, 238, 0.55),
+    0 8px 32px rgba(34, 211, 238, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(34, 211, 238, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.5),
+      transparent);
+}
+
+.glass-card-premium::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.5),
+      transparent,
+      rgba(255, 255, 255, 0.1));
+}
+
+/* Custom scrollbar for premium feel */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #020617;
+  /* slate-950 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0891b2;
+  /* cyan-600 */
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #06b6d4;
+  /* cyan-500 */
+}
+
+/* Marquee carousel animation */
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Glass Button Tracking */
+.glass-btn-tracking {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Glass Banner Effect */
+.glass-banner {
+  background: linear-gradient(180deg, rgba(0, 77, 115, 0.95), rgba(2, 6, 23, 0.97));
+  /* backdrop-filter eliminado del navbar — se repinta en cada scroll frame */
+  border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+  box-shadow:
+    0 12px 40px rgba(0, 20, 40, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  position: relative;
+  contain: layout style;
+  transform: translateZ(0);
+}
+
+.glass-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(245, 158, 11, 0.45),
+      transparent);
+}
+
+.glass-btn-tracking:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.glass-btn-tracking::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.8),
+      transparent);
+}
+
+.glass-btn-tracking::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.8),
+      transparent,
+      rgba(255, 255, 255, 0.3));
+}
+
+/* ── Ultra-Smooth AOS-Style Scroll Reveal System ── */
+[data-aos] {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition-property: opacity, transform;
+  transition-duration: 600ms;
+  transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  /* NO will-change aquí — evita crear capas GPU para cada elemento */
+}
+
+[data-aos="fade-up"] {
+  transform: translate3d(0, 24px, 0);
+}
+
+[data-aos="fade-down"] {
+  transform: translate3d(0, -24px, 0);
+}
+
+[data-aos="fade-left"] {
+  transform: translate3d(24px, 0, 0);
+}
+
+[data-aos="fade-right"] {
+  transform: translate3d(-24px, 0, 0);
+}
+
+[data-aos="zoom-in"] {
+  transform: scale(0.94);
+}
+
+[data-aos="zoom-out"] {
+  transform: scale(1.06);
+}
+
+[data-aos].aos-animate {
+  opacity: 1 !important;
+  transform: translate3d(0, 0, 0) scale(1) !important;
+}
+
+/* ── Service Modal & Media Slot Constraints ── */
+.service-media-slot,
+#services-modal-media-slot {
+  position: relative;
+  overflow: hidden;
+}
+
+.service-media-slot img,
+#services-modal-media-slot img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+/* Custom sleek scrollbar for modal content */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(6, 182, 212, 0.4);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(6, 182, 212, 0.7);
+}
+
+/* ── Dark Mode Select Dropdowns ── */
+select {
+  color-scheme: dark !important;
+}
+
+select option {
+  background-color: #18181b !important; /* Neutral dark matching glass-card */
+  color: #f4f4f5 !important;
+}
+
+select option:checked {
+  background-color: #06b6d4 !important; /* cyan-500 */
+  color: #ffffff !important;
+}

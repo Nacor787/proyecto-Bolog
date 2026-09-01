@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="BOLOG Logistics Group S.R.L. - Agente de carga internacional. Conectando Bolivia con el mundo mediante transporte multimodal de excelencia." />
+    <!-- SEO & Open Graph Base -->
+    <meta property="og:title" content="BOLOG Logistics Group - Conectando Bolivia con el mundo" />
+    <meta property="og:description" content="Más de dos décadas de excelencia en transporte multimodal internacional." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.blg.com.bo/" />
+    <meta property="og:image" content="https://www.blg.com.bo/og-image.jpg" />
+    <meta name="robots" content="index, follow" />
+    <title>BOLOG Logistics Group</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Quill.js Editor -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js" defer></script>
+
+    <!-- Removed globe.gl per user request -->
+
+    <!-- Three.js r134 (Required for Hero Earth & Vanta) - carga DESPUÉS de globe.gl -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/objects/Water.js" defer></script>
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+
+    <link rel="stylesheet" href="/src/css/index.css" />
+  </head>
+  <body class="bg-[#0a192f] text-slate-200 font-sans antialiased relative">
+    <div id="earth-container" class="fixed top-0 left-0 w-full h-full z-[-1]"></div>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
+  </body>
+</html>
