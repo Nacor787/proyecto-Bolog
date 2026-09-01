@@ -100,13 +100,9 @@ export const QuoteSection = `
           
           <!-- Social Icons -->
           <div class="mt-12 flex space-x-4">
-            <a href="javascript:void(0)" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-[#1877F2] hover:bg-[#1877F2] hover:text-white transition-colors shadow-sm hover:shadow-md border border-white/10 hover:border-[#1877F2]">
-              <span class="sr-only">Facebook</span>
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" /></svg>
-            </a>
-            <a href="javascript:void(0)" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-[#E1306C] hover:bg-[#E1306C] hover:text-white transition-colors shadow-sm hover:shadow-md border border-white/10 hover:border-[#E1306C]">
-              <span class="sr-only">Instagram</span>
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" /></svg>
+            <a href="https://wa.me/59178897815" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-[#25D366] hover:bg-[#25D366] hover:text-white transition-colors shadow-sm hover:shadow-md border border-white/10 hover:border-[#25D366]">
+              <span class="sr-only">WhatsApp</span>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 21.055a8.94 8.94 0 0 1-4.57-1.25l-.33-.2-3.4.89.9-3.32-.21-.34a8.955 8.955 0 0 1-1.37-4.78 8.973 8.973 0 1 1 8.98 8.99v.01zm0-16a7.07 7.07 0 1 0 7.08 7.07 7.08 7.08 0 0 0-7.08-7.07zm3.87 9.69c-.21-.11-1.25-.62-1.44-.69-.2-.07-.34-.11-.48.11-.14.22-.55.69-.67.83-.12.14-.24.16-.45.05-.21-.11-.9-.33-1.71-1.05-.63-.56-1.06-1.26-1.18-1.47-.12-.22-.01-.33.09-.44.1-.1.21-.24.32-.36.11-.12.14-.2.21-.34.07-.13.04-.25-.01-.36-.06-.11-.48-1.16-.66-1.59-.18-.42-.36-.36-.48-.37h-.41c-.14 0-.38.05-.58.27-.2.22-.76.75-.76 1.83 0 1.08.78 2.12.89 2.27.11.15 1.55 2.37 3.75 3.32.52.22.93.36 1.25.46.52.17.99.14 1.37.09.43-.06 1.25-.51 1.43-1.01.17-.5.17-.92.12-1.01-.05-.09-.18-.14-.4-.25z"/></svg>
             </a>
             <a href="https://www.tiktok.com/@bolog.logistic" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-black hover:text-[#00f2fe] transition-colors shadow-sm hover:shadow-md border border-white/10 hover:border-[#00f2fe]">
               <span class="sr-only">TikTok</span>
@@ -159,7 +155,15 @@ export const QuoteSection = `
                 <input type="email" placeholder="Email" data-i18n-placeholder="contact.formEmail" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
               </div>
 
-              <!-- Fila 3 y Textarea -->
+              <!-- Fila 3 -->
+              <div>
+                <input type="text" placeholder="Pickup address (if applicable)" data-i18n-placeholder="contact.formPickup" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
+              </div>
+              <div>
+                <input type="tel" placeholder="Phone or mobile number" data-i18n-placeholder="contact.formPhone" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
+              </div>
+
+              <!-- Fila 4 y Textarea -->
               <div class="flex flex-col gap-4">
                 <input type="text" placeholder="Delivery city" data-i18n-placeholder="contact.formDelivery" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
                 

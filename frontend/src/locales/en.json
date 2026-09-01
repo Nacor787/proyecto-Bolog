@@ -73,6 +73,8 @@
     "formDelivery": "Delivery city",
     "formIncoterms": "Incoterms",
     "formWeight": "Total gross weight (KG)",
+    "formPickup": "Pickup address (if applicable)",
+    "formPhone": "Phone or mobile number",
     "formMessage": "Message",
     "formSubmit": "SUBMIT"
   },

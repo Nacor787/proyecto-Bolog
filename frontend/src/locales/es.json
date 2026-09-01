@@ -74,6 +74,8 @@
     "formDelivery": "Ciudad de destino",
     "formIncoterms": "Incoterms",
     "formWeight": "Peso bruto total (KG)",
+    "formPickup": "Dirección de recojo (si aplica)",
+    "formPhone": "Número de teléfono o celular",
     "formMessage": "Mensaje",
     "formSubmit": "ENVIAR"
   },
