@@ -16,7 +16,7 @@ export const QuoteSection = `
       <div class="flex flex-col lg:flex-row bg-gradient-to-br from-slate-900 via-[#0f2038] to-slate-950 rounded-2xl shadow-2xl border border-white/10 overflow-hidden backdrop-blur-xl" data-aos="fade-up" data-aos-delay="150">
         
         <!-- Lado Izquierdo (Texto) -->
-        <div class="w-full lg:w-1/2 p-8 lg:p-12 relative flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-white/10">
+        <div class="w-full lg:w-5/12 p-8 lg:p-12 relative flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-white/10">
           <h2 class="text-3xl font-light text-white mb-3 uppercase tracking-wider" data-i18n="contact.specialTitle">
             ¿QUÉ NOS HACE <br/>
             <span class="font-black text-primary-400">ESPECIALES?</span>
@@ -25,7 +25,7 @@ export const QuoteSection = `
             Nuestra calidad de servicio y los más de 5000 agentes socios en el mundo nos dan un alcance para apoyar al 100% a nuestros clientes.
           </p>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
 
             <!-- Icon 1: Packaging & Storage — Itshover box-open style -->
             <div class="flex items-center gap-4 group cursor-pointer">
@@ -112,7 +112,7 @@ export const QuoteSection = `
         </div>
 
         <!-- Lado Derecho (Formulario) -->
-        <div class="w-full lg:w-1/2 border-l border-white/10 p-8 lg:p-12 relative">
+        <div class="w-full lg:w-7/12 border-l border-white/10 p-8 lg:p-12 relative">
           <!-- Decoración sutil superior -->
           <div class="absolute top-0 right-0 w-32 h-32 bg-primary-900/50 rounded-full translate-x-10 -translate-y-10 blur-xl pointer-events-none"></div>
 
@@ -126,7 +126,6 @@ export const QuoteSection = `
           <form class="space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               
-              <!-- Fila 1 -->
               <!-- Fila 1 -->
               <div>
                 <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formService">Service</label>
@@ -158,8 +157,8 @@ export const QuoteSection = `
                 <input type="text" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
               </div>
               <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formEmail">Email</label>
-                <input type="email" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formDelivery">Delivery city</label>
+                <input type="text" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
               </div>
 
               <!-- Fila 3 -->
@@ -168,54 +167,52 @@ export const QuoteSection = `
                 <input type="text" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
               </div>
               <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formIncoterms">Incoterms</label>
+                <div class="custom-select relative">
+                  <input type="hidden" name="incoterms" class="custom-select-input" value="">
+                  <button type="button" class="custom-select-btn w-full flex items-center justify-between bg-slate-800/50 border border-slate-600/50 text-slate-300 rounded-lg pl-4 pr-3 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors">
+                    <span class="custom-select-label truncate">Seleccionar...</span>
+                    <svg class="h-4 w-4 text-slate-400 transition-transform duration-200 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                  </button>
+                  <div class="custom-select-menu absolute z-50 left-0 w-full bottom-full mb-2 bg-slate-800 border border-slate-700 rounded-lg shadow-xl opacity-0 invisible transition-all duration-200 transform scale-95 origin-bottom">
+                    <ul class="py-2 text-slate-200 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent">
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="EXW">EXW</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="FCA">FCA</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="CPT">CPT</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="CIP">CIP</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="DAT">DAT</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="DAP">DAP</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="DDP">DDP</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="FAS">FAS</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="FOB">FOB</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="CFR">CFR</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="CIF">CIF</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Fila 4 -->
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formEmail">Email</label>
+                <input type="email" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
+              </div>
+              <div>
                 <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formPhone">Phone or mobile number</label>
                 <input type="tel" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
               </div>
 
-              <!-- Fila 4 y Textarea -->
-              <div class="flex flex-col gap-4">
-                <div>
-                  <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formDelivery">Delivery city</label>
-                  <input type="text" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
-                </div>
-                
-                <div>
-                  <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formIncoterms">Incoterms</label>
-                  <div class="custom-select relative">
-                    <input type="hidden" name="incoterms" class="custom-select-input" value="">
-                    <button type="button" class="custom-select-btn w-full flex items-center justify-between bg-slate-800/50 border border-slate-600/50 text-slate-300 rounded-lg pl-4 pr-3 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors">
-                      <span class="custom-select-label truncate">Seleccionar...</span>
-                      <svg class="h-4 w-4 text-slate-400 transition-transform duration-200 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
-                    <div class="custom-select-menu absolute z-50 left-0 w-full bottom-full mb-2 bg-slate-800 border border-slate-700 rounded-lg shadow-xl opacity-0 invisible transition-all duration-200 transform scale-95 origin-bottom">
-                      <ul class="py-2 text-slate-200 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent">
-                        <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="EXW">EXW</li>
-                        <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="FCA">FCA</li>
-                        <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="CPT">CPT</li>
-                        <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="CIP">CIP</li>
-                        <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="DAT">DAT</li>
-                        <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="DAP">DAP</li>
-                        <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="DDP">DDP</li>
-                        <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="FAS">FAS</li>
-                        <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="FOB">FOB</li>
-                        <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="CFR">CFR</li>
-                        <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="CIF">CIF</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formWeight">Total gross weight (KG)</label>
-                  <input type="text" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
-                </div>
+              <!-- Fila 5: Weight -->
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formWeight">Total gross weight (KG)</label>
+                <input type="text" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
               </div>
+            </div>
 
-              <div class="h-full flex flex-col">
-                <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formMessage">Message</label>
-                <textarea class="w-full h-full min-h-[140px] bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-3 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors resize-none"></textarea>
-              </div>
-
+            <!-- Fila 6: Textarea (Full Width) -->
+            <div class="flex flex-col mt-4">
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formMessage">Message</label>
+              <textarea class="w-full min-h-[120px] bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-3 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors resize-none"></textarea>
             </div>
 
             <div class="mt-6 flex justify-end">
