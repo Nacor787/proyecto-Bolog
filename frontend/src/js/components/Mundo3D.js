@@ -91,8 +91,7 @@ export function initMundo3D() {
   const anisotropy = isMobile ? 1 : 4;
 
   const textureLoader = new THREE.TextureLoader();
-  // Using unpkg instead of raw.githubusercontent to prevent corporate firewall blocks
-  const baseUrl = 'https://unpkg.com/three@0.160.0/examples/textures/planets/';
+  const baseUrl = 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/';
   
   const dayTexture = textureLoader.load( baseUrl + 'earth_day_4096.jpg' );
   dayTexture.colorSpace = THREE.SRGBColorSpace;

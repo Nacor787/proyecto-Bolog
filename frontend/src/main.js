@@ -108,11 +108,6 @@ function renderPublicLayout() {
       ${Home}
       ${CoverageMap}
       
-      <!-- Sombra tipo vidrio negro para la sección Servicios -->
-      <div class="bg-[#0f0f0f]/45 backdrop-blur-sm relative z-10 min-h-screen">
-        ${Services}
-      </div>
-
       <!-- Sombra tipo vidrio negro para las secciones inferiores -->
       <div class="bg-[#0f0f0f]/35 backdrop-blur-sm relative z-10">
         ${Clients}
@@ -125,7 +120,6 @@ function renderPublicLayout() {
   document.querySelector('#app').innerHTML = appHTML;
   initNavbar();
   initCoverageMap();
-  initServices();
   updateContent();
   updateNavState();
   initTypewriter();
@@ -212,6 +206,23 @@ function renderDashboard() {
   updateContent();
 }
 
+function renderServicesPage() {
+  const appHTML = `
+    ${Navbar}
+    <main class="relative z-0 overflow-clip w-full max-w-[100vw]">
+      <div class="bg-[#0f0f0f]/45 backdrop-blur-sm relative z-10 min-h-screen pt-24">
+        ${Services}
+      </div>
+    </main>
+    ${Footer}
+  `;
+  document.querySelector('#app').innerHTML = appHTML;
+  initNavbar();
+  initServices();
+  updateContent();
+  updateNavState();
+}
+
 function renderTracking() {
   const appHTML = `
     ${Navbar}
@@ -284,6 +295,9 @@ function handleRoute() {
   } else if (hash === '#tracking') {
     renderTracking();
     setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 10);
+  } else if (hash === '#services') {
+    scrollToTop();
+    renderServicesPage();
   } else if (hash === '#about') {
     scrollToTop();
     renderAboutPage();
