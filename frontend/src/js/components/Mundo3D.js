@@ -1,6 +1,7 @@
 import * as THREE from 'three/webgpu';
 import { step, normalWorldGeometry, output, texture, vec3, vec4, normalize, positionWorld, bumpMap, cameraPosition, color, uniform, mix, uv, max, time, fract, smoothstep } from 'three/tsl';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { initVantaGlobe } from './VantaGlobe.js';
 
 let renderer, scene, camera, controls, globe, atmosphere, timer;
 let animationId;
@@ -48,14 +49,15 @@ const shipTexture = createSVGTexture(shipSVG);
 const truckTexture = createSVGTexture(truckSVG);
 
 export function initMundo3D() {
-  const container = document.getElementById('earth-container');
-  if (!container) return;
-  if (isInitialized) {
-    return;
-  }
-  isInitialized = true;
+  try {
+    const container = document.getElementById('earth-container');
+    if (!container) return;
+    if (isInitialized) {
+      return;
+    }
+    isInitialized = true;
 
-  container.innerHTML = '';
+    container.innerHTML = '';
 
   timer = new THREE.Timer();
   timer.connect( document );
@@ -89,7 +91,8 @@ export function initMundo3D() {
   const anisotropy = isMobile ? 1 : 4;
 
   const textureLoader = new THREE.TextureLoader();
-  const baseUrl = 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/';
+  // Using unpkg instead of raw.githubusercontent to prevent corporate firewall blocks
+  const baseUrl = 'https://unpkg.com/three@0.160.0/examples/textures/planets/';
   
   const dayTexture = textureLoader.load( baseUrl + 'earth_day_4096.jpg' );
   dayTexture.colorSpace = THREE.SRGBColorSpace;
@@ -219,6 +222,14 @@ export function initMundo3D() {
   window.setupGlobeZoomButtons();
 
   // (Parallax eliminado para no interferir con OrbitControls)
+  } catch (err) {
+    console.warn("Mundo3D WebGPU no soportado o falló, cayendo en fallback a Vanta:", err);
+    const container = document.getElementById('earth-container');
+    if (container) {
+      container.innerHTML = '';
+      initVantaGlobe('earth-container');
+    }
+  }
 }
 
 function getSplineFromCoords(lat0, lng0, lat1, lng1, radius, isAir = true) {

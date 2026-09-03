@@ -134,7 +134,7 @@ export const Services = `
         ${servicesData.map((s, index) => {
   return `
           <div 
-            class="service-card group relative bg-white/5 backdrop-blur-md border border-white/10 hover:border-sky-400 rounded-3xl overflow-hidden cursor-pointer shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:shadow-[0_20px_50px_rgba(6,182,212,0.18)] transition-all duration-500 flex flex-col md:flex-row-reverse items-stretch will-change-transform"
+            class="service-card group relative bg-white/5 backdrop-blur-md border-2 border-white/10 hover:border-sky-400 rounded-3xl overflow-hidden cursor-pointer shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:shadow-[0_20px_50px_rgba(6,182,212,0.18)] transition-all duration-500 flex flex-col md:flex-row-reverse items-stretch will-change-transform"
             data-service-index="${index}"
             data-aos="fade-up"
             data-aos-delay="${index * 50}"
