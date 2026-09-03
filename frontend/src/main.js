@@ -221,6 +221,10 @@ function renderServicesPage() {
   initServices();
   updateContent();
   updateNavState();
+  refreshScrollAnimations();
+  if (window.lenis) {
+    window.lenis.resize();
+  }
 }
 
 function renderTracking() {
