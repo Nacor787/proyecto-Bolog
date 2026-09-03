@@ -82,7 +82,7 @@ export const CoverageMap = `
       </div>
 
       <!-- Info Panel (Right) -->
-      <div class="absolute bottom-0 md:bottom-auto md:top-0 right-0 left-0 md:left-auto z-10 px-2 py-4 pb-2 md:pb-8 md:pt-12 sm:px-3 sm:pt-16 lg:px-4 lg:pt-20 flex flex-col justify-end md:justify-start pointer-events-none w-full md:max-w-[230px] lg:max-w-[260px]">
+      <div class="absolute bottom-0 md:bottom-auto md:top-0 right-0 left-0 md:left-auto z-10 px-2 py-4 pb-2 md:pb-8 md:pt-12 sm:px-3 sm:pt-16 lg:px-4 lg:pt-20 flex flex-col justify-end md:justify-start pointer-events-none w-full md:max-w-[280px] lg:max-w-[320px]">
         <div id="route-info-panel" class="bg-[#001d2d]/85 backdrop-blur-xl p-4 md:p-5 sm:p-6 border border-white/10 shadow-2xl rounded-xl pointer-events-auto transition-all duration-300 w-full" data-aos="fade-left" data-aos-delay="200">
           <div class="flex flex-col gap-3 md:gap-5">
             

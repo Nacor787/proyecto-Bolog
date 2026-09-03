@@ -26,7 +26,7 @@ export const Home = `
           <!-- Logo con mayor presencia -->
           <div class="relative flex items-center group cursor-default" data-aos="fade-down" data-aos-delay="100">
             <div class="absolute -inset-3 bg-sky-500/8 rounded-full blur-2xl pointer-events-none group-hover:bg-sky-500/15 transition-all duration-700"></div>
-            <img src="${logoSrc}" alt="BOLOG Logo" class="relative z-10 h-14 sm:h-18 md:h-20 w-auto object-contain drop-shadow-[0_6px_24px_rgba(0,0,0,0.5)] transition-all duration-500 hover:scale-[1.03]" />
+            <img src="${logoSrc}" alt="BOLOG Logo" class="relative z-10 h-16 sm:h-20 md:h-24 w-auto object-contain drop-shadow-[0_6px_24px_rgba(0,0,0,0.5)] transition-all duration-500 hover:scale-[1.03]" />
           </div>
 
           <!-- Titular + Typewriter -->

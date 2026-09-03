@@ -4,9 +4,9 @@ export const Navbar = `
   <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
 
     <!-- Mobile Slim Banner (solo móvil) -->
-    <div id="mobile-top-banner" class="w-full border-transparent transition-all duration-300 sm:hidden z-30 text-white/80 text-[10px] font-medium tracking-wide pt-2.5 pb-1 px-3">
+    <div id="mobile-top-banner" class="w-full border-transparent transition-all duration-300 sm:hidden z-30 text-white/80 text-[11px] font-medium tracking-wide pt-2.5 pb-1 px-3">
       <!-- Fila 1: teléfono, email y horario -->
-      <div class="flex items-center justify-center gap-1.5 whitespace-nowrap text-[9px]">
+      <div class="flex items-center justify-center gap-1.5 whitespace-nowrap text-[10px]">
         <div class="flex items-center gap-1">
           <svg class="w-2.5 h-2.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
           <span id="mobile-phone-number">+591 2 214 7305</span>
@@ -52,7 +52,7 @@ export const Navbar = `
             <a id="nav-logo" href="#" class="relative flex items-center group opacity-0 -translate-y-2 pointer-events-none transition-all duration-300">
               <!-- Glow desplazado a la izquierda -->
               <div class="absolute -left-4 w-16 h-8 bg-white/20 blur-[16px] rounded-full z-0 pointer-events-none transition-all duration-300 group-hover:bg-white/30"></div>
-              <img src="${logoSrc}" alt="BOLOG Logo" class="relative z-10 h-8 md:h-10 w-auto object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] transition-all duration-300" />
+              <img src="${logoSrc}" alt="BOLOG Logo" class="relative z-10 h-10 md:h-12 w-auto object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] transition-all duration-300" />
             </a>
           </div>
 
@@ -150,7 +150,7 @@ export const Navbar = `
     </nav>
 
     <!-- Bottom Info Banner (desktop: sm y mayor) -->
-    <div id="top-banner" class="w-full border-transparent text-white/80 font-medium text-[11px] tracking-wide relative z-20 hidden sm:block transition-all duration-300">
+    <div id="top-banner" class="w-full border-transparent text-white/80 font-medium text-xs tracking-wide relative z-20 hidden sm:block transition-all duration-300">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-between items-center py-2">
         
         <!-- Info Principal -->
