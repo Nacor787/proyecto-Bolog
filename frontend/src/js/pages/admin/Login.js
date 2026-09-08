@@ -72,7 +72,7 @@ export const Login = `
 
           <!-- Cloudflare Turnstile Captcha -->
           <div class="flex justify-center mt-2 mb-0 scale-[0.80] origin-top h-[52px]">
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAAEfhcuePdjIqdfTl" data-theme="dark"></div>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAEtQ_QylhzKFWExv" data-theme="dark"></div>
           </div>
 
           <!-- Submit Button -->
