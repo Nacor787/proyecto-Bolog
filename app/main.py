@@ -87,7 +87,7 @@ def startup_event():
             db.commit()
             db.refresh(admin_role)
         
-        admin_user = db.query(User).filter(User.username == "nacor").first()
+        admin_user = db.query(User).filter(User.email == "info@blg.com.bo").first()
         if not admin_user:
             admin_user = User(
                 first_name="Bolog",
