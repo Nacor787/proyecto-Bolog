@@ -53,7 +53,8 @@ Mensaje:
     except Exception as e:
         print(f"Error enviando correo: {e}")
 
-@router.post("/")
+@router.post("")
+@router.post("/", include_in_schema=False)
 async def submit_contact_form(data: ContactForm, background_tasks: BackgroundTasks):
     # Procesar el envío de correo en segundo plano para no bloquear la respuesta rápida al usuario
     background_tasks.add_task(send_email_task, data)

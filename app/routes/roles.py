@@ -9,7 +9,8 @@ from app.middleware.auth import verify_token
 
 router = APIRouter()
 
-@router.get("/", response_model=List[RoleResponse], dependencies=[Depends(verify_token)])
+@router.get("", response_model=List[RoleResponse], dependencies=[Depends(verify_token)])
+@router.get("/", response_model=List[RoleResponse], dependencies=[Depends(verify_token)], include_in_schema=False)
 def get_roles(db: Session = Depends(get_db)):
     return db.query(Role).all()
 

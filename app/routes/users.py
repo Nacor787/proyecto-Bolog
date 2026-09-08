@@ -21,7 +21,8 @@ def get_current_user(user_id: str = Depends(verify_token), db: Session = Depends
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
     return user
 
-@router.get("/", response_model=List[UserResponse], dependencies=[Depends(verify_token)])
+@router.get("", response_model=List[UserResponse], dependencies=[Depends(verify_token)])
+@router.get("/", response_model=List[UserResponse], dependencies=[Depends(verify_token)], include_in_schema=False)
 def get_users(db: Session = Depends(get_db)):
     return db.query(User).all()
 

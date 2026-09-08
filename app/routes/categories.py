@@ -20,7 +20,8 @@ class CategoryResponse(BaseModel):
     class Config:
         from_attributes = True
 
-@router.get("/", response_model=List[CategoryResponse])
+@router.get("", response_model=List[CategoryResponse])
+@router.get("/", response_model=List[CategoryResponse], include_in_schema=False)
 def get_categories(db: Session = Depends(get_db)):
     return db.query(Category).order_by(Category.name).all()
 

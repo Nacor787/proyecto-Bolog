@@ -43,7 +43,8 @@ def generar_slug(titulo: str, db: Session, noticia_id: int = None) -> str:
     return slug
 
 
-@router.get("/", response_model=List[NoticiaResponse])
+@router.get("", response_model=List[NoticiaResponse])
+@router.get("/", response_model=List[NoticiaResponse], include_in_schema=False)
 def get_noticias(db: Session = Depends(get_db)):
     """
     Obtener todas las noticias ordenadas por fecha descendente.
