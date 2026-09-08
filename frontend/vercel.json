@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:match*",
+      "destination": "https://proyecto-bolog.onrender.com/api/:match*"
+    },
+    {
+      "source": "/tracking/:match*",
+      "destination": "https://proyecto-bolog.onrender.com/tracking/:match*"
+    },
+    {
+      "source": "/uploads/:match*",
+      "destination": "https://proyecto-bolog.onrender.com/uploads/:match*"
+    }
+  ]
+}
