@@ -1,16 +1,20 @@
 {
   "rewrites": [
     {
-      "source": "/api/:match*",
-      "destination": "https://proyecto-bolog.onrender.com/api/:match*"
+      "source": "/api/(.*)",
+      "destination": "https://proyecto-bolog.onrender.com/api/$1"
     },
     {
-      "source": "/tracking/:match*",
-      "destination": "https://proyecto-bolog.onrender.com/tracking/:match*"
+      "source": "/api",
+      "destination": "https://proyecto-bolog.onrender.com/api"
     },
     {
-      "source": "/uploads/:match*",
-      "destination": "https://proyecto-bolog.onrender.com/uploads/:match*"
+      "source": "/tracking/(.*)",
+      "destination": "https://proyecto-bolog.onrender.com/tracking/$1"
+    },
+    {
+      "source": "/uploads/(.*)",
+      "destination": "https://proyecto-bolog.onrender.com/uploads/$1"
     }
   ]
 }
