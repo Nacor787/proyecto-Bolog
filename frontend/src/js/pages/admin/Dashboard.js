@@ -3,7 +3,7 @@ import { TablasCrud } from '../../components/TablasCrud.js';
 import { NEWS_MODAL_HTML, initNewsEditor, resetNewsEditor } from '../../components/NewsEditor.js';
 import { fetchWithAuth } from '../../utils/api.js';
 import { CLOUDINARY_DASHBOARD_BG } from '../../utils/cloudinary.js';
-const logoSrc = 'https://res.cloudinary.com/oyusqpnf/image/upload/v1787506176/logo-bolog.png';
+const logoSrc = 'https://res.cloudinary.com/nk4ejsrr/image/upload/v1788801143/estaticos/mcvfobfg0p6sag01hdqw.png';
 
 export const Dashboard = `
   <div class="min-h-screen flex flex-col md:flex-row text-white" style="background-image:linear-gradient(180deg, rgba(11,25,44,0.8), rgba(11,25,44,0.6)), url('${CLOUDINARY_DASHBOARD_BG}'); background-size:cover; background-position:center;">

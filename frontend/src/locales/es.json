@@ -68,6 +68,8 @@
     "formTitle": "SOLICITE UNA <span class=\"font-bold text-cyan-400\">COTIZACIÓN</span>",
     "formDesc": "Completa los detalles a continuación y te responderemos pronto.",
     "formService": "Servicio",
+    "formName": "Nombre y Apellido",
+    "formCompany": "Empresa (opcional)",
     "formDimension": "Dimensiones",
     "formDeparture": "Ciudad de origen",
     "formEmail": "Correo electrónico",

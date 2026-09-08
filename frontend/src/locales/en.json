@@ -67,6 +67,8 @@
     "formTitle": "REQUEST A <span class=\"font-bold text-cyan-400\">QUOTE</span>",
     "formDesc": "Complete the details below and we will respond shortly.",
     "formService": "Service",
+    "formName": "Name and Surname",
+    "formCompany": "Company (optional)",
     "formDimension": "Dimension",
     "formDeparture": "City of departure",
     "formEmail": "Email",

@@ -12,11 +12,11 @@ export const QuoteSection = `
       </p>
     </div>
     
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
       <div class="flex flex-col lg:flex-row bg-gradient-to-br from-slate-900 via-[#0f2038] to-slate-950 rounded-2xl shadow-2xl border border-white/10 overflow-hidden backdrop-blur-xl" data-aos="fade-up" data-aos-delay="150">
         
         <!-- Lado Izquierdo (Texto) -->
-        <div class="w-full lg:w-5/12 p-8 lg:p-12 relative flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-white/10">
+        <div class="w-full lg:w-[38%] xl:w-1/3 p-7 lg:p-10 relative flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-white/10">
           <h2 class="text-3xl font-light text-white mb-3 uppercase tracking-wider" data-i18n="contact.specialTitle">
             ¿QUÉ NOS HACE <br/>
             <span class="font-black text-primary-400">ESPECIALES?</span>
@@ -112,7 +112,7 @@ export const QuoteSection = `
         </div>
 
         <!-- Lado Derecho (Formulario) -->
-        <div class="w-full lg:w-7/12 border-l border-white/10 p-8 lg:p-12 relative">
+        <div class="flex-1 border-l border-white/10 p-7 lg:p-10 relative">
           <!-- Decoración sutil superior -->
           <div class="absolute top-0 right-0 w-32 h-32 bg-primary-900/50 rounded-full translate-x-10 -translate-y-10 blur-xl pointer-events-none"></div>
 
@@ -123,109 +123,123 @@ export const QuoteSection = `
             Completa los detalles a continuación y te responderemos pronto.
           </p>
 
-          <form class="space-y-4">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              
-              <!-- Fila 1 -->
+          <form id="quote-form" class="space-y-3">
+            <!-- BLOQUE 1: Identificación (3 cols) -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formService">Service</label>
+                <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider" data-i18n="contact.formService">Servicio</label>
                 <div class="custom-select relative">
-                  <input type="hidden" name="service" class="custom-select-input" value="">
-                  <button type="button" class="custom-select-btn w-full flex items-center justify-between bg-slate-800/50 border border-slate-600/50 text-slate-300 rounded-lg pl-4 pr-3 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors">
-                    <span class="custom-select-label truncate">Seleccionar...</span>
-                    <svg class="h-4 w-4 text-slate-400 transition-transform duration-200 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                  <input type="hidden" name="service" id="q_service" class="custom-select-input" value="">
+                  <button type="button" class="custom-select-btn w-full flex items-center justify-between bg-slate-800/50 border border-slate-600/50 text-slate-300 rounded-lg pl-3 pr-2 py-2 text-sm focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors">
+                    <span class="custom-select-label truncate text-sm">Seleccionar...</span>
+                    <svg class="h-3.5 w-3.5 text-slate-400 transition-transform duration-200 shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                   </button>
                   <div class="custom-select-menu absolute z-50 left-0 w-full mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-xl opacity-0 invisible transition-all duration-200 transform scale-95 origin-top">
-                    <ul class="py-2 text-slate-200 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent">
-                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="Freight Type">Freight Type</li>
-                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="Road Transportation">Road Transportation</li>
-                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="Air Transportation">Air Transportation</li>
-                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="Sea Transportation">Sea Transportation</li>
-                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="Warehousing">Warehousing</li>
+                    <ul class="py-2 text-slate-200 max-h-60 overflow-y-auto">
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors text-sm" data-value="Transporte Aéreo">Transporte Aéreo</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors text-sm" data-value="Transporte Terrestre">Transporte Terrestre</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors text-sm" data-value="Transporte Marítimo">Transporte Marítimo</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors text-sm" data-value="Almacenaje">Almacenaje</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors text-sm" data-value="Despacho Aduanero">Despacho Aduanero</li>
                     </ul>
                   </div>
                 </div>
               </div>
               <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formDimension">Dimension</label>
-                <input type="text" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
+                <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider" data-i18n="contact.formName">Nombre y Apellido</label>
+                <input type="text" id="q_name" name="name" class="w-full bg-slate-800/50 border border-slate-600/50 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
               </div>
+              <div>
+                <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider" data-i18n="contact.formCompany">Empresa (opcional)</label>
+                <input type="text" id="q_company" name="company" class="w-full bg-slate-800/50 border border-slate-600/50 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
+              </div>
+            </div>
 
-              <!-- Fila 2 -->
-              <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formDeparture">City of departure</label>
-                <input type="text" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formDelivery">Delivery city</label>
-                <input type="text" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
-              </div>
+            <!-- Divisor Visual -->
+            <div class="border-t border-white/5 pt-1"></div>
 
-              <!-- Fila 3 -->
+            <!-- BLOQUE 2: Contacto (3 cols) -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formPickup">Pickup address (if applicable)</label>
-                <input type="text" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
+                <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider" data-i18n="contact.formEmail">Correo electrónico</label>
+                <input type="email" id="q_email" name="email" required class="w-full bg-slate-800/50 border border-slate-600/50 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
               </div>
               <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formIncoterms">Incoterms</label>
+                <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider" data-i18n="contact.formPhone">Teléfono / Celular</label>
+                <input type="tel" id="q_phone" name="phone" required class="w-full bg-slate-800/50 border border-slate-600/50 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider" data-i18n="contact.formIncoterms">Incoterms</label>
                 <div class="custom-select relative">
                   <input type="hidden" name="incoterms" class="custom-select-input" value="">
-                  <button type="button" class="custom-select-btn w-full flex items-center justify-between bg-slate-800/50 border border-slate-600/50 text-slate-300 rounded-lg pl-4 pr-3 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors">
-                    <span class="custom-select-label truncate">Seleccionar...</span>
-                    <svg class="h-4 w-4 text-slate-400 transition-transform duration-200 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                  <button type="button" class="custom-select-btn w-full flex items-center justify-between bg-slate-800/50 border border-slate-600/50 text-slate-300 rounded-lg pl-3 pr-2 py-2 text-sm focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors">
+                    <span class="custom-select-label truncate text-sm">Seleccionar...</span>
+                    <svg class="h-3.5 w-3.5 text-slate-400 transition-transform duration-200 shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                   </button>
                   <div class="custom-select-menu absolute z-50 left-0 w-full bottom-full mb-2 bg-slate-800 border border-slate-700 rounded-lg shadow-xl opacity-0 invisible transition-all duration-200 transform scale-95 origin-bottom">
-                    <ul class="py-2 text-slate-200 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent">
-                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="EXW">EXW</li>
-                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="FCA">FCA</li>
-                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="CPT">CPT</li>
-                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="CIP">CIP</li>
-                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="DAT">DAT</li>
-                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="DAP">DAP</li>
-                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="DDP">DDP</li>
-                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="FAS">FAS</li>
-                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="FOB">FOB</li>
-                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="CFR">CFR</li>
-                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors" data-value="CIF">CIF</li>
+                    <ul class="py-2 text-slate-200 max-h-48 overflow-y-auto">
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors text-sm" data-value="EXW">EXW</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors text-sm" data-value="FCA">FCA</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors text-sm" data-value="CPT">CPT</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors text-sm" data-value="CIP">CIP</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors text-sm" data-value="DAP">DAP</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors text-sm" data-value="DDP">DDP</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors text-sm" data-value="FOB">FOB</li>
+                      <li class="px-4 py-2 hover:bg-primary-500/20 hover:text-primary-400 cursor-pointer transition-colors text-sm" data-value="CIF">CIF</li>
                     </ul>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <!-- Fila 4 -->
+            <!-- Divisor Visual -->
+            <div class="border-t border-white/5 pt-1"></div>
+
+            <!-- BLOQUE 3: Logística (3 cols) -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formEmail">Email</label>
-                <input type="email" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
+                <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider" data-i18n="contact.formDeparture">Ciudad de Origen</label>
+                <input type="text" id="q_origin" name="origin" class="w-full bg-slate-800/50 border border-slate-600/50 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
               </div>
               <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formPhone">Phone or mobile number</label>
-                <input type="tel" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
+                <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider" data-i18n="contact.formDelivery">Ciudad de Destino</label>
+                <input type="text" id="q_destination" name="destination" class="w-full bg-slate-800/50 border border-slate-600/50 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
               </div>
-
-              <!-- Fila 5: Weight -->
+              <div>
+                <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider" data-i18n="contact.formWeight">Peso total (KG)</label>
+                <input type="text" id="q_weight" name="weight" class="w-full bg-slate-800/50 border border-slate-600/50 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
+              </div>
               <div class="sm:col-span-2">
-                <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formWeight">Total gross weight (KG)</label>
-                <input type="text" class="w-full bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
+                <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider" data-i18n="contact.formPickup">Dirección de recojo (si aplica)</label>
+                <input type="text" id="q_pickup" name="pickupAddress" class="w-full bg-slate-800/50 border border-slate-600/50 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider" data-i18n="contact.formDimension">Dimensiones</label>
+                <input type="text" id="q_dimension" name="dimension" class="w-full bg-slate-800/50 border border-slate-600/50 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors" />
               </div>
             </div>
 
-            <!-- Fila 6: Textarea (Full Width) -->
-            <div class="flex flex-col mt-4">
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5 ml-1 uppercase tracking-wider" data-i18n="contact.formMessage">Message</label>
-              <textarea class="w-full min-h-[120px] bg-slate-800/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-3 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors resize-none"></textarea>
+            <!-- Divisor Visual -->
+            <div class="border-t border-white/5 pt-1"></div>
+
+            <!-- Mensaje y Enviar -->
+            <div>
+              <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider" data-i18n="contact.formMessage">Mensaje</label>
+              <textarea id="q_details" name="details" required rows="3" class="w-full bg-slate-800/50 border border-slate-600/50 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-400 transition-colors resize-none"></textarea>
             </div>
 
-            <div class="mt-6 flex justify-end">
-              <button type="button" class="group relative px-8 py-3 font-extrabold text-white tracking-widest rounded-full bg-gradient-to-r from-sky-500 to-blue-600 overflow-hidden shadow-[0_0_15px_rgba(34,211,238,0.4)] hover:shadow-[0_0_25px_rgba(34,211,238,0.7)] transition-all duration-300 transform hover:-translate-y-1">
+            <div id="form-msg" class="hidden text-sm font-semibold p-3 rounded"></div>
+
+            <div class="flex justify-end">
+              <button type="submit" id="submit-btn" class="group relative px-8 py-2.5 font-extrabold text-white tracking-widest rounded-full bg-gradient-to-r from-sky-500 to-blue-600 overflow-hidden shadow-[0_0_15px_rgba(34,211,238,0.4)] hover:shadow-[0_0_25px_rgba(34,211,238,0.7)] transition-all duration-300 transform hover:-translate-y-1">
                 <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-sky-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"></div>
                 <span class="relative z-10 flex items-center gap-2 drop-shadow-md">
                   <span data-i18n="contact.formSubmit">ENVIAR</span>
-                  <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                  <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </span>
               </button>
             </div>
           </form>
-
         </div>
       </div>
     </div>
@@ -291,4 +305,63 @@ export function initQuoteForm() {
       }
     });
   });
+
+  const form = document.getElementById('quote-form');
+  const formMsg = document.getElementById('form-msg');
+  const submitBtn = document.getElementById('submit-btn');
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const btnText = submitBtn.querySelector('span[data-i18n="contact.formSubmit"]');
+      const originalText = btnText.innerText;
+      btnText.innerText = 'ENVIANDO...';
+      submitBtn.disabled = true;
+
+      const payload = {
+        service: document.getElementById('q_service').value || 'General',
+        name: document.getElementById('q_name').value,
+        company: document.getElementById('q_company') ? document.getElementById('q_company').value : '',
+        email: document.getElementById('q_email').value,
+        phone: document.getElementById('q_phone').value,
+        origin: document.getElementById('q_origin').value,
+        destination: document.getElementById('q_destination').value,
+        pickupAddress: document.getElementById('q_pickup').value,
+        weight: document.getElementById('q_weight').value,
+        details: document.getElementById('q_details').value,
+      };
+
+      try {
+        const res = await fetch('/api/contact/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          formMsg.innerText = 'Mensaje enviado correctamente. Nos pondremos en contacto pronto.';
+          formMsg.className = 'text-sm font-semibold p-3 rounded mt-4 bg-green-500/20 text-green-400 border border-green-500/30';
+          form.reset();
+          document.querySelector('.custom-select-label').innerText = 'Seleccionar...';
+        } else {
+          formMsg.innerText = 'Ocurrió un error al enviar el mensaje. Inténtalo de nuevo.';
+          formMsg.className = 'text-sm font-semibold p-3 rounded mt-4 bg-red-500/20 text-red-400 border border-red-500/30';
+        }
+      } catch (err) {
+        formMsg.innerText = 'Error de red. Revisa tu conexión.';
+        formMsg.className = 'text-sm font-semibold p-3 rounded mt-4 bg-red-500/20 text-red-400 border border-red-500/30';
+      } finally {
+        formMsg.classList.remove('hidden');
+        btnText.innerText = originalText;
+        submitBtn.disabled = false;
+        
+        setTimeout(() => {
+          formMsg.classList.add('hidden');
+        }, 5000);
+      }
+    });
+  }
 }

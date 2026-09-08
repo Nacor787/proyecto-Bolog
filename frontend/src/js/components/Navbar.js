@@ -1,4 +1,4 @@
-const logoSrc = 'https://res.cloudinary.com/oyusqpnf/image/upload/v1787506176/logo-bolog.png';
+const logoSrc = 'https://res.cloudinary.com/nk4ejsrr/image/upload/v1788801143/estaticos/mcvfobfg0p6sag01hdqw.png';
 
 export const Navbar = `
   <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">

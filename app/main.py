@@ -11,7 +11,7 @@ from app.database.connection import engine
 import app.models # Register all models
 from app.models import base
 from app.scheduler.tasks import scheduler
-from app.routes import tracking, auth, exchange_rate, roles, users, noticias, categories
+from app.routes import tracking, auth, exchange_rate, roles, users, noticias, categories, contact
 from fastapi.staticfiles import StaticFiles
 from app.database.connection import SessionLocal
 from app.models.role import Role
@@ -54,6 +54,7 @@ app.include_router(roles.router, prefix="/api/roles", tags=["Roles"])
 app.include_router(users.router, prefix="/api/users", tags=["Users"])
 
 app.include_router(categories.router, prefix="/api/categories", tags=["Categories"])
+app.include_router(contact.router, prefix="/api/contact", tags=["Contact"])
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -89,17 +90,15 @@ def startup_event():
         admin_user = db.query(User).filter(User.username == "nacor").first()
         if not admin_user:
             admin_user = User(
-                first_name="Nacor",
-                last_name="BOLOG",
-                username="nacor",
-                email="nacor@blg.com.bo",
-                password_hash=pwd_context.hash("nacor"),
+                first_name="Bolog",
+                last_name="Logistic",
+                username="admin",
+                email="info@blg.com.bo",
+                password_hash=pwd_context.hash("admin"),
                 role_id=admin_role.id
             )
             db.add(admin_user)
             db.commit()
-            
-
     finally:
         db.close()
 

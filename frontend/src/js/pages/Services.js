@@ -9,7 +9,7 @@ export const servicesData = [
     titleI18n: 'services.air',
     shortDesc: 'Velocidad, prioridad y precisión para cargas críticas. Carga General, Consolidada y Especial.',
     descI18n: 'services.airDesc',
-    img: 'https://res.cloudinary.com/oyusqpnf/image/upload/w_800,q_auto,f_auto/v1787846813/rocker-sta-RSYBi_1fhfM-unsplash.jpg',
+    img: 'https://res.cloudinary.com/nk4ejsrr/image/upload/v1788801148/estaticos/tx4hzb4srxxcxi1g0rla.jpg',
     fullDesc: 'Servicio de flete aéreo internacional express y consolidado con conexiones prioritarias en los hubs aeroportuarios más importantes de América, Asia y Europa. Tiempos de tránsito mínimos, despacho en rampa y trazabilidad satelital en tiempo real.',
     features: [
       'Carga General, Perecedera, Peligrosa (DGR) y Valiosa',
@@ -27,7 +27,7 @@ export const servicesData = [
     titleI18n: 'services.sea',
     shortDesc: 'Capacidad masiva y alcance global a los mejores costos. Contenedores completos (FCL) y carga consolidada (LCL).',
     descI18n: 'services.seaDesc',
-    img: 'https://res.cloudinary.com/oyusqpnf/image/upload/v1787871325/john-simmons-XFLk8qZ-6MA-unsplash.jpg',
+    img: 'https://res.cloudinary.com/nk4ejsrr/image/upload/v1788801146/estaticos/jt7qeya9c4tefozzqvbt.jpg',
     fullDesc: 'Soluciones navieras integrales para grandes volúmenes y cargas pesadas. Conectamos los puertos marítimos del Pacífico y Atlántico (Arica, Iquique, Callao, Santos) directamente con las principales aduanas de Bolivia mediante convenios directos con navieras líderes.',
     features: [
       'Contenedores completos (FCL 20\', 40\' Dry, High Cube, Reefer, Open Top)',
@@ -63,7 +63,7 @@ export const servicesData = [
     titleI18n: 'services.multimodal',
     shortDesc: 'Soluciones puerta a puerta combinando eficientemente transporte marítimo, aéreo y terrestre.',
     descI18n: 'services.multimodalDesc',
-    img: 'https://res.cloudinary.com/oyusqpnf/image/upload/v1788222465/multimodal.png',
+    img: 'https://res.cloudinary.com/nk4ejsrr/image/upload/v1788801149/estaticos/zssm2aeq5plpsle9kqin.png',
     fullDesc: 'Optimizamos tiempo y costos combinando diferentes medios de transporte bajo un único contrato. Nuestro servicio multimodal asegura fluidez en los transbordos, minimizando los riesgos y simplificando la gestión documental para entregas puerta a puerta.',
     features: [
       'Combinación de rutas marítimas, aéreas y terrestres',

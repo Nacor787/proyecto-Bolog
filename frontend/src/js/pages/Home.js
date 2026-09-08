@@ -1,5 +1,5 @@
 import Typewriter from 'typewriter-effect/dist/core';
-const logoSrc = 'https://res.cloudinary.com/oyusqpnf/image/upload/v1787506176/logo-bolog.png';
+const logoSrc = 'https://res.cloudinary.com/nk4ejsrr/image/upload/v1788801143/estaticos/mcvfobfg0p6sag01hdqw.png';
 import { DolarBCB } from '../components/DolarBCB.js';
 
 export const Home = `
@@ -8,9 +8,9 @@ export const Home = `
     <!-- Hero Background Image Slider (Opaque to hide the globe) -->
     <div id="hero-slider" class="absolute inset-0 z-0">
       <!-- Marítimo -->
-      <div class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-100" style="background-image: url('https://res.cloudinary.com/oyusqpnf/image/upload/v1787871325/john-simmons-XFLk8qZ-6MA-unsplash.jpg')"></div>
+      <div class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-100" style="background-image: url('https://res.cloudinary.com/nk4ejsrr/image/upload/v1788801146/estaticos/jt7qeya9c4tefozzqvbt.jpg')"></div>
       <!-- Aéreo -->
-      <div class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0" style="background-image: url('https://res.cloudinary.com/oyusqpnf/image/upload/w_1200,q_auto,f_auto/v1787846813/rocker-sta-RSYBi_1fhfM-unsplash.jpg')"></div>
+      <div class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0" style="background-image: url('https://res.cloudinary.com/nk4ejsrr/image/upload/v1788801146/estaticos/eklzjxcce4vtyjuonfbn.jpg')"></div>
       <!-- Terrestre -->
       <div class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0" style="background-image: url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&q=80&w=1200')"></div>
     </div>
@@ -21,7 +21,7 @@ export const Home = `
     <div class="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pt-20 sm:pt-28 lg:pt-32 pb-10 sm:pb-14 flex flex-col lg:flex-row lg:items-stretch lg:gap-6">
 
         <!-- ── Columna Izquierda: contenido corporativo ── -->
-        <div class="flex-1 lg:max-w-[520px] flex flex-col items-start text-left gap-4 sm:gap-5 min-w-0">
+        <div class="flex-1 lg:max-w-[540px] flex flex-col items-start text-left gap-4 sm:gap-5 min-w-0 ml-3 sm:ml-8 lg:ml-16 xl:ml-24">
 
           <!-- Logo con mayor presencia -->
           <div class="relative flex items-center group cursor-default" data-aos="fade-down" data-aos-delay="100">
