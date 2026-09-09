@@ -87,7 +87,8 @@ def startup_event():
             db.commit()
             db.refresh(admin_role)
         
-        admin_user = db.query(User).filter(User.email == "info@blg.com.bo").first()
+        from sqlalchemy import or_
+        admin_user = db.query(User).filter(or_(User.username == "admin", User.email == "info@blg.com.bo")).first()
         if not admin_user:
             admin_user = User(
                 first_name="Bolog",
