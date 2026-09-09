@@ -1,11 +1,11 @@
 import { CLOUDINARY_CLIENTS } from '../utils/cloudinary.js';
 
 const renderClientCards = () => CLOUDINARY_CLIENTS.map(client => `
-  <div class="w-52 sm:w-60 mx-3 sm:mx-4 h-28 sm:h-32 relative group shrink-0 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer border border-white/20 bg-white/90 backdrop-blur-md p-4 flex items-center justify-center overflow-hidden">
+  <div class="w-52 sm:w-60 mx-3 sm:mx-4 h-28 sm:h-32 relative group shrink-0 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer border border-white/20 p-4 flex items-center justify-center overflow-hidden" style="background-color: #ffffff !important; color-scheme: light;">
     <img 
       src="${client.logo}" 
       alt="${client.name}" 
-      class="max-h-[85%] max-w-[85%] object-contain group-hover:-translate-y-2 transition-transform duration-300"
+      class="max-h-[85%] max-w-[85%] object-contain group-hover:-translate-y-2 transition-transform duration-300 drop-shadow-[0_0_12px_rgba(255,255,255,0.9)]"
       loading="lazy"
     />
     <div class="absolute inset-x-0 bottom-0 py-2 bg-gradient-to-t from-white via-white/90 to-transparent text-slate-800 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-[0.1em] text-center opacity-0 group-hover:opacity-100 transition-all duration-300 truncate px-2">
