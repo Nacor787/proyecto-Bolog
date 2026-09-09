@@ -356,10 +356,10 @@ export function initNewsEditor() {
   }
 
   // Submit del formulario de noticias (crear/editar + imágenes)
-  if (!window.hasNewsSubmitListener) {
-    window.hasNewsSubmitListener = true;
-    document.addEventListener('submit', async (e) => {
-      if (e.target.id !== 'news-form') return;
+  const form = document.getElementById('news-form');
+  if (form && !form.dataset.hasListener) {
+    form.dataset.hasListener = 'true';
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const titulo = document.getElementById('news-title').value;
