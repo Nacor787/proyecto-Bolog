@@ -28,7 +28,7 @@ export const NEWS_MODAL_HTML = `
   </style>
 
   <!-- Modal Nueva/Editar Noticia -->
-  <div id="news-modal" class="fixed inset-0 z-[100] hidden bg-black/70 backdrop-blur-sm overflow-y-auto">
+  <div id="news-modal" data-lenis-prevent="true" class="fixed inset-0 z-[100] hidden bg-black/70 backdrop-blur-sm overflow-y-auto">
     <div class="min-h-screen px-4 flex items-start justify-center py-8">
       <div class="relative w-full max-w-6xl glass-card rounded-2xl text-left flex flex-col">
 
