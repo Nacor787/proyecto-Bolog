@@ -4,7 +4,7 @@ export function showAlert(message, type = 'success') {
   if (!container) {
     container = document.createElement('div');
     container.id = 'toast-container';
-    container.className = 'fixed top-4 right-4 z-50 flex flex-col gap-2';
+    container.className = 'fixed top-4 right-4 z-[9999] flex flex-col gap-2';
     document.body.appendChild(container);
   }
 
