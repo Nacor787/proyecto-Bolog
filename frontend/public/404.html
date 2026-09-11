@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Página no encontrada | BOLOG</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;900&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind via CDN for standalone page -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              DEFAULT: '#0a192f',
+              light: '#112240',
+              lighter: '#233554',
+              accent: '#64ffda',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #0b192c;
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(14, 165, 233, 0.08), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.08), transparent 25%);
+      color: white;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    
+    .glass-card {
+      background: rgba(17, 34, 64, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .glow-text {
+      text-shadow: 0 0 40px rgba(14, 165, 233, 0.4);
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-sky-500/30 selection:text-sky-200">
+  
+  <!-- Background Grid -->
+  <div class="fixed inset-0 z-0 pointer-events-none" style="background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 50px 50px;"></div>
+
+  <div class="relative z-10 w-full max-w-lg px-6 text-center">
+    <!-- Logo -->
+    <div class="mb-10 flex justify-center">
+      <img src="https://res.cloudinary.com/dwyx9mdc1/image/upload/v1726002978/BOLOG_LOGO-73_w06a4n.png" alt="BOLOG Logo" class="h-24 w-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+    </div>
+
+    <!-- Error Card -->
+    <div class="glass-card rounded-3xl p-8 md:p-12 relative overflow-hidden group">
+      <!-- Decorative glow -->
+      <div class="absolute -top-24 -right-24 w-48 h-48 bg-sky-500/20 rounded-full blur-3xl group-hover:bg-sky-400/30 transition-colors duration-500"></div>
+      
+      <div class="relative z-10">
+        <h1 class="text-7xl md:text-9xl font-heading font-black text-transparent bg-clip-text bg-gradient-to-br from-white via-sky-100 to-sky-500 glow-text mb-2">404</h1>
+        
+        <h2 class="text-xl md:text-2xl font-bold text-white mb-4">Acceso Denegado / No Encontrado</h2>
+        
+        <p class="text-slate-400 mb-8 text-sm md:text-base leading-relaxed">
+          La página que intentas buscar no existe, ha sido movida o no tienes los permisos necesarios para acceder a este directorio.
+        </p>
+
+        <a href="/" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-gradient-to-r from-sky-500 to-sky-700 hover:from-sky-400 hover:to-sky-600 text-white font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:shadow-[0_0_30px_rgba(14,165,233,0.5)] hover:-translate-y-1">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Volver a página segura
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-8 text-sm text-slate-500 font-medium">
+      &copy; <script>document.write(new Date().getFullYear())</script> BOLOG S.R.L.
+    </div>
+  </div>
+
+</body>
+</html>
