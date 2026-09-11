@@ -1,3 +1,7 @@
+// CoverageMap.js — Filtros y panel de info dinámicos desde /api/cobertura
+import { Stats } from './Stats.js';
+
+// HTML del globo y layout principal
 export const CoverageMap = `
   <section id="coverage" class="relative bg-transparent pb-0 overflow-hidden flex flex-col min-h-[100svh]">
     
@@ -20,21 +24,20 @@ export const CoverageMap = `
     <!-- Full-width Map Container -->
     <div class="relative w-full flex-grow bg-transparent min-h-[75vh] md:min-h-[550px] lg:min-h-[600px]">
       
-      <!-- Interaction area for OrbitControls (Sibling) -->
+      <!-- Interaction area for OrbitControls -->
       <div id="map-interaction-area" class="absolute inset-0 z-10 cursor-grab active:cursor-grabbing pointer-events-auto"></div>
 
-      <!-- Subtle internal vignette -->
+      <!-- Vignette -->
       <div class="absolute inset-0 bg-gradient-to-t from-[#0a192f] via-transparent to-transparent z-[1] pointer-events-none"></div>
 
-      <!-- Left Overlay: Filters with Zoom -->
+      <!-- Left Overlay: Filters + Zoom -->
       <div class="absolute top-0 left-0 bottom-0 z-20 px-2 py-4 pt-2 md:pt-12 sm:px-3 sm:pt-16 lg:px-4 lg:pt-20 flex flex-col justify-start pointer-events-none w-full md:max-w-[230px] lg:max-w-[260px]">
         
-        <!-- Corporate Route Filters -->
         <div class="pointer-events-auto w-full" data-aos="fade-right">
           
           <div class="flex items-center justify-between mb-2 ml-1">
             <h3 class="text-[10px] font-bold text-sky-400 uppercase tracking-widest" data-i18n="coverage.filters.title">Filtro de Rutas</h3>
-            <!-- Zoom Controls inside Filters -->
+            <!-- Zoom Controls -->
             <div class="flex items-center gap-1.5 pointer-events-auto">
               <button id="zoom-in-btn" class="w-7 h-7 rounded bg-[#001d2d]/85 backdrop-blur-xl text-sky-400 flex items-center justify-center hover:bg-sky-500 hover:text-white border border-white/10 shadow-sm transition-all" title="Acercar">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6"/></svg>
@@ -45,40 +48,14 @@ export const CoverageMap = `
             </div>
           </div>
           
-          <div class="flex flex-row md:flex-col gap-2 overflow-x-auto hide-scrollbar pb-2 md:pb-0">
-            <button class="route-filter-btn active flex-shrink-0 md:w-full flex items-center justify-between px-4 py-2.5 md:py-3 bg-sky-600 text-white font-bold text-xs shadow-md md:border-l-4 border-sky-400 transition-all rounded-md group" data-route-id="all">
-              <div class="flex items-center gap-2 md:gap-3">
-                <svg class="w-4 h-4 opacity-80 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                <span data-i18n="coverage.filters.all">Todas las Rutas</span>
-              </div>
-              <svg class="w-3.5 h-3.5 opacity-100 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            
-            <button class="route-filter-btn flex-shrink-0 md:w-full flex items-center justify-between px-4 py-2.5 md:py-3 bg-white/5 backdrop-blur-sm hover:bg-white/10 border border-white/5 md:border-0 md:border-l-4 md:border-transparent text-slate-300 hover:text-white font-semibold text-xs transition-all rounded-md group" data-route-id="asia">
-              <div class="flex items-center gap-2 md:gap-3">
-                <svg class="w-4 h-4 text-sky-400 group-hover:text-sky-300 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                <span data-i18n="coverage.filters.asia">Asia — Pacífico</span>
-              </div>
-              <svg class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            
-            <button class="route-filter-btn flex-shrink-0 md:w-full flex items-center justify-between px-4 py-2.5 md:py-3 bg-white/5 backdrop-blur-sm hover:bg-white/10 border border-white/5 md:border-0 md:border-l-4 md:border-transparent text-slate-300 hover:text-white font-semibold text-xs transition-all rounded-md group" data-route-id="na">
-              <div class="flex items-center gap-2 md:gap-3">
-                <svg class="w-4 h-4 text-sky-400 group-hover:text-sky-300 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                <span data-i18n="coverage.filters.na">Norteamérica</span>
-              </div>
-              <svg class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-
-            <button class="route-filter-btn flex-shrink-0 md:w-full flex items-center justify-between px-4 py-2.5 md:py-3 bg-white/5 backdrop-blur-sm hover:bg-white/10 border border-white/5 md:border-0 md:border-l-4 md:border-transparent text-slate-300 hover:text-white font-semibold text-xs transition-all rounded-md group" data-route-id="eu">
-              <div class="flex items-center gap-2 md:gap-3">
-                <svg class="w-4 h-4 text-sky-400 group-hover:text-sky-300 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
-                <span data-i18n="coverage.filters.eu">Europa</span>
-              </div>
-            </button>
+          <!-- Los botones de filtro se generan dinámicamente en initCoverageMap() -->
+          <div id="coverage-filters" class="flex flex-row md:flex-col gap-2 overflow-x-auto hide-scrollbar pb-2 md:pb-0">
+            <!-- skeleton -->
+            <div class="h-10 w-36 rounded-md bg-white/5 animate-pulse"></div>
+            <div class="h-10 w-36 rounded-md bg-white/5 animate-pulse"></div>
+            <div class="h-10 w-36 rounded-md bg-white/5 animate-pulse"></div>
           </div>
         </div>
-
       </div>
 
       <!-- Info Panel (Right) -->
@@ -89,33 +66,32 @@ export const CoverageMap = `
             <!-- Top: Title & Badge -->
             <div class="border-b border-white/10 pb-3 md:pb-4">
               <div class="flex items-center gap-2 mb-2">
-                <span id="route-badge" data-i18n="coverage.routes.all.badge" class="inline-block px-2 py-0.5 rounded bg-sky-500/10 text-[9px] font-black uppercase tracking-widest text-sky-400">
+                <span id="route-badge" class="inline-block px-2 py-0.5 rounded bg-sky-500/10 text-[9px] font-black uppercase tracking-widest text-sky-400">
                   Red Logística Global
                 </span>
               </div>
-              <h4 id="route-title" data-i18n="coverage.routes.all.title" class="text-sm md:text-base sm:text-lg font-bold text-white leading-snug">
+              <h4 id="route-title" class="text-sm md:text-base sm:text-lg font-bold text-white leading-snug">
                 Todas las Rutas Activas
               </h4>
-              <p id="route-type" data-i18n="coverage.routes.all.type" class="text-[9px] md:text-[10px] text-slate-400 mt-1">Transporte Multimodal</p>
+              <p id="route-type" class="text-[9px] md:text-[10px] text-slate-400 mt-1">Transporte Multimodal</p>
             </div>
 
             <!-- Stats Grid -->
             <div class="grid grid-cols-2 gap-3 md:gap-4">
               <div class="bg-white/5 rounded-lg p-2 md:p-3 border border-white/5">
                 <p class="text-[9px] md:text-[10px] font-bold text-sky-400 uppercase tracking-wider mb-1" data-i18n="coverage.labels.transit">Tiempo de Tránsito</p>
-                <p id="route-transit" data-i18n="coverage.routes.all.transit" class="text-xs md:text-sm font-semibold text-white">5 a 35 Días</p>
+                <p id="route-transit" class="text-xs md:text-sm font-semibold text-white">5 a 35 Días</p>
               </div>
-              
               <div class="bg-white/5 rounded-lg p-2 md:p-3 border border-white/5">
                 <p class="text-[9px] md:text-[10px] font-bold text-sky-400 uppercase tracking-wider mb-1" data-i18n="coverage.labels.freq">Frecuencia</p>
-                <p id="route-freq" data-i18n="coverage.routes.all.freq" class="text-xs md:text-sm font-semibold text-white">Diaria / Semanal</p>
+                <p id="route-freq" class="text-xs md:text-sm font-semibold text-white">Diaria / Semanal</p>
               </div>
             </div>
 
             <!-- Hubs/Ports -->
             <div class="bg-white/5 rounded-lg p-3 md:p-4 border border-white/5">
               <p class="text-[9px] md:text-[10px] font-bold text-sky-400 uppercase tracking-wider mb-1" data-i18n="coverage.labels.port">Puerto de Ingreso</p>
-              <p id="route-ports" data-i18n="coverage.routes.all.port" class="text-xs md:text-sm font-bold text-slate-200">Arica, Callao, Santos</p>
+              <p id="route-ports" class="text-xs md:text-sm font-bold text-slate-200">Arica, Callao, Santos</p>
             </div>
           </div>
         </div>
@@ -125,115 +101,138 @@ export const CoverageMap = `
   </section>
 `;
 
-const ROUTES_DETAILS = {
-  all: {
-    badge: 'coverage.routes.all.badge',
-    title: 'coverage.routes.all.title',
-    type: 'coverage.routes.all.type',
-    transit: 'coverage.routes.all.transit',
-    port: 'coverage.routes.all.port',
-    freq: 'coverage.routes.all.freq'
-  },
-  asia: {
-    badge: 'coverage.routes.asia.badge',
-    title: 'coverage.routes.asia.title',
-    type: 'coverage.routes.asia.type',
-    transit: 'coverage.routes.asia.transit',
-    port: 'coverage.routes.asia.port',
-    freq: 'coverage.routes.asia.freq'
-  },
-  na: {
-    badge: 'coverage.routes.na.badge',
-    title: 'coverage.routes.na.title',
-    type: 'coverage.routes.na.type',
-    transit: 'coverage.routes.na.transit',
-    port: 'coverage.routes.na.port',
-    freq: 'coverage.routes.na.freq'
-  },
-  eu: {
-    badge: 'coverage.routes.eu.badge',
-    title: 'coverage.routes.eu.title',
-    type: 'coverage.routes.eu.type',
-    transit: 'coverage.routes.eu.transit',
-    port: 'coverage.routes.eu.port',
-    freq: 'coverage.routes.eu.freq'
+const lang = () => {
+  if (window.i18next && window.i18next.language) {
+    return window.i18next.language.startsWith('en') ? 'en' : 'es';
   }
+  return (localStorage.getItem('i18nextLng') || 'es').startsWith('en') ? 'en' : 'es';
 };
 
-export function initCoverageMap() {
-  if (window.setGlobeInteractionArea) {
-    window.setGlobeInteractionArea('map-interaction-area');
+let currentRuta = null;
+let currentRegionId = 'all';
+let allRutas = [];
+
+// Filtro "Todas las Rutas" siempre presente
+const ALL_ROUTE = {
+  id: 'all',
+  region: 'all',
+  region_label_es: 'Todas las Rutas',
+  region_label_en: 'All Routes',
+  titulo_es: 'Todas las Rutas Activas',
+  titulo_en: 'All Active Routes',
+  tipo_transporte_es: 'Transporte Multimodal',
+  tipo_transporte_en: 'Multimodal Transport',
+  tiempo_transito: '5 a 35 Días',
+  puerto_entrada: 'Arica, Callao, Santos',
+  frecuencia_es: 'Diaria / Semanal',
+  frecuencia_en: 'Daily / Weekly',
+};
+
+function renderFilterButtons(rutas, activeRegion = 'all') {
+  const filtersEl = document.getElementById('coverage-filters');
+  if (!filtersEl) return;
+
+  // Obtener regiones únicas
+  const regions = ['all', ...new Set(rutas.map(r => r.region))];
+  // Mapear region -> datos de la primera ruta de esa región (para label)
+  const regionMap = { all: ALL_ROUTE };
+  rutas.forEach(r => { regionMap[r.region] = r; });
+
+  const btnClass = (region) => region === activeRegion
+    ? 'route-filter-btn active flex-shrink-0 md:w-full flex items-center justify-between px-4 py-2.5 md:py-3 bg-sky-600 text-white font-bold text-xs shadow-md md:border-l-4 border-sky-400 transition-all rounded-md group'
+    : 'route-filter-btn flex-shrink-0 md:w-full flex items-center justify-between px-4 py-2.5 md:py-3 bg-white/5 backdrop-blur-sm hover:bg-white/10 border border-white/5 md:border-0 md:border-l-4 md:border-transparent text-slate-300 hover:text-white font-semibold text-xs transition-all rounded-md group';
+
+  const globeSvg = `<svg class="w-4 h-4 opacity-80 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+  const chevronSvg = `<svg class="w-3.5 h-3.5 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>`;
+
+  filtersEl.innerHTML = regions.map(region => {
+    const r = regionMap[region];
+    const label = lang() === 'en' ? r.region_label_en : r.region_label_es;
+    return `
+      <button class="${btnClass(region)}" data-route-id="${region}">
+        <div class="flex items-center gap-2 md:gap-3">
+          ${globeSvg}
+          <span>${label || region}</span>
+        </div>
+        ${chevronSvg}
+      </button>
+    `;
+  }).join('');
+}
+
+function updateInfoPanel(ruta) {
+  currentRuta = ruta;
+  const l = lang();
+  const setEl = (id, val) => { const el = document.getElementById(id); if (el && val != null) el.textContent = val; };
+  const titulo = l === 'en' ? ruta.titulo_en : ruta.titulo_es;
+  const tipo = l === 'en' ? ruta.tipo_transporte_en : ruta.tipo_transporte_es;
+  const freq = l === 'en' ? ruta.frecuencia_en : ruta.frecuencia_es;
+  const badge = l === 'en' ? ruta.region_label_en : ruta.region_label_es;
+
+  setEl('route-badge', badge || (ruta.region === 'all' ? 'Red Logística Global' : ruta.region));
+  setEl('route-title', titulo);
+  setEl('route-type', tipo);
+  setEl('route-transit', ruta.tiempo_transito);
+  setEl('route-ports', ruta.puerto_entrada);
+  setEl('route-freq', freq);
+}
+
+export async function initCoverageMap() {
+  if (window.setGlobeInteractionArea) window.setGlobeInteractionArea('map-interaction-area');
+  if (window.setupGlobeZoomButtons) window.setupGlobeZoomButtons();
+
+  let rutas = [];
+
+  try {
+    const res = await fetch('/api/cobertura');
+    if (!res.ok) throw new Error('Error cargando rutas');
+    rutas = await res.json();
+  } catch (err) {
+    console.warn('[CoverageMap] No se pudieron cargar rutas desde la API:', err);
   }
-  if (window.setupGlobeZoomButtons) {
-    window.setupGlobeZoomButtons();
-  }
 
-  const filterBtns = document.querySelectorAll('.route-filter-btn');
-  const routeBadge = document.getElementById('route-badge');
-  const routeTitle = document.getElementById('route-title');
-  const routeType = document.getElementById('route-type');
-  const routeTransit = document.getElementById('route-transit');
-  const routePort = document.getElementById('route-port');
-  const routeFreq = document.getElementById('route-freq');
+  allRutas = rutas;
+  currentRegionId = 'all';
 
-  if (!filterBtns.length) return;
+  // Siempre tiene al menos el "all" virtual
+  renderFilterButtons(allRutas, currentRegionId);
+  updateInfoPanel(ALL_ROUTE);
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const routeId = btn.getAttribute('data-route-id');
-
-      // Reset all buttons
-      filterBtns.forEach(b => {
-        b.classList.remove('active', 'bg-sky-600', 'text-white', 'shadow-md', 'border-sky-400');
-        b.classList.add('bg-white/5', 'backdrop-blur-sm', 'hover:bg-white/10', 'border-transparent', 'text-slate-300', 'hover:text-white');
-
-        // Hide chevron and text color in inactive
-        const icon = b.querySelector('svg:first-child');
-        const chevron = b.querySelector('svg:last-child');
-        if (icon) icon.classList.remove('opacity-80', 'text-white');
-        if (icon) icon.classList.add('text-sky-400', 'group-hover:text-sky-300');
-        if (chevron) chevron.classList.remove('opacity-100');
-        if (chevron) chevron.classList.add('opacity-0', 'group-hover:opacity-100');
-      });
-
-      // Set active button
-      btn.classList.add('active', 'bg-sky-600', 'text-white', 'shadow-md', 'border-sky-400');
-      btn.classList.remove('bg-white/5', 'backdrop-blur-sm', 'hover:bg-white/10', 'border-transparent', 'text-slate-300', 'hover:text-white');
-
-      const icon = btn.querySelector('svg:first-child');
-      const chevron = btn.querySelector('svg:last-child');
-      if (icon) icon.classList.add('opacity-80', 'text-white');
-      if (icon) icon.classList.remove('text-sky-400', 'group-hover:text-sky-300');
-      if (chevron) chevron.classList.add('opacity-100');
-      if (chevron) chevron.classList.remove('opacity-0', 'group-hover:opacity-100');
-
-      // Filter 3D Globe routes
-      if (window.filterGlobeRoutes) {
-        window.filterGlobeRoutes(routeId);
-      }
-      // But for now, we just update the info panel
-      const data = ROUTES_DETAILS[routeId] || ROUTES_DETAILS.all;
-      
-      if (routeBadge) routeBadge.setAttribute('data-i18n', data.badge);
-      if (routeTitle) routeTitle.setAttribute('data-i18n', data.title);
-      if (routeType) routeType.setAttribute('data-i18n', data.type);
-      if (routeTransit) routeTransit.setAttribute('data-i18n', data.transit);
-      if (routePort) {
-        // ID issue fix, it's route-ports in HTML but route-port here. Use route-ports
-        const portsEl = document.getElementById('route-ports');
-        if (portsEl) portsEl.setAttribute('data-i18n', data.port);
-      }
-      if (routeFreq) routeFreq.setAttribute('data-i18n', data.freq);
-
-      if (window.updateContent) {
-        window.updateContent();
-      }
+  if (window.i18next && !window.coverageLangListenerAdded) {
+    window.i18next.on('languageChanged', () => {
+      renderFilterButtons(allRutas, currentRegionId);
+      if (currentRuta) updateInfoPanel(currentRuta);
     });
+    window.coverageLangListenerAdded = true;
+  }
+
+  // Delegación de eventos en el contenedor
+  const filtersEl = document.getElementById('coverage-filters');
+  if (!filtersEl) return;
+
+  filtersEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('.route-filter-btn');
+    if (!btn) return;
+    const regionId = btn.getAttribute('data-route-id');
+    currentRegionId = regionId;
+
+    // Re-render botones con activo actualizado
+    renderFilterButtons(allRutas, currentRegionId);
+
+    // Determinar qué datos mostrar en el panel
+    if (regionId === 'all') {
+      updateInfoPanel(ALL_ROUTE);
+      if (window.filterGlobeRoutes) window.filterGlobeRoutes('all');
+    } else {
+      const rutasDeRegion = allRutas.filter(r => r.region === regionId);
+      if (rutasDeRegion.length) {
+        updateInfoPanel(rutasDeRegion[0]);
+        if (window.filterGlobeRoutes) window.filterGlobeRoutes(regionId, rutasDeRegion);
+      }
+    }
   });
 }
 
 export const initMapWithVisibilityControl = initCoverageMap;
-export const cleanupMapObserver = () => { };
-export const destroyMap = () => { };
-
-
+export const cleanupMapObserver = () => {};
+export const destroyMap = () => {};

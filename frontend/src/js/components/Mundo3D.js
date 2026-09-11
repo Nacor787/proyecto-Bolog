@@ -374,71 +374,73 @@ function addRoutesToGlobe(globeMesh) {
   ];
 
   routes.forEach(route => {
-    const isAir = route.type === 'air';
-    const isLand = route.type === 'land';
-    const curve = getSplineFromCoords(route.start[0], route.start[1], route.end[0], route.end[1], 1.01, isAir);
-    
-    // Dashed line material
-    const points = curve.getPoints(50);
-    const geometry = new THREE.BufferGeometry().setFromPoints(points);
-    const material = new THREE.LineDashedMaterial({
-      color: route.color,
-      linewidth: 1,
-      scale: 1,
-      dashSize: isAir ? 0.05 : 0.03,
-      gapSize: isAir ? 0.04 : 0.02,
-      transparent: true,
-      opacity: 0.6
-    });
-
-    const line = new THREE.Line(geometry, material);
-    line.computeLineDistances();
-    globeMesh.add(line);
-
-    // Add Vehicle Sprite
-    let activeTexture = shipTexture;
-    if (isAir) activeTexture = planeTexture;
-    if (isLand) activeTexture = truckTexture;
-
-    const spriteMaterial = new THREE.SpriteMaterial({
-      map: activeTexture,
-      transparent: true,
-      opacity: 0.9,
-      color: 0xffffff
-    });
-    
-    const sprite = new THREE.Sprite(spriteMaterial);
-    const spriteSize = isAir ? 0.08 : 0.06;
-    sprite.scale.set(spriteSize, spriteSize, 1);
-    
-    globeMesh.add(sprite);
-
-    vehicles.push({
-      sprite,
-      curve,
-      progress: Math.random(), // Start at random point
-      speed: isAir ? 0.15 : 0.08, // Planes move faster than ships
-      isAir,
-      isLand
-    });
-
-    // Save for filtering
-    window.globeRouteMeshes.push({
-      line,
-      sprite,
-      regions: route.regions || []
-    });
-
-    // Añadir marcadores
-    addMarker(globeMesh, route.start[0], route.start[1], route.color, route.regions || []);
-    addMarker(globeMesh, route.end[0], route.end[1], route.color, route.regions || []);
+    addSingleRouteToGlobe(route, globeMesh);
   });
 }
+
+function addSingleRouteToGlobe(route, targetGlobe = globe) {
+  if (!targetGlobe) return;
+  const isAir = route.type === 'air';
+  const isLand = route.type === 'land';
+  const curve = getSplineFromCoords(route.start[0], route.start[1], route.end[0], route.end[1], 1.01, isAir);
+  
+  const points = curve.getPoints(50);
+  const geometry = new THREE.BufferGeometry().setFromPoints(points);
+  const material = new THREE.LineDashedMaterial({
+    color: route.color,
+    linewidth: 1,
+    scale: 1,
+    dashSize: isAir ? 0.05 : 0.03,
+    gapSize: isAir ? 0.04 : 0.02,
+    transparent: true,
+    opacity: 0.6
+  });
+
+  const line = new THREE.Line(geometry, material);
+  line.computeLineDistances();
+  targetGlobe.add(line);
+
+  let activeTexture = shipTexture;
+  if (isAir) activeTexture = planeTexture;
+  if (isLand) activeTexture = truckTexture;
+
+  const spriteMaterial = new THREE.SpriteMaterial({
+    map: activeTexture,
+    transparent: true,
+    opacity: 0.9,
+    color: 0xffffff
+  });
+  
+  const sprite = new THREE.Sprite(spriteMaterial);
+  const spriteSize = isAir ? 0.08 : 0.06;
+  sprite.scale.set(spriteSize, spriteSize, 1);
+  
+  targetGlobe.add(sprite);
+
+  vehicles.push({
+    sprite,
+    curve,
+    progress: Math.random(),
+    speed: isAir ? 0.15 : 0.08,
+    isAir,
+    isLand
+  });
+
+  window.globeRouteMeshes.push({
+    line,
+    sprite,
+    regions: route.regions || []
+  });
+
+  addMarker(targetGlobe, route.start[0], route.start[1], route.color, route.regions || []);
+  addMarker(targetGlobe, route.end[0], route.end[1], route.color, route.regions || []);
+}
+
 
 // Function to filter routes globally
 window.targetCameraPos = null;
 
-window.filterGlobeRoutes = function(regionId) {
+window.filterGlobeRoutes = function(regionId, rutas = []) {
   if (!window.globeRouteMeshes) return;
   window.globeRouteMeshes.forEach(item => {
     const isVisible = regionId === 'all' || item.regions.includes(regionId);
@@ -461,7 +463,32 @@ window.filterGlobeRoutes = function(regionId) {
     'all': [-17, -63]    // Bolivia
   };
 
-  const targetCoords = regionsTarget[regionId];
+  let targetCoords = null;
+
+  // Priorizar las coordenadas dinámicas provenientes de la base de datos
+  if (rutas && rutas.length > 0 && rutas[0].lat_destino !== null && rutas[0].lng_destino !== null) {
+    targetCoords = [parseFloat(rutas[0].lat_destino), parseFloat(rutas[0].lng_destino)];
+    
+    // Generar la ruta visual al vuelo si no existe para esta región
+    const hasMesh = window.globeRouteMeshes.some(m => m.regions.includes(regionId));
+    if (!hasMesh && typeof addSingleRouteToGlobe === 'function') {
+      const isSea = rutas[0].tipo_transporte_es && rutas[0].tipo_transporte_es.toLowerCase().includes('mar');
+      addSingleRouteToGlobe({
+        start: [-17.7833, -63.1821], // Bolivia (Santa Cruz)
+        end: targetCoords,
+        type: isSea ? 'sea' : 'air',
+        color: isSea ? 0x34d399 : 0x38bdf8, // Verde mar o azul cielo
+        regions: [regionId]
+      });
+      // Asegurar que la nueva ruta sea visible de inmediato
+      window.globeRouteMeshes[window.globeRouteMeshes.length - 1].line.visible = true;
+      window.globeRouteMeshes[window.globeRouteMeshes.length - 1].sprite.visible = true;
+    }
+  } else {
+    // Fallback a las coordenadas quemadas o a Bolivia por defecto
+    targetCoords = regionsTarget[regionId] || [-17, -63];
+  }
+
   if (targetCoords && camera) {
     const radius = camera.position.length(); 
     const lat = targetCoords[0];

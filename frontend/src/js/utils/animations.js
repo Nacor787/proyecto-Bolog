@@ -1,9 +1,5 @@
 let observer = null;
 
-/**
- * Initializes and observes all elements with data-aos or data-gsap attributes.
- * Recreates the exact silky smooth, organic entrance of AOS without external library bloat.
- */
 export function initScrollAnimations() {
   if (typeof window === 'undefined') return;
 
@@ -20,12 +16,12 @@ export function initScrollAnimations() {
         const el = entry.target;
         const delayMs = parseInt(el.getAttribute('data-aos-delay') || el.getAttribute('data-gsap-delay') || '0', 10);
         const durationMs = parseInt(el.getAttribute('data-aos-duration') || el.getAttribute('data-gsap-duration') || '800', 10);
-        
+
         el.style.transitionDuration = `${durationMs}ms`;
         if (delayMs > 0) {
           el.style.transitionDelay = `${delayMs}ms`;
         }
-        
+
         el.classList.add('aos-animate');
         observer.unobserve(el);
       }

@@ -1,4 +1,4 @@
-const logoSrc = 'https://res.cloudinary.com/nk4ejsrr/image/upload/v1788801143/estaticos/mcvfobfg0p6sag01hdqw.png';
+import { CLOUDINARY_LOGO_BOLOG as logoSrc } from '../utils/cloudinary.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
@@ -41,7 +41,7 @@ export const TrackingPage = `
 
             <div class="shrink-0">
               <a href="#">
-                <img src="${logoSrc}" alt="BOLOG Logo" class="w-48 object-contain drop-shadow-md hover:scale-105 transition-transform duration-300" />
+                <img src="${logoSrc}" alt="BOLOG Logo" class="w-64 sm:w-80 md:w-96 object-contain drop-shadow-md hover:scale-105 transition-transform duration-300" />
               </a>
             </div>
             

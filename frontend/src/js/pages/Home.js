@@ -1,5 +1,5 @@
 import Typewriter from 'typewriter-effect/dist/core';
-const logoSrc = 'https://res.cloudinary.com/nk4ejsrr/image/upload/v1788801143/estaticos/mcvfobfg0p6sag01hdqw.png';
+import { CLOUDINARY_LOGO_BOLOG as logoSrc } from '../utils/cloudinary.js';
 import { DolarBCB } from '../components/DolarBCB.js';
 
 export const Home = `
@@ -18,19 +18,19 @@ export const Home = `
     <!-- Capa oscura global sobre las imágenes -->
     <div class="absolute inset-0 bg-black/60 z-0 pointer-events-none"></div>
     <!-- ── Hero Content ── -->
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pt-20 sm:pt-28 lg:pt-32 pb-10 sm:pb-14 flex flex-col lg:flex-row lg:items-stretch lg:gap-6">
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pt-20 sm:pt-24 lg:pt-24 pb-10 sm:pb-14 flex flex-col lg:flex-row lg:items-stretch lg:gap-6">
 
         <!-- ── Columna Izquierda: contenido corporativo ── -->
-        <div class="flex-1 lg:max-w-[540px] flex flex-col items-start text-left gap-4 sm:gap-5 min-w-0 ml-3 sm:ml-8 lg:ml-16 xl:ml-24">
+        <div class="flex-1 lg:max-w-[540px] flex flex-col items-start text-left gap-3 sm:gap-4 min-w-0 ml-3 sm:ml-8 lg:ml-16 xl:ml-24">
 
           <!-- Logo con mayor presencia -->
           <div class="relative flex items-center group cursor-default" data-aos="fade-down" data-aos-delay="100">
             <div class="absolute -inset-3 bg-sky-500/8 rounded-full blur-2xl pointer-events-none group-hover:bg-sky-500/15 transition-all duration-700"></div>
-            <img src="${logoSrc}" alt="BOLOG Logo" class="relative z-10 h-16 sm:h-20 md:h-24 w-auto object-contain drop-shadow-[0_6px_24px_rgba(0,0,0,0.5)] transition-all duration-500 hover:scale-[1.03]" />
+            <img src="${logoSrc}" alt="BOLOG Logo" class="relative z-10 h-32 sm:h-40 md:h-52 w-auto object-contain drop-shadow-[0_6px_24px_rgba(0,0,0,0.5)] transition-all duration-500 hover:scale-[1.03]" />
           </div>
 
           <!-- Titular + Typewriter -->
-          <h1 class="text-2xl sm:text-3xl lg:text-[2.4rem] tracking-tight font-extrabold text-white leading-tight flex flex-col" data-aos="fade-right" data-aos-delay="200">
+          <h1 class="text-2xl sm:text-3xl lg:text-[2.4rem] tracking-tight font-extrabold text-white leading-tight flex flex-col -mt-4 md:-mt-8 relative z-20" data-aos="fade-right" data-aos-delay="200">
             <span class="block text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]" data-i18n="hero.title1">Conectando Bolivia</span>
             <span id="typewriter-title" class="block text-sky-400 [text-shadow:_0_0_15px_#003b5c,_0_0_30px_#00243a,_0_0_45px_#001a2c] mt-1.5 pb-1 min-h-[1.3em]"></span>
           </h1>

@@ -33,13 +33,14 @@ def is_configured() -> bool:
     ])
 
 
-def upload_image(file_bytes: bytes, filename: str) -> str:
+def upload_image(file_bytes: bytes, filename: str, folder: str = None) -> str:
     """Sube la imagen a Cloudinary y devuelve la URL segura (secure_url)."""
     safe_name = Path(filename.replace(" ", "_")).stem
     public_id = f"{int(time.time() * 1000)}_{safe_name}"
+    destino = folder if folder else CLOUDINARY_FOLDER
     result = cloudinary.uploader.upload(
         file_bytes,
-        folder=CLOUDINARY_FOLDER,
+        folder=destino,
         public_id=public_id,
         resource_type="image",
     )

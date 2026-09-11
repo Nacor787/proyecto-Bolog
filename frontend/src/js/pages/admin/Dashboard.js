@@ -2,37 +2,32 @@ import { showAlert, showConfirm } from '../../components/UI.js';
 import { TablasCrud } from '../../components/TablasCrud.js';
 import { NEWS_MODAL_HTML, initNewsEditor, resetNewsEditor } from '../../components/NewsEditor.js';
 import { fetchWithAuth } from '../../utils/api.js';
-import { CLOUDINARY_DASHBOARD_BG } from '../../utils/cloudinary.js';
-const logoSrc = 'https://res.cloudinary.com/nk4ejsrr/image/upload/v1788801143/estaticos/mcvfobfg0p6sag01hdqw.png';
+import { CLOUDINARY_DASHBOARD_BG, CLOUDINARY_LOGO_BOLOG as logoSrc } from '../../utils/cloudinary.js';
 
 export const Dashboard = `
+  <!-- Contenedor principal flex (desktop layout) -->
   <div class="min-h-screen flex flex-col md:flex-row text-white" style="background-image:linear-gradient(180deg, rgba(11,25,44,0.8), rgba(11,25,44,0.6)), url('${CLOUDINARY_DASHBOARD_BG}'); background-size:cover; background-position:center;">
-    <!-- Mobile Top Nav -->
-    <div class="md:hidden flex items-center glass-card-admin glass-card-admin-admin-flat px-4 h-[72px] z-50 sticky top-0 w-full gap-4">
-      <button id="mobile-sidebar-toggle" class="p-2 bg-white/10 border border-white/5 text-white rounded-lg shadow-sm hover:bg-white/10 transition-colors">
+    <!-- Mobile Top Nav: en el flujo flex solo en móvil -->
+    <div class="md:hidden flex items-center glass-card-admin glass-card-admin-admin-flat px-4 h-[72px] z-30 sticky top-0 w-full gap-3">
+      <button id="mobile-sidebar-toggle" class="p-2 bg-white/10 border border-white/5 text-white rounded-lg shadow-sm hover:bg-white/10 transition-colors flex-shrink-0">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
       </button>
-      <img src="${logoSrc}" alt="BOLOG Logo" class="h-10 w-auto object-contain">
+      <span id="mobile-page-title" class="text-white text-xl font-heading font-black truncate">Dashboard</span>
     </div>
 
-    <!-- Overlay Móvil -->
-    <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300 md:hidden"></div>
-
-    <!-- Sidebar -->
-    <aside id="dashboard-sidebar" class="w-64 transition-all duration-300 ease-in-out glass-card-admin glass-card-admin-admin-flat text-white flex flex-col fixed top-[72px] bottom-0 left-0 z-40 transform -translate-x-full md:relative md:translate-x-0 md:top-0 md:z-20">
-      <div class="hidden md:flex p-6 border-b border-white/5 justify-center items-center h-20 relative">
+    <!-- Sidebar Desktop: solo visible en desktop, en el flujo flex como columna -->
+    <aside id="dashboard-sidebar" class="hidden md:flex flex-col w-64 sticky top-0 h-screen z-20 transition-all duration-300 ease-in-out glass-card-admin glass-card-admin-admin-flat text-white">
+      <div class="flex p-6 border-b border-white/5 justify-center items-center h-28 relative">
         <div class="sidebar-text overflow-hidden transition-all duration-300 flex justify-center w-full">
           <a href="#home" class="block hover:opacity-80 transition-opacity cursor-pointer">
-            <img src="${logoSrc}" alt="BOLOG Logo" class="h-10 w-auto object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
+            <img src="${logoSrc}" alt="BOLOG Logo" class="h-20 md:h-24 w-auto object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)] -translate-x-5">
           </a>
         </div>
-        <!-- Este botón cerrará/abrirá en desktop -->
         <button id="sidebar-toggle" class="absolute right-4 text-slate-400 hover:text-white transition-colors bg-white/10 p-2 rounded-lg border border-white/5">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
         </button>
       </div>
-      <nav class="flex-1 p-4 space-y-2 overflow-x-hidden" id="sidebar-nav">
-        <!-- Perfil de usuario -->
+      <nav class="flex-1 p-4 space-y-2 overflow-x-hidden overflow-y-auto custom-scrollbar" data-lenis-prevent id="sidebar-nav">
         <div id="sidebar-profile-container" class="mb-6 px-2 py-3 bg-white/10 rounded-xl border border-white/5 flex items-center shadow-inner transition-all duration-300">
           <div class="h-10 w-10 flex-shrink-0 rounded-full bg-gradient-to-tr from-sky-500 to-sky-400 flex items-center justify-center text-white font-bold text-lg shadow-lg">
             <span id="sidebar-user-initial">A</span>
@@ -52,6 +47,30 @@ export const Dashboard = `
           <svg class="w-5 h-5 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
           <span class="sidebar-text transition-all duration-300">Usuarios</span>
         </a>
+
+        <div class="mt-3 mb-1 px-2 sidebar-text overflow-hidden transition-all duration-300">
+          <p class="text-[9px] font-bold text-slate-600 uppercase tracking-widest whitespace-nowrap">Contenido del Sitio</p>
+        </div>
+
+        <a href="#dashboard-clientes" class="nav-link flex items-center px-4 py-3 rounded-lg text-slate-300 hover:text-white font-medium transition-colors mb-2 overflow-hidden whitespace-nowrap" data-path="#dashboard-clientes">
+          <svg class="w-5 h-5 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+          <span class="sidebar-text transition-all duration-300">Clientes</span>
+        </a>
+
+        <a href="#dashboard-cobertura" class="nav-link flex items-center px-4 py-3 rounded-lg text-slate-300 hover:text-white font-medium transition-colors mb-2 overflow-hidden whitespace-nowrap" data-path="#dashboard-cobertura">
+          <svg class="w-5 h-5 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <span class="sidebar-text transition-all duration-300">Cobertura</span>
+        </a>
+
+        <a href="#dashboard-nosotros" class="nav-link flex items-center px-4 py-3 rounded-lg text-slate-300 hover:text-white font-medium transition-colors mb-2 overflow-hidden whitespace-nowrap" data-path="#dashboard-nosotros">
+          <svg class="w-5 h-5 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <span class="sidebar-text transition-all duration-300">Nosotros</span>
+        </a>
+
+        <a href="#dashboard-ubicaciones" class="nav-link flex items-center px-4 py-3 rounded-lg text-slate-300 hover:text-white font-medium transition-colors mb-2 overflow-hidden whitespace-nowrap" data-path="#dashboard-ubicaciones">
+          <svg class="w-5 h-5 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+          <span class="sidebar-text transition-all duration-300">Ubicaciones</span>
+        </a>
       </nav>
       <div class="p-4 border-t border-white/5 overflow-hidden whitespace-nowrap">
         <button id="sidebar-logout-btn" onclick="localStorage.removeItem('bolog_access_token'); window.location.hash='#login'" class="flex items-center text-slate-400 hover:text-white transition-colors w-full px-2">
@@ -62,10 +81,71 @@ export const Dashboard = `
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 flex flex-col" id="dashboard-content">
+    <main class="flex-1 flex flex-col w-full" id="dashboard-content">
       <!-- Dynamic Content loaded here -->
     </main>
   </div>
+
+  <!-- =====================================================
+       Sidebar Móvil — COMPLETAMENTE FUERA del flex wrapper
+       Siempre position:fixed, nunca interfiere con el layout
+       Se desliza encima del contenido como overlay puro
+       ===================================================== -->
+  <div id="mobile-sidebar" class="fixed top-0 bottom-0 left-0 w-72 z-50 transform -translate-x-full transition-transform duration-300 ease-in-out text-white flex flex-col md:hidden" style="background:rgba(10,22,40,0.98); backdrop-filter:blur(24px); border-right:1px solid rgba(255,255,255,0.08);">
+    <!-- Header del sidebar móvil: logo + botón cerrar -->
+    <div class="flex items-center justify-between px-4 h-[72px] border-b border-white/5 flex-shrink-0">
+      <img src="${logoSrc}" alt="BOLOG Logo" class="h-16 w-auto object-contain drop-shadow-[0_0_8px_rgba(255,255,255,0.15)]">
+      <button id="mobile-sidebar-close" class="p-2 bg-white/10 border border-white/5 text-slate-400 hover:text-white rounded-lg transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+    </div>
+    <nav class="flex-1 p-4 space-y-1 overflow-y-auto custom-scrollbar" id="mobile-sidebar-nav">
+      <!-- Perfil móvil -->
+      <div class="mb-4 px-2 py-3 bg-white/10 rounded-xl border border-white/5 flex items-center shadow-inner">
+        <div class="h-9 w-9 flex-shrink-0 rounded-full bg-gradient-to-tr from-sky-500 to-sky-400 flex items-center justify-center text-white font-bold shadow-lg">
+          <span id="mobile-sidebar-user-initial">A</span>
+        </div>
+        <div class="ml-3 overflow-hidden">
+          <p class="text-sm font-medium text-white truncate" id="mobile-sidebar-user-name">Administrador</p>
+          <p class="text-xs text-brand-accent capitalize" id="mobile-sidebar-user-role">admin</p>
+        </div>
+      </div>
+      <a href="#dashboard" class="mobile-nav-link flex items-center px-4 py-3 rounded-lg text-slate-300 hover:text-white font-medium transition-colors" data-path="#dashboard">
+        <svg class="w-5 h-5 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+        Gestión de Noticias
+      </a>
+      <a href="#dashboard-users" class="mobile-nav-link flex items-center px-4 py-3 rounded-lg text-slate-300 hover:text-white font-medium transition-colors" data-path="#dashboard-users">
+        <svg class="w-5 h-5 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        Usuarios
+      </a>
+      <p class="text-[9px] font-bold text-slate-600 uppercase tracking-widest px-2 pt-3 pb-1">Contenido del Sitio</p>
+      <a href="#dashboard-clientes" class="mobile-nav-link flex items-center px-4 py-3 rounded-lg text-slate-300 hover:text-white font-medium transition-colors" data-path="#dashboard-clientes">
+        <svg class="w-5 h-5 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+        Clientes
+      </a>
+      <a href="#dashboard-cobertura" class="mobile-nav-link flex items-center px-4 py-3 rounded-lg text-slate-300 hover:text-white font-medium transition-colors" data-path="#dashboard-cobertura">
+        <svg class="w-5 h-5 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        Cobertura
+      </a>
+      <a href="#dashboard-nosotros" class="mobile-nav-link flex items-center px-4 py-3 rounded-lg text-slate-300 hover:text-white font-medium transition-colors" data-path="#dashboard-nosotros">
+        <svg class="w-5 h-5 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        Nosotros
+      </a>
+      <a href="#dashboard-ubicaciones" class="mobile-nav-link flex items-center px-4 py-3 rounded-lg text-slate-300 hover:text-white font-medium transition-colors" data-path="#dashboard-ubicaciones">
+        <svg class="w-5 h-5 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+        Ubicaciones
+      </a>
+    </nav>
+    <div class="p-4 border-t border-white/5">
+      <button onclick="localStorage.removeItem('bolog_access_token'); window.location.hash='#login'" class="flex items-center text-slate-400 hover:text-white transition-colors w-full px-2">
+        <svg class="w-5 h-5 flex-shrink-0 mr-3 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+        Cerrar Sesión
+      </button>
+    </div>
+  </div>
+
+  <!-- Overlay móvil — también fuera del flex wrapper -->
+  <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300 md:hidden"></div>
 `;
 
 export async function initDashboard() {
@@ -75,88 +155,131 @@ export async function initDashboard() {
     return;
   }
 
-  // Load current user profile
+  // Cargar perfil del usuario en ambos sidebars
   fetchWithAuth('/api/users/me').then(res => {
     if (res && res.ok) {
       res.json().then(user => {
+        // Desktop sidebar
         const nameEl = document.getElementById('sidebar-user-name');
         const roleEl = document.getElementById('sidebar-user-role');
         const initialEl = document.getElementById('sidebar-user-initial');
         if (nameEl) nameEl.innerText = `${user.first_name} ${user.last_name}`;
         if (roleEl && user.role) roleEl.innerText = user.role.name;
         if (initialEl) initialEl.innerText = user.first_name.charAt(0).toUpperCase();
+        // Mobile sidebar
+        const mNameEl = document.getElementById('mobile-sidebar-user-name');
+        const mRoleEl = document.getElementById('mobile-sidebar-user-role');
+        const mInitialEl = document.getElementById('mobile-sidebar-user-initial');
+        if (mNameEl) mNameEl.innerText = `${user.first_name} ${user.last_name}`;
+        if (mRoleEl && user.role) mRoleEl.innerText = user.role.name;
+        if (mInitialEl) mInitialEl.innerText = user.first_name.charAt(0).toUpperCase();
       });
     }
   });
 
   const hash = window.location.hash || '#dashboard';
 
+  // Actualizar título en la barra superior móvil
+  const pageTitles = {
+    '#dashboard': 'Gestión de Noticias',
+    '#dashboard-users': 'Usuarios',
+    '#dashboard-clientes': 'Clientes',
+    '#dashboard-cobertura': 'Gestión de Cobertura',
+    '#dashboard-nosotros': 'Nosotros',
+    '#dashboard-ubicaciones': 'Ubicaciones',
+  };
+  const mobileTitleEl = document.getElementById('mobile-page-title');
+  if (mobileTitleEl) mobileTitleEl.textContent = pageTitles[hash] || 'Dashboard';
+
+  // ── Resaltar link activo en sidebar desktop ──────────────────────────────
   let sidebarNav = document.getElementById('sidebar-nav');
   if (sidebarNav) {
     sidebarNav.replaceWith(sidebarNav.cloneNode(true));
   }
-
-  // Highlight active sidebar link & Auto-close on mobile
   document.querySelectorAll('#sidebar-nav .nav-link').forEach(link => {
     if (link.getAttribute('data-path') === hash) {
       link.classList.add('bg-gradient-to-r', 'from-primary-600', 'to-primary-700', 'text-white', 'shadow-lg');
-      link.classList.remove('bg-white/10', 'text-slate-300');
+      link.classList.remove('text-slate-300');
+    } else {
+      link.classList.remove('bg-gradient-to-r', 'from-primary-600', 'to-primary-700', 'text-white', 'shadow-lg');
+      link.classList.add('text-slate-300');
+    }
+  });
+
+  // ── Resaltar link activo en sidebar móvil ───────────────────────────────
+  let mobileSidebarNav = document.getElementById('mobile-sidebar-nav');
+  if (mobileSidebarNav) {
+    mobileSidebarNav.replaceWith(mobileSidebarNav.cloneNode(true));
+  }
+  document.querySelectorAll('#mobile-sidebar-nav .mobile-nav-link').forEach(link => {
+    if (link.getAttribute('data-path') === hash) {
+      link.classList.add('bg-gradient-to-r', 'from-primary-600', 'to-primary-700', 'text-white', 'shadow-lg');
+      link.classList.remove('text-slate-300');
     } else {
       link.classList.remove('bg-gradient-to-r', 'from-primary-600', 'to-primary-700', 'text-white', 'shadow-lg');
       link.classList.add('text-slate-300');
     }
 
-    // Auto-close on mobile
+    // Auto-close sidebar móvil al hacer click en un link
     link.addEventListener('click', () => {
-      if (window.innerWidth < 768) {
-        const sb = document.getElementById('dashboard-sidebar');
-        const ov = document.getElementById('sidebar-overlay');
-        if (sb && ov) {
-          sb.classList.add('-translate-x-full');
-          ov.classList.add('opacity-0');
-          setTimeout(() => ov.classList.add('hidden'), 300);
-        }
+      const msb = document.getElementById('mobile-sidebar');
+      const ov = document.getElementById('sidebar-overlay');
+      if (msb) msb.classList.add('-translate-x-full');
+      if (ov) {
+        ov.classList.add('opacity-0');
+        setTimeout(() => ov.classList.add('hidden'), 300);
       }
     });
   });
 
   const contentDiv = document.getElementById('dashboard-content');
 
-  // Sidebar Toggle Logic
-  const sidebar = document.getElementById('dashboard-sidebar');
-  const toggleBtn = document.getElementById('sidebar-toggle'); // Desktop
-  let mobileToggleBtn = document.getElementById('mobile-sidebar-toggle'); // Mobile
+  // ── Toggle del sidebar MÓVIL ─────────────────────────────────────────────
+  // #mobile-sidebar está FUERA del flex container → nunca afecta el layout
+  const mobileSidebar = document.getElementById('mobile-sidebar');
+  let mobileToggleBtn = document.getElementById('mobile-sidebar-toggle');
   let overlay = document.getElementById('sidebar-overlay');
 
-  // Asegurar que event listeners se asignen correctamente
-  if (mobileToggleBtn && sidebar && overlay) {
+  if (mobileToggleBtn && mobileSidebar && overlay) {
     mobileToggleBtn.replaceWith(mobileToggleBtn.cloneNode(true));
-    mobileToggleBtn = document.getElementById('mobile-sidebar-toggle'); // Actualizar ref
-
+    mobileToggleBtn = document.getElementById('mobile-sidebar-toggle');
     overlay.replaceWith(overlay.cloneNode(true));
-    overlay = document.getElementById('sidebar-overlay'); // Actualizar ref
+    overlay = document.getElementById('sidebar-overlay');
 
     mobileToggleBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('-translate-x-full');
-      
-      // Si se está abriendo (ya no tiene la clase -translate-x-full)
-      if (!sidebar.classList.contains('-translate-x-full')) {
-        overlay.classList.remove('hidden');
-        setTimeout(() => overlay.classList.remove('opacity-0'), 10);
-      } else {
+      const isOpen = !mobileSidebar.classList.contains('-translate-x-full');
+      if (isOpen) {
+        mobileSidebar.classList.add('-translate-x-full');
         overlay.classList.add('opacity-0');
         setTimeout(() => overlay.classList.add('hidden'), 300);
+      } else {
+        mobileSidebar.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+        setTimeout(() => overlay.classList.remove('opacity-0'), 10);
       }
     });
 
     overlay.addEventListener('click', () => {
-      sidebar.classList.add('-translate-x-full');
+      mobileSidebar.classList.add('-translate-x-full');
       overlay.classList.add('opacity-0');
       setTimeout(() => overlay.classList.add('hidden'), 300);
     });
+
+    // Botón X dentro del sidebar también cierra
+    const closeBtn = document.getElementById('mobile-sidebar-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        mobileSidebar.classList.add('-translate-x-full');
+        overlay.classList.add('opacity-0');
+        setTimeout(() => overlay.classList.add('hidden'), 300);
+      });
+    }
   }
 
-  // Lógica Desktop y Botón interno
+  // ── Toggle collapse/expand del sidebar DESKTOP ───────────────────────────
+  const sidebar = document.getElementById('dashboard-sidebar');
+  const toggleBtn = document.getElementById('sidebar-toggle');
+
   if (toggleBtn && sidebar) {
     toggleBtn.replaceWith(toggleBtn.cloneNode(true));
     document.getElementById('sidebar-toggle').addEventListener('click', () => {
@@ -216,32 +339,58 @@ export async function initDashboard() {
         }
       }
     });
+
   }
+
+  // Resetear scroll al tope antes de renderizar el módulo
+  if (window.lenis) {
+    window.lenis.scrollTo(0, { immediate: true, force: true });
+  } else {
+    window.scrollTo(0, 0);
+  }
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
 
   if (hash === '#dashboard-users') {
     renderUsersView(contentDiv);
+  } else if (hash === '#dashboard-clientes') {
+    const { renderManageClients } = await import('./ManageClients.js');
+    renderManageClients(contentDiv);
+  } else if (hash === '#dashboard-cobertura') {
+    const { renderManageCoverage } = await import('./ManageCoverage.js');
+    renderManageCoverage(contentDiv);
+  } else if (hash === '#dashboard-nosotros') {
+    const { renderManageAbout } = await import('./ManageAbout.js');
+    renderManageAbout(contentDiv);
+  } else if (hash === '#dashboard-ubicaciones') {
+    const { renderManageLocations } = await import('./ManageLocations.js');
+    renderManageLocations(contentDiv);
   } else {
     renderNewsView(contentDiv);
   }
 
-  // Refresh AOS after dynamically inserting elements with data-aos
+  // Refresh AOS and Lenis after dynamically inserting elements with data-aos
   if (window.AOS) {
     setTimeout(() => { window.AOS.refresh(); }, 50);
   }
+  if (window.lenis) {
+    setTimeout(() => { window.lenis.resize(); }, 150);
+  }
 }
+
 
 function renderNewsView(container) {
   resetNewsEditor(); // Reset editor instance since DOM is being recreated
   container.innerHTML = `
     <header data-aos="fade-down" data-aos-duration="500" class="glass-card-admin h-auto min-h-16 flex flex-col sm:flex-row items-start sm:items-center justify-between px-6 py-3 gap-3">
-      <h1 class="text-xl font-heading font-black text-white">Gestión de Noticias</h1>
+
       
       <div class="flex items-center gap-2 flex-wrap">
         <button id="btn-tab-news" onclick="switchNewsTab('news')" class="news-tab-btn px-4 py-2 rounded-lg text-sm font-bold transition-all bg-primary-600 text-white shadow">Noticias</button>
         <button id="btn-tab-cats" onclick="switchNewsTab('cats')" class="news-tab-btn px-4 py-2 rounded-lg text-sm font-bold transition-all bg-white/10 text-white hover:bg-white/10">Categorías</button>
       </div>
     </header>
-    <div class="flex-1 p-4 md:p-8 overflow-y-auto w-full flex justify-center">
+    <div class="w-full p-4 md:p-8 flex justify-center">
       <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="100" class="w-[95%] md:w-[90%] max-w-7xl">
         <div id="tab-panel-news" class="glass-card-admin overflow-hidden w-full flex flex-col h-[600px] max-h-[80vh]"></div>
         <div id="tab-panel-cats" class="hidden flex-col h-[600px] max-h-[80vh] w-full relative">
@@ -254,7 +403,7 @@ function renderNewsView(container) {
     ${NEWS_MODAL_HTML}
 
     <!-- Modal Nueva Categoría -->
-    <div id="cat-modal" class="fixed inset-0 z-[100] hidden bg-black/70 backdrop-blur-sm overflow-y-auto">
+    <div id="cat-modal" class="fixed inset-0 z-[100] hidden bg-black/70 backdrop-blur-sm overflow-y-auto" data-lenis-prevent>
       <div class="min-h-screen px-4 flex items-center justify-center py-8">
         <div class="relative w-full max-w-md glass-card-admin rounded-2xl text-left flex flex-col">
           <div class="px-5 py-4 border-b border-white/5 flex justify-between items-center">
@@ -314,7 +463,7 @@ function renderNewsView(container) {
             <td class="px-4 py-4 whitespace-nowrap text-sm text-slate-400 w-32">${new Date(item.fecha_publicacion).toLocaleDateString('es-BO')}</td>
             <td class="px-4 py-4">
               <div class="flex items-center gap-4">
-                <div class="w-16 h-12 rounded-lg bg-white/10 overflow-hidden flex-shrink-0 border border-white/5 hidden sm:block">
+                <div class="w-16 h-12 rounded-lg bg-white/10 overflow-hidden flex-shrink-0 border border-white/5 block">
                   <img src="${coverImg}" class="w-full h-full object-cover" alt="${item.titulo}" onerror="this.src='https://placehold.co/100x100/1e293b/cbd5e1?text=No+Img'">
                 </div>
                 <div>
@@ -500,14 +649,14 @@ if (!window.hasNewsSubmitListener) {
 function renderUsersView(container) {
   container.innerHTML = `
     <header data-aos="fade-down" data-aos-duration="500" class="glass-card-admin h-auto min-h-16 flex flex-col sm:flex-row items-start sm:items-center justify-between px-6 py-3 gap-3">
-      <h1 class="text-xl font-heading font-black text-white">Gestión de Usuarios</h1>
+
       
       <div class="flex items-center gap-2 flex-wrap">
         <button id="btn-tab-users" onclick="switchUsersTab('users')" class="px-4 py-2 rounded-lg text-sm font-bold transition-all bg-primary-600 text-white shadow">Usuarios</button>
         <button id="btn-tab-roles" onclick="switchUsersTab('roles')" class="px-4 py-2 rounded-lg text-sm font-bold transition-all bg-white/10 text-white hover:bg-white/10">Tipos de Usuario</button>
       </div>
     </header>
-    <div class="flex-1 p-4 md:p-8 overflow-y-auto w-full flex justify-center">
+    <div class="w-full p-4 md:p-8 flex justify-center">
       <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="100" class="w-[95%] md:w-[90%] max-w-7xl relative">
         <div id="tab-panel-users" class="glass-card-admin overflow-hidden w-full flex flex-col h-[600px] max-h-[80vh]"></div>
         <div id="tab-panel-roles" class="hidden flex-col h-[600px] max-h-[80vh] w-full glass-card-admin overflow-hidden relative"></div>
@@ -515,7 +664,7 @@ function renderUsersView(container) {
     </div>
     
     <!-- Modal Nuevo/Editar Usuario -->
-    <div id="user-modal" class="fixed inset-0 z-[100] hidden bg-black/70 backdrop-blur-sm overflow-y-auto">
+    <div id="user-modal" class="fixed inset-0 z-[100] hidden bg-black/70 backdrop-blur-sm overflow-y-auto" data-lenis-prevent>
       <div class="min-h-screen px-4 flex items-center justify-center py-8">
         <div class="relative w-full max-w-lg glass-card-admin rounded-2xl text-left flex flex-col">
           <div class="px-5 py-4 border-b border-white/5 flex justify-between items-center">
@@ -580,7 +729,7 @@ function renderUsersView(container) {
     </div>
     
     <!-- Modal Nuevo/Editar Rol -->
-    <div id="role-modal" class="fixed inset-0 z-[100] hidden bg-black/70 backdrop-blur-sm overflow-y-auto">
+    <div id="role-modal" class="fixed inset-0 z-[100] hidden bg-black/70 backdrop-blur-sm overflow-y-auto" data-lenis-prevent>
       <div class="min-h-screen px-4 flex items-center justify-center py-8">
         <div class="relative w-full max-w-lg glass-card-admin rounded-2xl text-left flex flex-col">
           <div class="px-5 py-4 border-b border-white/5 flex justify-between items-center">

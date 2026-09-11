@@ -11,7 +11,7 @@ from app.database.connection import engine
 import app.models # Register all models
 from app.models import base
 from app.scheduler.tasks import scheduler
-from app.routes import tracking, auth, exchange_rate, roles, users, noticias, categories, contact
+from app.routes import tracking, auth, exchange_rate, roles, users, noticias, categories, contact, clientes, cobertura, nosotros, ubicaciones, upload
 from fastapi.staticfiles import StaticFiles
 from app.database.connection import SessionLocal
 from app.models.role import Role
@@ -55,6 +55,11 @@ app.include_router(users.router, prefix="/api/users", tags=["Users"])
 
 app.include_router(categories.router, prefix="/api/categories", tags=["Categories"])
 app.include_router(contact.router, prefix="/api/contact", tags=["Contact"])
+app.include_router(clientes.router, prefix="/api/clientes", tags=["Clientes"])
+app.include_router(cobertura.router, prefix="/api/cobertura", tags=["Cobertura"])
+app.include_router(nosotros.router, prefix="/api/nosotros", tags=["Nosotros"])
+app.include_router(ubicaciones.router, prefix="/api/ubicaciones", tags=["Ubicaciones"])
+app.include_router(upload.router, prefix="/api/upload", tags=["Upload"])
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -102,6 +107,21 @@ def startup_event():
             db.commit()
     finally:
         db.close()
+
+    # Poblar datos estáticos si las tablas están vacías
+    try:
+        from app.scripts.seed_static_data import seed_clientes, seed_rutas, seed_nosotros, seed_ubicaciones
+        seed_db = SessionLocal()
+        try:
+            seed_clientes(seed_db)
+            seed_rutas(seed_db)
+            seed_nosotros(seed_db)
+            seed_ubicaciones(seed_db)
+        finally:
+            seed_db.close()
+    except Exception as e:
+        import logging
+        logging.warning(f"Seed de datos estáticos falló (no crítico): {e}")
 
 @app.on_event("shutdown")
 def shutdown_event():

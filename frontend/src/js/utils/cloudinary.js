@@ -1,17 +1,12 @@
 /**
- * Cloudinary CDN Asset Helper
- * Cloud Name: oyusqpnf
  * Permite optimizar automáticamente formato (WebP/AVIF) y compresión (q_auto).
  */
 
-export const CLOUDINARY_CLOUD_NAME = 'oyusqpnf';
+export const CLOUDINARY_CLOUD_NAME = 'nk4ejsrr';
 export const CLOUDINARY_BASE_URL = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload`;
 
 /**
  * Genera una URL de Cloudinary con optimización automática.
- * @param {string} publicPath Ruta o Public ID del archivo en Cloudinary
- * @param {object} options Opciones de transformación (width, quality, format)
- * @returns {string} URL CDN de Cloudinary
  */
 export function getCloudinaryUrl(publicPath, options = {}) {
   if (!publicPath) return '';
@@ -57,3 +52,12 @@ export const CLOUDINARY_CLIENTS = [
   { name: 'Interquímica', logo: 'https://res.cloudinary.com/nk4ejsrr/image/upload/v1788801164/estaticos/obkt9apwtzupb0es6gmj.png' },
   { name: 'Perno Centro', logo: 'https://res.cloudinary.com/nk4ejsrr/image/upload/v1788801163/estaticos/iukmr1utphllpg68ylzn.png' },
 ];
+
+export const CLOUDINARY_INSIGNE = [
+  { name: 'Camara Alemana', logo: 'https://res.cloudinary.com/nk4ejsrr/image/upload/v1789060779/camara_alemana.png' },
+  { name: 'Camara Nacional de Comercio', logo: 'https://res.cloudinary.com/nk4ejsrr/image/upload/v1789060779/camara_nacional_de_comercio.png'},
+  { name: 'Seprec', logo: 'https://res.cloudinary.com/nk4ejsrr/image/upload/v1789060779/seprec.png'},
+  { name: 'Aduana', logo: 'https://res.cloudinary.com/nk4ejsrr/image/upload/v1789060779/aduana.png'},
+];
+
+export const CLOUDINARY_LOGO_BOLOG = 'https://res.cloudinary.com/nk4ejsrr/image/upload/v1789162823/logo.png';

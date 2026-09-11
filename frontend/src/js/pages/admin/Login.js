@@ -1,4 +1,4 @@
-const logoSrc = 'https://res.cloudinary.com/nk4ejsrr/image/upload/v1788801143/estaticos/mcvfobfg0p6sag01hdqw.png';
+import { CLOUDINARY_LOGO_BOLOG as logoSrc } from '../../utils/cloudinary.js';
 import { VantaGlobe, initVantaGlobe } from '../../components/VantaGlobe.js';
 
 export const Login = `
@@ -14,7 +14,7 @@ export const Login = `
 
         <!-- Logo & Title -->
         <div class="text-center mb-5">
-          <img src="${logoSrc}" alt="BOLOG Logo" class="h-12 w-auto mx-auto mb-2 drop-shadow-lg" />
+          <img src="${logoSrc}" alt="BOLOG Logo" class="h-28 sm:h-32 w-auto mx-auto mb-2 drop-shadow-lg -translate-x-4 sm:-translate-x-5" />
           <h1 class="text-xl font-heading font-black tracking-tight">
             <span class="text-white"> Dashboard</span>
           </h1>
@@ -72,7 +72,7 @@ export const Login = `
 
           <!-- Cloudflare Turnstile Captcha -->
           <div class="flex justify-center mt-2 mb-0 scale-[0.80] origin-top h-[52px]">
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAAEtQ_QylhzKFWExv" data-theme="dark"></div>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAEus0m6ijYSpZUVl" data-theme="dark"></div>
           </div>
 
           <!-- Submit Button -->
@@ -140,7 +140,7 @@ export function initLogin() {
     togglePasswordBtn.addEventListener('click', () => {
       const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
       passwordInput.setAttribute('type', type);
-      
+
       if (type === 'text') {
         // Ícono de ojo cerrado
         eyeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />';

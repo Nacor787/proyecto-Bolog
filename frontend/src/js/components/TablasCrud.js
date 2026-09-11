@@ -76,8 +76,8 @@ export class TablasCrud {
       </div>
 
       <!-- Table Container (Scrollable) -->
-      <div id="${this.entityName}-scroll-container" class="flex-1 overflow-y-auto relative w-full">
-        <table class="min-w-full divide-y divide-white/10 w-full relative">
+      <div id="${this.entityName}-scroll-container" class="flex-1 overflow-y-auto overflow-x-auto relative w-full" data-lenis-prevent>
+        <table class="min-w-full divide-y divide-white/10 w-full relative whitespace-nowrap">
           <thead class="bg-slate-900/60 backdrop-blur-2xl sticky top-0 z-10 border-b border-white/10">
             <tr>
               ${this.columnsHtml}

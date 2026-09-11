@@ -1,4 +1,4 @@
-const logoSrc = 'https://res.cloudinary.com/nk4ejsrr/image/upload/v1788801143/estaticos/mcvfobfg0p6sag01hdqw.png';
+import { CLOUDINARY_LOGO_BOLOG as logoSrc } from '../utils/cloudinary.js';
 
 export const Navbar = `
   <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
@@ -24,18 +24,9 @@ export const Navbar = `
       </div>
       <!-- Fila 2: sucursal -->
       <div class="flex items-center justify-center mt-1">
-        <div class="relative branch-wrapper">
-          <button class="branch-btn flex items-center gap-1.5 text-white/80 hover:text-white transition-colors focus:outline-none bg-white/5 px-2.5 py-0.5 rounded-md border border-white/20">
-            <svg class="w-3 h-3 text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
-            <span class="branch-selected-text" data-i18n="topBanner.branchLaPaz">Central La Paz</span>
-            <svg class="branch-chevron w-2.5 h-2.5 text-sky-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="branch-dropdown absolute top-full left-1/2 -translate-x-1/2 mt-1 w-44 bg-black/60 backdrop-blur-2xl border border-white/10 rounded-xl shadow-2xl overflow-hidden opacity-0 invisible transition-all duration-200 translate-y-[-6px] z-50">
-            <div class="py-1">
-              <button class="w-full text-left px-3 py-2 text-xs text-white bg-white/10 hover:bg-white/20 transition-colors branch-option font-medium" data-value="lapaz" data-i18n="topBanner.branchLaPaz">Central La Paz</button>
-              <button class="w-full text-left px-3 py-2 text-xs text-white/70 hover:bg-white/10 hover:text-white transition-colors branch-option font-medium" data-value="santacruz" data-i18n="topBanner.branchSantaCruz">Sucursal Santa Cruz</button>
-            </div>
-          </div>
+        <div class="flex items-center gap-1.5 text-white/80 bg-white/5 px-2.5 py-0.5 rounded-md border border-white/20">
+          <svg class="w-3 h-3 text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+          <span data-i18n="topBanner.branchLaPaz">Central La Paz</span>
         </div>
       </div>
     </div>
@@ -52,7 +43,7 @@ export const Navbar = `
             <a id="nav-logo" href="#" class="relative flex items-center group opacity-0 -translate-y-2 pointer-events-none transition-all duration-300">
               <!-- Glow desplazado a la izquierda -->
               <div class="absolute -left-4 w-16 h-8 bg-white/20 blur-[16px] rounded-full z-0 pointer-events-none transition-all duration-300 group-hover:bg-white/30"></div>
-              <img src="${logoSrc}" alt="BOLOG Logo" class="relative z-10 h-10 md:h-12 w-auto object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] transition-all duration-300" />
+              <img src="${logoSrc}" alt="BOLOG Logo" class="relative z-10 h-16 md:h-20 lg:h-24 w-auto object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] transition-all duration-300" />
             </a>
           </div>
 
@@ -178,18 +169,9 @@ export const Navbar = `
           
           <div class="h-3 w-px bg-white/20"></div>
 
-          <div class="relative shrink-0 branch-wrapper">
-            <button class="branch-btn flex items-center gap-1 text-white/80 hover:text-white transition-colors focus:outline-none">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
-              <span class="branch-selected-text" data-i18n="topBanner.branchLaPaz">La Paz</span>
-              <svg class="branch-chevron w-3 h-3 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-            </button>
-            <div class="branch-dropdown absolute top-full right-0 mt-2 w-48 bg-black/60 backdrop-blur-2xl border border-white/10 rounded-xl shadow-2xl overflow-hidden opacity-0 invisible transition-all duration-200 translate-y-[-10px] z-50">
-              <div class="py-1">
-                <button class="w-full text-left px-3 py-2 text-xs text-white bg-white/10 hover:bg-white/20 transition-colors branch-option font-medium" data-value="lapaz" data-i18n="topBanner.branchLaPaz">Central La Paz</button>
-                <button class="w-full text-left px-3 py-2 text-xs text-white/70 hover:bg-white/10 hover:text-white transition-colors branch-option font-medium" data-value="santacruz" data-i18n="topBanner.branchSantaCruz">Sucursal Santa Cruz</button>
-              </div>
-            </div>
+          <div class="flex items-center gap-1 text-white/80 cursor-default">
+            <svg class="w-3.5 h-3.5 text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+            <span data-i18n="topBanner.branchLaPaz">Central La Paz</span>
           </div>
         </div>
       </div>
@@ -200,84 +182,6 @@ export const Navbar = `
 `;
 
 export function initNavbar() {
-  const phone = document.getElementById('header-phone-number');
-  const mobilePhone = document.getElementById('mobile-phone-number');
-
-  document.querySelectorAll('.branch-wrapper').forEach(wrapper => {
-    const btn = wrapper.querySelector('.branch-btn');
-    const dropdown = wrapper.querySelector('.branch-dropdown');
-    const chevron = wrapper.querySelector('.branch-chevron');
-
-    if (btn && dropdown) {
-      let isOpen = false;
-      const toggleDropdown = () => {
-        if (isOpen) {
-          dropdown.classList.remove('opacity-0', 'invisible', 'translate-y-[-10px]');
-          chevron.classList.add('rotate-180');
-        } else {
-          dropdown.classList.add('opacity-0', 'invisible', 'translate-y-[-10px]');
-          chevron.classList.remove('rotate-180');
-        }
-      };
-
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        isOpen = !isOpen;
-        toggleDropdown();
-      });
-
-      document.addEventListener('click', () => {
-        if (isOpen) {
-          isOpen = false;
-          toggleDropdown();
-        }
-      });
-    }
-  });
-
-  // Lógica de opciones de sucursales globales
-  document.querySelectorAll('.branch-option').forEach(option => {
-    option.addEventListener('click', (e) => {
-      const val = e.currentTarget.getAttribute('data-value');
-
-      document.querySelectorAll('.branch-selected-text').forEach(textEl => {
-        textEl.setAttribute('data-i18n', val === 'lapaz' ? 'topBanner.branchLaPaz' : 'topBanner.branchSantaCruz');
-        if (window.i18next) {
-          textEl.innerText = window.i18next.t(val === 'lapaz' ? 'topBanner.branchLaPaz' : 'topBanner.branchSantaCruz');
-        } else {
-          textEl.innerText = e.currentTarget.innerText;
-        }
-      });
-
-      // Actualizar estilos activos
-      document.querySelectorAll('.branch-option').forEach(opt => {
-        if (opt.closest('#mobile-menu')) {
-          opt.classList.remove('text-white', 'bg-sky-500', 'text-slate-300');
-          if (opt.getAttribute('data-value') === val) {
-            opt.classList.add('text-white', 'bg-sky-500');
-          } else {
-            opt.classList.add('text-slate-300');
-          }
-        } else {
-          opt.classList.remove('text-white', 'bg-sky-500', 'text-sky-600', 'hover:bg-sky-50');
-          if (opt.getAttribute('data-value') === val) {
-            opt.classList.add('text-white', 'bg-sky-500');
-          } else {
-            opt.classList.add('text-sky-600', 'hover:bg-sky-50');
-          }
-        }
-      });
-
-      if (phone) {
-        if (val === 'lapaz') phone.innerText = '+591 2 214 7305 - 7384';
-        else if (val === 'santacruz') phone.innerText = '+591 3 341 7324';
-      }
-      if (mobilePhone) {
-        if (val === 'lapaz') mobilePhone.innerText = '+591 2 214 7305';
-        else if (val === 'santacruz') mobilePhone.innerText = '+591 3 341 7324';
-      }
-    });
-  });
 
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
@@ -330,7 +234,12 @@ export function initNavbar() {
     });
   }
 
-  document.addEventListener('click', (e) => {
+  // Limpiar listener anterior para evitar acumulación y cierres (closures) obsoletos
+  if (window.__navGlobalClick) {
+    document.removeEventListener('click', window.__navGlobalClick);
+  }
+
+  window.__navGlobalClick = (e) => {
     const link = e.target.closest('a[href^="#"]');
     if (!link) return;
 
@@ -387,55 +296,69 @@ export function initNavbar() {
         window.location.hash = href;
       }
     }
-  });
+  };
+
+  document.addEventListener('click', window.__navGlobalClick);
 
   // Lógica de la barra de navegación fija y ScrollSpy
   const header = document.getElementById('header');
   const mainNav = document.getElementById('main-nav');
-  const topBanner = document.getElementById('top-banner');
-  const mobileTopBanner = document.getElementById('mobile-top-banner');
-  const navLogo = document.getElementById('nav-logo');
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('#main-nav a[href^="#"]');
 
   if (header && mainNav) {
     const updateNavBackground = () => {
+      // Obtener elementos en tiempo real para evitar closures obsoletos si el DOM cambió
+      const tb = document.getElementById('top-banner');
+      const mtb = document.getElementById('mobile-top-banner');
+      const nl = document.getElementById('nav-logo');
+
       const isTrackingPage = window.location.hash === '#tracking';
       const isNewsDetail = window.location.hash.startsWith('#news/');
+      const isContact = window.location.hash === '#contact';
+      const isLocation = window.location.hash === '#location';
+      const isAbout = window.location.hash === '#about';
+      const isServices = window.location.hash === '#services';
 
-      if (isTrackingPage || isNewsDetail || window.scrollY > 50) {
-        if (topBanner) {
-          topBanner.classList.add('bg-white/5', 'backdrop-blur-md', 'border-y', 'border-white/10');
-          topBanner.classList.remove('border-transparent');
+      if (isTrackingPage || isNewsDetail || isContact || isLocation || isAbout || isServices || window.scrollY > 50) {
+        if (tb) {
+          tb.classList.add('bg-white/5', 'backdrop-blur-md', 'border-y', 'border-white/10');
+          tb.classList.remove('border-transparent');
         }
-        if (mobileTopBanner) {
-          mobileTopBanner.classList.add('bg-white/5', 'backdrop-blur-md', 'border-b', 'border-white/10');
-          mobileTopBanner.classList.remove('border-transparent');
+        if (mtb) {
+          mtb.classList.add('bg-white/5', 'backdrop-blur-md', 'border-b', 'border-white/10');
+          mtb.classList.remove('border-transparent');
         }
-        if (navLogo) {
-          navLogo.classList.remove('opacity-0', '-translate-y-2', 'pointer-events-none');
-          navLogo.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        if (nl) {
+          nl.classList.remove('opacity-0', '-translate-y-2', 'pointer-events-none');
+          nl.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
         }
       } else {
-        if (topBanner) {
-          topBanner.classList.remove('bg-white/5', 'backdrop-blur-md', 'border-y', 'border-white/10');
-          topBanner.classList.add('border-transparent');
+        if (tb) {
+          tb.classList.remove('bg-white/5', 'backdrop-blur-md', 'border-y', 'border-white/10');
+          tb.classList.add('border-transparent');
         }
-        if (mobileTopBanner) {
-          mobileTopBanner.classList.remove('bg-white/5', 'backdrop-blur-md', 'border-b', 'border-white/10');
-          mobileTopBanner.classList.add('border-transparent');
+        if (mtb) {
+          mtb.classList.remove('bg-white/5', 'backdrop-blur-md', 'border-b', 'border-white/10');
+          mtb.classList.add('border-transparent');
         }
-        if (navLogo) {
-          navLogo.classList.add('opacity-0', '-translate-y-2', 'pointer-events-none');
-          navLogo.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        if (nl) {
+          nl.classList.add('opacity-0', '-translate-y-2', 'pointer-events-none');
+          nl.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
         }
       }
     };
 
-    window.addEventListener('scroll', updateNavBackground);
-    updateNavBackground(); // Initialize the correct background based on route/scroll
+    if (window.__navScrollBg) {
+      window.removeEventListener('scroll', window.__navScrollBg);
+    }
+    window.__navScrollBg = updateNavBackground;
+    window.addEventListener('scroll', window.__navScrollBg);
 
-    window.addEventListener('scroll', () => {
+    if (window.__navScrollSpy) {
+      window.removeEventListener('scroll', window.__navScrollSpy);
+    }
+    window.__navScrollSpy = () => {
       // Lógica de ScrollSpy dinámica: Actualizar el enlace de navegación activo
       let currentSection = '';
       sections.forEach(section => {
@@ -458,6 +381,9 @@ export function initNavbar() {
           link.classList.add('text-white/70');
         }
       });
-    });
+    };
+    window.addEventListener('scroll', window.__navScrollSpy);
+
+    updateNavBackground(); // Initialize the correct background based on route/scroll
   }
 }
