@@ -285,16 +285,16 @@ function setupRouteEvents() {
       try { fillModal(JSON.parse(editBtn.dataset.route)); } catch {}
     }
     if (deleteBtn) {
-      const confirmed = await showConfirm(`¿Eliminar la ruta "${deleteBtn.dataset.titulo}"?`);
-      if (!confirmed) return;
-      try {
-        const res = await fetchWithAuth(`/api/cobertura/${deleteBtn.dataset.id}`, { method: 'DELETE' });
-        if (!res || !res.ok) throw new Error();
-        showAlert('Ruta eliminada.', 'success');
-        await loadRoutes();
-      } catch {
-        showAlert('Error al eliminar la ruta.', 'error');
-      }
+      showConfirm('Eliminar Ruta', `¿Eliminar la ruta "${deleteBtn.dataset.titulo}"?`, async () => {
+        try {
+          const res = await fetchWithAuth(`/api/cobertura/${deleteBtn.dataset.id}`, { method: 'DELETE' });
+          if (!res || !res.ok) throw new Error();
+          showAlert('Ruta eliminada.', 'success');
+          await loadRoutes();
+        } catch {
+          showAlert('Error al eliminar la ruta.', 'error');
+        }
+      });
     }
   });
 }

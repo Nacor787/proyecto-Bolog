@@ -266,16 +266,16 @@ function setupClientEvents() {
     }
 
     if (deleteBtn) {
-      const confirmed = await showConfirm(`¿Eliminar el cliente "${deleteBtn.dataset.nombre}"?`);
-      if (!confirmed) return;
-      try {
-        const res = await fetchWithAuth(`/api/clientes/${deleteBtn.dataset.id}`, { method: 'DELETE' });
-        if (!res || !res.ok) throw new Error();
-        showAlert('Cliente eliminado.', 'success');
-        await loadClients();
-      } catch {
-        showAlert('Error al eliminar el cliente.', 'error');
-      }
+      showConfirm('Eliminar Cliente', `¿Eliminar el cliente "${deleteBtn.dataset.nombre}"?`, async () => {
+        try {
+          const res = await fetchWithAuth(`/api/clientes/${deleteBtn.dataset.id}`, { method: 'DELETE' });
+          if (!res || !res.ok) throw new Error();
+          showAlert('Cliente eliminado.', 'success');
+          await loadClients();
+        } catch {
+          showAlert('Error al eliminar el cliente.', 'error');
+        }
+      });
     }
 
     // Cambiar logo directamente desde la tarjeta

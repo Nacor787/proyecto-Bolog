@@ -308,16 +308,16 @@ function setupLocationEvents() {
       try { fillModal(JSON.parse(editBtn.dataset.loc)); } catch { }
     }
     if (deleteBtn) {
-      const confirmed = await showConfirm(`¿Eliminar la ubicación "${deleteBtn.dataset.nombre}"?`);
-      if (!confirmed) return;
-      try {
-        const res = await fetchWithAuth(`/api/ubicaciones/${deleteBtn.dataset.id}`, { method: 'DELETE' });
-        if (!res || !res.ok) throw new Error();
-        showAlert('Ubicación eliminada.', 'success');
-        await loadLocations();
-      } catch {
-        showAlert('Error al eliminar la ubicación.', 'error');
-      }
+      showConfirm('Eliminar Ubicación', `¿Eliminar la ubicación "${deleteBtn.dataset.nombre}"?`, async () => {
+        try {
+          const res = await fetchWithAuth(`/api/ubicaciones/${deleteBtn.dataset.id}`, { method: 'DELETE' });
+          if (!res || !res.ok) throw new Error();
+          showAlert('Ubicación eliminada.', 'success');
+          await loadLocations();
+        } catch {
+          showAlert('Error al eliminar la ubicación.', 'error');
+        }
+      });
     }
   });
 }
