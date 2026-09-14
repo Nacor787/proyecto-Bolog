@@ -155,6 +155,18 @@ export async function renderManageCoverage(container) {
   setupRouteEvents();
 }
 
+const getTransportIcon = (type = '') => {
+  const t = type.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  if (t.includes('aereo') || t.includes('air')) {
+    return `<svg class="inline-block w-4 h-4 mr-0.5 align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>`;
+  } else if (t.includes('terrestre') || t.includes('truck') || t.includes('road')) {
+    return `<svg class="inline-block w-4 h-4 mr-0.5 align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path></svg>`;
+  } else if (t.includes('maritimo') || t.includes('sea') || t.includes('ocean')) {
+    return `<svg class="inline-block w-4 h-4 mr-0.5 align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10V8a8 8 0 0116 0v2m-8-2v12m0 0a2 2 0 110-4 2 2 0 010 4zm0 0H8m4 0h4"></path></svg>`;
+  }
+  return `<svg class="inline-block w-4 h-4 mr-0.5 align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>`;
+};
+
 async function loadRoutes() {
   const list = document.getElementById('routes-admin-list');
   if (!list) return;
@@ -176,8 +188,8 @@ async function loadRoutes() {
               <span class="text-[9px] px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-400">${r.region.toUpperCase()}</span>
               <span class="text-[9px] px-2 py-0.5 rounded-full ${r.activo ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}">${r.activo ? 'Activa' : 'Inactiva'}</span>
             </div>
-            <p class="text-xs text-slate-400">${r.titulo_en} · ${r.tiempo_transito || '-'} · ${r.puerto_entrada || '-'}</p>
-            ${r.lat_destino ? `<p class="text-[10px] text-slate-500">Coords: ${r.lat_destino}, ${r.lng_destino}</p>` : ''}
+            <p class="text-xs text-slate-400 mt-1">${getTransportIcon(r.tipo_transporte_es)} ${r.tipo_transporte_es || 'Sin transporte'} · ${r.tiempo_transito || '-'} · ${r.puerto_entrada || '-'}</p>
+            ${r.lat_destino ? `<p class="text-[10px] text-slate-500 mt-0.5">Coords: ${r.lat_destino}, ${r.lng_destino}</p>` : ''}
           </div>
         </div>
         <div class="flex items-center gap-2 shrink-0">
