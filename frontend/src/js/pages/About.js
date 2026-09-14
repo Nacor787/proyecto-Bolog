@@ -223,7 +223,19 @@ export async function initAbout() {
 
     setEl('about-politicas', l === 'en' ? data.politicas_en : data.politicas_es);
     setEl('about-tagline', l === 'en' ? data.tagline_en : data.tagline_es);
-    setEl('about-hist4', l === 'en' ? data.trayectoria_en : data.trayectoria_es);
+
+    // Auto-formatear trayectoria para mantener el estilo bold/celeste en la última línea
+    let trayText = l === 'en' ? data.trayectoria_en : data.trayectoria_es;
+    if (trayText) {
+      const parts = trayText.split('\\n');
+      if (parts.length > 1) {
+        const lastPart = parts.pop();
+        trayText = parts.join('<br/>') + '<br/><strong class="text-sky-400">' + lastPart + '</strong>';
+      } else {
+        trayText = trayText.replace(/\\n/g, '<br/>');
+      }
+      setEl('about-hist4', trayText);
+    }
 
   } catch (err) {
     console.warn('[About] Usando contenido estático por defecto:', err);

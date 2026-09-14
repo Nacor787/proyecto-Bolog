@@ -144,8 +144,8 @@ async function loadAboutForm() {
     const setVal = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
     setVal('about-tagline-es', d.tagline_es);
     setVal('about-tagline-en', d.tagline_en);
-    setVal('about-trayectoria-es', d.trayectoria_es || 'Hoy, con más de 20 años de trayectoria, no somos simplemente tu agente de carga:\n<strong class="text-sky-400">Somos el motor que impulsa tu logística global.</strong>');
-    setVal('about-trayectoria-en', d.trayectoria_en || 'Today, with more than 20 years of experience, we are not simply your freight forwarder:\n<strong class="text-sky-400">We are the engine that drives your global logistics.</strong>');
+    setVal('about-trayectoria-es', d.trayectoria_es || 'Hoy, con más de 20 años de trayectoria, no somos simplemente tu agente de carga:\nSomos el motor que impulsa tu logística global.');
+    setVal('about-trayectoria-en', d.trayectoria_en || 'Today, with more than 20 years of experience, we are not simply your freight forwarder:\nWe are the engine that drives your global logistics.');
     setVal('about-historia-es', d.historia_es);
     setVal('about-historia-en', d.historia_en);
     setVal('about-video-url', d.video_url);
