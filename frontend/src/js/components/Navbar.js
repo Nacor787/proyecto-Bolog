@@ -36,10 +36,10 @@ export const Navbar = `
     <!-- Main Navbar (Transparent initially) -->
     <nav id="main-nav" class="bg-transparent border-b border-transparent relative z-20 transition-all duration-300">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative flex lg:justify-center justify-center h-12 md:h-14 items-center">
+        <div class="relative flex justify-between items-center h-12 md:h-14 w-full">
 
           <!-- Logo a la izquierda -->
-          <div class="absolute left-0 flex items-center h-full pl-4 md:pl-0">
+          <div class="flex-1 flex items-center justify-start h-full pl-4 md:pl-0 min-w-[120px]">
             <a id="nav-logo" href="#" class="relative flex items-center group opacity-0 -translate-y-2 pointer-events-none transition-all duration-300">
               <!-- Glow desplazado a la izquierda -->
               <div class="absolute -left-4 w-16 h-8 bg-white/20 blur-[16px] rounded-full z-0 pointer-events-none transition-all duration-300 group-hover:bg-white/30"></div>
@@ -47,47 +47,51 @@ export const Navbar = `
             </a>
           </div>
 
-          <!-- Desktop Menu - Glassmorph Pill -->
-          <div class="hidden lg:flex items-center space-x-3 lg:space-x-4 px-5 py-2.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
-            <a href="#home" class="nav-link text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase">
-              <span data-i18n="nav.home">INICIO</span>
-            </a>
-            <a href="#coverage" class="nav-link text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase">
-              <span data-i18n="nav.coverage">COBERTURA</span>
-            </a>
-            <a href="#services" class="nav-link text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase">
-              <span data-i18n="nav.services">SERVICIOS</span>
-            </a>
-            <a href="#clients" class="nav-link text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase">
-              <span>CLIENTES</span>
-            </a>
-            <a href="#contact" class="nav-link text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase">
-              <span data-i18n="nav.contact">CONTACTO</span>
-            </a>
-            <a href="#location" class="nav-link text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase">
-              <span data-i18n="nav.location">UBICACIÓN</span>
-            </a>
-            <a href="#about" class="nav-link text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase">
-              <span data-i18n="nav.about">NOSOTROS</span>
-            </a>
-            <a href="#news/all" class="nav-link text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase">
-              <span>NOTICIAS</span>
-            </a>
-            <a href="#tracking" class="nav-link text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase">
-              <span>SEGUIMIENTO BLG</span>
-            </a>
-            <a id="nav-dashboard" href="#dashboard" class="hidden bg-brand-accent hover:bg-yellow-400 text-brand-dark px-4 py-1.5 text-xs font-bold transition-colors shadow uppercase tracking-widest">
-              Dashboard
-            </a>
+          <!-- Desktop Menu - Glassmorph Pill (Centro Absoluto) -->
+          <div class="hidden lg:flex flex-none justify-center items-center">
+            <div class="flex items-center lg:space-x-2 xl:space-x-4 px-3 xl:px-5 py-2.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
+              <a href="#home" class="nav-link text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
+                <span data-i18n="nav.home">INICIO</span>
+              </a>
+              <a href="#coverage" class="nav-link text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
+                <span data-i18n="nav.coverage">COBERTURA</span>
+              </a>
+              <a href="#services" class="nav-link text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
+                <span data-i18n="nav.services">SERVICIOS</span>
+              </a>
+              <a href="#clients" class="nav-link text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
+                <span>CLIENTES</span>
+              </a>
+              <a href="#contact" class="nav-link text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
+                <span data-i18n="nav.contact">CONTACTO</span>
+              </a>
+              <a href="#location" class="nav-link text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
+                <span data-i18n="nav.location">UBICACIÓN</span>
+              </a>
+              <a href="#about" class="nav-link text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
+                <span data-i18n="nav.about">NOSOTROS</span>
+              </a>
+              <a href="#news/all" class="nav-link text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
+                <span>NOTICIAS</span>
+              </a>
+              <a href="#tracking" class="nav-link text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
+                <span>SEGUIMIENTO BLG</span>
+              </a>
+              <a id="nav-dashboard" href="#dashboard" class="hidden bg-brand-accent hover:bg-yellow-400 text-brand-dark px-3 xl:px-4 py-1.5 text-[10px] xl:text-xs font-bold transition-colors shadow uppercase tracking-widest whitespace-nowrap">
+                Dashboard
+              </a>
+            </div>
           </div>
 
-          <!-- Mobile Menu Button (animated hamburger → X) -->
-          <div class="lg:hidden absolute right-4 top-1/2 -translate-y-1/2 flex items-center z-[100]">
-            <button id="mobile-menu-btn" aria-label="Toggle menu" class="relative text-white focus:outline-none bg-white/10 backdrop-blur-md p-2.5 rounded-xl border border-white/20 hover:bg-white/20 transition-all shadow-lg w-11 h-11 flex flex-col items-center justify-center gap-[5px]">
-              <span id="hb-top"    class="block h-[2.5px] w-6 bg-white rounded-full origin-center transition-all duration-300"></span>
-              <span id="hb-mid"    class="block h-[2.5px] w-6 bg-white rounded-full origin-center transition-all duration-300"></span>
-              <span id="hb-bot"    class="block h-[2.5px] w-6 bg-white rounded-full origin-center transition-all duration-300"></span>
-            </button>
+          <!-- Mobile Menu Button (Derecha Absoluta) -->
+          <div class="flex-1 flex justify-end items-center pr-4 md:pr-0 min-w-[120px]">
+            <div class="lg:hidden flex items-center z-[100]">
+              <button id="mobile-menu-btn" aria-label="Toggle menu" class="relative text-white focus:outline-none bg-white/10 backdrop-blur-md p-2.5 rounded-xl border border-white/20 hover:bg-white/20 transition-all shadow-lg w-11 h-11 flex flex-col items-center justify-center gap-[5px]">
+                <span id="hb-top"    class="block h-[2.5px] w-6 bg-white rounded-full origin-center transition-all duration-300"></span>
+                <span id="hb-mid"    class="block h-[2.5px] w-6 bg-white rounded-full origin-center transition-all duration-300"></span>
+                <span id="hb-bot"    class="block h-[2.5px] w-6 bg-white rounded-full origin-center transition-all duration-300"></span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

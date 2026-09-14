@@ -6,18 +6,6 @@ export const Footer = `
     <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-900/40 blur-[100px] rounded-full pointer-events-none z-0"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       
-      <!-- Insignias Empresariales -->
-      <div class="pb-12 mb-12 border-b border-white/10">
-        <h4 class="text-center text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-8" data-i18n="footer.certifications">Membresías y Certificaciones</h4>
-        <div class="flex flex-wrap justify-center items-center gap-10 md:gap-16">
-          ${CLOUDINARY_INSIGNE.map(item => `
-            <div class="group relative flex items-center justify-center">
-              <img src="${item.logo}" alt="${item.name}" class="h-16 md:h-20 lg:h-24 w-40 md:w-48 lg:w-56 object-contain bg-white p-2 md:p-3 rounded-xl opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 hover:scale-105" title="${item.name}" />
-            </div>
-          `).join('')}
-        </div>
-      </div>
-
       <div class="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-8 mb-12">
         <div class="col-span-1 md:col-span-2">
           <div class="font-black text-3xl tracking-tighter mb-5">
@@ -57,7 +45,7 @@ export const Footer = `
             <li><a href="#tracking" class="text-sm text-slate-400 hover:text-white transition-colors inline-block"><span data-i18n="footer.tracking">Seguimiento BLG</span></a></li>
           </ul>
         </div>
-        <div class="col-span-1 md:col-span-2">
+        <div class="col-span-1">
           <h4 class="text-white font-bold mb-5 uppercase tracking-widest text-xs" data-i18n="footer.contactTitle">Contáctanos</h4>
           <ul class="space-y-2 text-sm">
             <li class="flex items-start text-slate-400">
@@ -73,6 +61,17 @@ export const Footer = `
               <span>2 2147305 – 2 2147384 / 78897815</span>
             </li>
           </ul>
+        </div>
+        
+        <div class="col-span-1 flex flex-col items-center">
+          <h4 class="text-white font-bold mb-5 uppercase tracking-widest text-xs text-center" data-i18n="footer.certifications">Membresías</h4>
+          <div class="flex flex-col items-center gap-4">
+            ${CLOUDINARY_INSIGNE.map(item => `
+              <div class="group relative flex items-center justify-center h-12 w-28 bg-slate-200 border border-slate-300 hover:bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-500 hover:scale-105 p-2">
+                <img src="${item.logo}" alt="${item.name}" class="h-full w-full object-contain opacity-80 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" title="${item.name}" />
+              </div>
+            `).join('')}
+          </div>
         </div>
       </div>
       <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-center items-center text-xs text-slate-400 text-center w-full">
