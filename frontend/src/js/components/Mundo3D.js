@@ -425,13 +425,27 @@ window.filterGlobeRoutes = function(regionId, rutas = []) {
           globeRouteColor = 0x34d399; // verde mar claro
         }
 
-        addSingleRouteToGlobe({
-          start: [-17.7833, -63.1821], // Bolivia (Santa Cruz)
-          end: targetCoords,
-          type: globeRouteType,
-          color: globeRouteColor,
-          regions: [regionId === 'all' ? r.region : regionId]
-        });
+        const boliviaCoords = [-17.7833, -63.1821];
+        const dir = r.direccion_ruta || 'salida';
+
+        if (dir === 'salida' || dir === 'ambas') {
+          addSingleRouteToGlobe({
+            start: boliviaCoords,
+            end: targetCoords,
+            type: globeRouteType,
+            color: globeRouteColor,
+            regions: [regionId === 'all' ? r.region : regionId]
+          });
+        }
+        if (dir === 'llegada' || dir === 'ambas') {
+          addSingleRouteToGlobe({
+            start: targetCoords,
+            end: boliviaCoords,
+            type: globeRouteType,
+            color: globeRouteColor,
+            regions: [regionId === 'all' ? r.region : regionId]
+          });
+        }
       }
     });
   }

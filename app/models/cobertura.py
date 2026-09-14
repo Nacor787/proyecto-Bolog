@@ -20,6 +20,8 @@ class RutaCobertura(Base):
     # Coordenadas para el globo 3D (punto de destino, Bolivia es el origen)
     lat_destino = Column(Float, nullable=True)
     lng_destino = Column(Float, nullable=True)
+    mostrar_en_filtros = Column(Boolean, default=False)
+    direccion_ruta = Column(String, default="salida") # 'salida', 'llegada', 'ambas'
     activo = Column(Boolean, default=True)
     orden = Column(Integer, default=0)
     fecha_creacion = Column(DateTime, default=datetime.utcnow)

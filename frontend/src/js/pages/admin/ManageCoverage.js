@@ -75,9 +75,24 @@ export async function renderManageCoverage(container) {
                   </div>
                 </div>
 
-                <div class="flex items-center gap-3 pt-2">
-                  <input type="checkbox" id="route-activo" checked class="w-4 h-4 rounded bg-white/10 border border-white/20 text-sky-500">
-                  <label for="route-activo" class="text-sm font-medium text-slate-300">Activa (visible en el mapa)</label>
+                <div class="grid grid-cols-2 gap-4 pt-2">
+                  <div class="flex items-center gap-3">
+                    <input type="checkbox" id="route-activo" checked class="w-4 h-4 rounded bg-white/10 border border-white/20 text-sky-500">
+                    <label for="route-activo" class="text-sm font-medium text-slate-300">Activa</label>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <input type="checkbox" id="route-mostrar-filtros" class="w-4 h-4 rounded bg-white/10 border border-white/20 text-sky-500">
+                    <label for="route-mostrar-filtros" class="text-sm font-medium text-slate-300" title="Si se marca, se genera un botón de filtro para esta ruta.">Mostrar en Filtros</label>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5 mt-2">Dirección del Tráfico</label>
+                  <select id="route-direccion" class="w-full bg-white/10 border border-white/5 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-sky-400 transition-all">
+                    <option value="salida" class="bg-slate-800">Salida (Bolivia ➔ Mundo)</option>
+                    <option value="llegada" class="bg-slate-800">Llegada (Mundo ➔ Bolivia)</option>
+                    <option value="ambas" class="bg-slate-800">Ambas Direcciones (Ida y Vuelta)</option>
+                  </select>
                 </div>
               </div>
 
@@ -240,6 +255,8 @@ function fillModal(r = null) {
   document.getElementById('route-coords').value = (r && r.lat_destino !== null && r.lng_destino !== null) ? `${r.lat_destino}, ${r.lng_destino}` : '';
   document.getElementById('route-orden').value = r?.orden ?? 0;
   document.getElementById('route-activo').checked = r ? !!r.activo : true;
+  document.getElementById('route-mostrar-filtros').checked = r ? !!r.mostrar_en_filtros : false;
+  document.getElementById('route-direccion').value = r?.direccion_ruta || 'salida';
   document.getElementById('route-modal').classList.remove('hidden');
 }
 
@@ -298,6 +315,8 @@ function setupRouteEvents() {
       lng_destino,
       orden: parseInt(document.getElementById('route-orden').value) || 0,
       activo: document.getElementById('route-activo').checked,
+      mostrar_en_filtros: document.getElementById('route-mostrar-filtros').checked,
+      direccion_ruta: document.getElementById('route-direccion').value,
     };
     try {
       const method = id ? 'PUT' : 'POST';

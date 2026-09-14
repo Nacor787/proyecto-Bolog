@@ -16,6 +16,8 @@ class RutaCoberturaBase(BaseModel):
     frecuencia_en: Optional[str] = None
     lat_destino: Optional[float] = None
     lng_destino: Optional[float] = None
+    mostrar_en_filtros: bool = False
+    direccion_ruta: str = "salida"
     activo: bool = True
     orden: int = 0
 
@@ -36,6 +38,8 @@ class RutaCoberturaUpdate(BaseModel):
     frecuencia_en: Optional[str] = None
     lat_destino: Optional[float] = None
     lng_destino: Optional[float] = None
+    mostrar_en_filtros: Optional[bool] = None
+    direccion_ruta: Optional[str] = None
     activo: Optional[bool] = None
     orden: Optional[int] = None
 

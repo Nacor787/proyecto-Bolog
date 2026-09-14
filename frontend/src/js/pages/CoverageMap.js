@@ -132,8 +132,8 @@ function renderFilterButtons(rutas, activeRegion = 'all') {
   const filtersEl = document.getElementById('coverage-filters');
   if (!filtersEl) return;
 
-  // Obtener regiones únicas
-  const regions = ['all', ...new Set(rutas.map(r => r.region))];
+  // Obtener regiones únicas (solo aquellas rutas que tienen mostrar_en_filtros = true o undefined)
+  const regions = ['all', ...new Set(rutas.filter(r => r.mostrar_en_filtros !== false).map(r => r.region))];
   // Mapear region -> datos de la primera ruta de esa región (para label)
   const regionMap = { all: ALL_ROUTE };
   rutas.forEach(r => { regionMap[r.region] = r; });
