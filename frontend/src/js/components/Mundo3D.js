@@ -472,12 +472,23 @@ window.filterGlobeRoutes = function(regionId, rutas = []) {
     // Generar la ruta visual al vuelo si no existe para esta región
     const hasMesh = window.globeRouteMeshes.some(m => m.regions.includes(regionId));
     if (!hasMesh && typeof addSingleRouteToGlobe === 'function') {
-      const isSea = rutas[0].tipo_transporte_es && rutas[0].tipo_transporte_es.toLowerCase().includes('mar');
+      const transportStr = (rutas[0].tipo_transporte_es || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      let globeRouteType = 'air';
+      let globeRouteColor = 0x38bdf8; // azul cielo
+      
+      if (transportStr.includes('terrestre') || transportStr.includes('truck') || transportStr.includes('road')) {
+        globeRouteType = 'land';
+        globeRouteColor = 0x10b981; // emerald
+      } else if (transportStr.includes('mar') || transportStr.includes('sea') || transportStr.includes('ocean')) {
+        globeRouteType = 'sea';
+        globeRouteColor = 0x34d399; // verde mar claro
+      }
+
       addSingleRouteToGlobe({
         start: [-17.7833, -63.1821], // Bolivia (Santa Cruz)
         end: targetCoords,
-        type: isSea ? 'sea' : 'air',
-        color: isSea ? 0x34d399 : 0x38bdf8, // Verde mar o azul cielo
+        type: globeRouteType,
+        color: globeRouteColor,
         regions: [regionId]
       });
       // Asegurar que la nueva ruta sea visible de inmediato
