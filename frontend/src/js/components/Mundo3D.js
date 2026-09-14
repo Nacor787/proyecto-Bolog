@@ -274,108 +274,9 @@ function getSplineFromCoords(lat0, lng0, lat1, lng1, radius, isAir = true) {
 }
 
 function addRoutesToGlobe(globeMesh) {
-  window.globeRouteMeshes = []; // Reset on add
-  // Hubs Bolivia
-  const boliviaSCZ = [-17.7833, -63.1821]; // Santa Cruz (Air/Land)
-  const boliviaLPB = [-16.4897, -68.1193]; // La Paz (Air/Land)
-
-  // Puertos Marítimos (Lat, Lng)
-  const santos = [-23.9515, -46.3332]; // Brasil
-  const arica = [-18.4783, -70.3126];  // Chile
-  const iquique = [-20.2133, -70.1503]; // Chile
-  const callao = [-12.0566, -77.1181]; // Perú
-  const panama = [9.1438, -79.7315];   // Canal de Panamá
-  const manzanillo = [19.0531, -104.3161]; // México
-  const losAngelesSea = [33.7380, -118.2612]; // Long Beach/LA
-  const rotterdam = [51.9225, 4.4791]; // Países Bajos
-  const hamburg = [53.5511, 9.9937];   // Alemania
-  const algeciras = [36.1309, -5.4468]; // España
-  const shanghai = [31.2304, 121.4737]; // China
-  const shenzhen = [22.5431, 114.0579]; // China
-  const singapore = [1.2644, 103.8400]; // Singapur
-  const dubaiSea = [25.0113, 55.0560]; // Jebel Ali
-
-  // Hubs Aéreos (Lat, Lng)
-  const miami = [25.7617, -80.1918];
-  const newYork = [40.6413, -73.7781]; // JFK
-  const losAngelesAir = [33.9416, -118.4085]; // LAX
-  const houston = [29.9902, -95.3368]; // IAH
-  const bogota = [4.7110, -74.0721];
-  const saoPaulo = [-23.4345, -46.4693]; // GRU
-  const buenosAires = [-34.8222, -58.5358]; // EZE
-  const madrid = [40.4719, -3.5626]; // MAD
-  const frankfurt = [50.0379, 8.5622]; // FRA
-  const london = [51.4700, -0.4543]; // LHR
-  const dubaiAir = [25.2532, 55.3657]; // DXB
-  const tokyo = [35.5494, 139.7798]; // HND
-  const sydney = [-33.9399, 151.1753]; // SYD
-
-  const routes = [
-    // --- RUTAS TERRESTRES (Land: Conectan Bolivia con Puertos y Países Vecinos) ---
-    { start: boliviaSCZ, end: santos, type: 'land', color: 0xf59e0b, regions: [] },
-    { start: boliviaSCZ, end: buenosAires, type: 'land', color: 0xf59e0b, regions: [] },
-    { start: boliviaLPB, end: arica, type: 'land', color: 0xf59e0b, regions: [] },
-    { start: boliviaLPB, end: iquique, type: 'land', color: 0xf59e0b, regions: [] },
-    { start: boliviaLPB, end: callao, type: 'land', color: 0xf59e0b, regions: [] },
-
-    // --- RUTAS MARÍTIMAS (Sea: Conexiones Globales) ---
-    // Pacífico / Asia
-    { start: arica, end: callao, type: 'sea', color: 0x34d399, regions: [] },
-    { start: callao, end: panama, type: 'sea', color: 0x34d399, regions: ['na'] },
-    { start: panama, end: manzanillo, type: 'sea', color: 0x34d399, regions: ['na'] },
-    { start: manzanillo, end: losAngelesSea, type: 'sea', color: 0x34d399, regions: ['na'] },
-    { start: losAngelesSea, end: shanghai, type: 'sea', color: 0x34d399, regions: ['na', 'asia'] },
-    { start: arica, end: shanghai, type: 'sea', color: 0x34d399, regions: ['asia'] }, // Transpacífico directo
-    { start: shanghai, end: shenzhen, type: 'sea', color: 0x34d399, regions: ['asia'] },
-    { start: shenzhen, end: singapore, type: 'sea', color: 0x34d399, regions: ['asia'] },
-    { start: singapore, end: dubaiSea, type: 'sea', color: 0x34d399, regions: ['asia', 'eu'] },
-    
-    // Atlántico / Europa
-    { start: santos, end: panama, type: 'sea', color: 0x34d399, regions: ['na'] },
-    { start: santos, end: algeciras, type: 'sea', color: 0x34d399, regions: ['eu'] },
-    { start: algeciras, end: rotterdam, type: 'sea', color: 0x34d399, regions: ['eu'] },
-    { start: rotterdam, end: hamburg, type: 'sea', color: 0x34d399, regions: ['eu'] },
-    { start: panama, end: rotterdam, type: 'sea', color: 0x34d399, regions: ['na', 'eu'] },
-    { start: dubaiSea, end: algeciras, type: 'sea', color: 0x34d399, regions: ['eu'] }, 
-
-    // --- RUTAS AÉREAS (Air: Vuelos Hub a Hub) ---
-    // Desde Bolivia
-    { start: boliviaSCZ, end: miami, type: 'air', color: 0x38bdf8, regions: ['na'] },
-    { start: boliviaSCZ, end: madrid, type: 'air', color: 0x38bdf8, regions: ['eu'] },
-    { start: boliviaSCZ, end: bogota, type: 'air', color: 0x38bdf8, regions: [] },
-    { start: boliviaSCZ, end: saoPaulo, type: 'air', color: 0x38bdf8, regions: [] },
-    
-    // Conexiones Américas
-    { start: saoPaulo, end: miami, type: 'air', color: 0x38bdf8, regions: ['na'] },
-    { start: bogota, end: miami, type: 'air', color: 0x38bdf8, regions: ['na'] },
-    { start: miami, end: newYork, type: 'air', color: 0x38bdf8, regions: ['na'] },
-    { start: miami, end: houston, type: 'air', color: 0x38bdf8, regions: ['na'] },
-    { start: houston, end: losAngelesAir, type: 'air', color: 0x38bdf8, regions: ['na'] },
-    { start: newYork, end: losAngelesAir, type: 'air', color: 0x38bdf8, regions: ['na'] },
-
-    // Transatlánticas
-    { start: miami, end: madrid, type: 'air', color: 0x38bdf8, regions: ['na', 'eu'] },
-    { start: newYork, end: london, type: 'air', color: 0x38bdf8, regions: ['na', 'eu'] },
-    { start: newYork, end: frankfurt, type: 'air', color: 0x38bdf8, regions: ['na', 'eu'] },
-    { start: saoPaulo, end: frankfurt, type: 'air', color: 0x38bdf8, regions: ['eu'] },
-    { start: madrid, end: frankfurt, type: 'air', color: 0x38bdf8, regions: ['eu'] },
-    { start: london, end: frankfurt, type: 'air', color: 0x38bdf8, regions: ['eu'] },
-
-    // Europa - Medio Oriente - Asia - Oceanía
-    { start: madrid, end: dubaiAir, type: 'air', color: 0x38bdf8, regions: ['eu'] },
-    { start: frankfurt, end: dubaiAir, type: 'air', color: 0x38bdf8, regions: ['eu'] },
-    { start: london, end: dubaiAir, type: 'air', color: 0x38bdf8, regions: ['eu'] },
-    { start: dubaiAir, end: shanghai, type: 'air', color: 0x38bdf8, regions: ['eu', 'asia'] },
-    { start: dubaiAir, end: tokyo, type: 'air', color: 0x38bdf8, regions: ['eu', 'asia'] },
-    { start: dubaiAir, end: sydney, type: 'air', color: 0x38bdf8, regions: ['eu', 'asia'] },
-    { start: losAngelesAir, end: tokyo, type: 'air', color: 0x38bdf8, regions: ['na', 'asia'] },
-    { start: losAngelesAir, end: sydney, type: 'air', color: 0x38bdf8, regions: ['na', 'asia'] },
-    { start: tokyo, end: shanghai, type: 'air', color: 0x38bdf8, regions: ['asia'] },
-  ];
-
-  routes.forEach(route => {
-    addSingleRouteToGlobe(route, globeMesh);
-  });
+  window.globeRouteMeshes = [];
+  // Las rutas estáticas han sido eliminadas. 
+  // Ahora el globo se construye 100% desde la Base de Datos al llamar a filterGlobeRoutes.
 }
 
 function addSingleRouteToGlobe(route, targetGlobe = globe) {
@@ -441,62 +342,73 @@ function addSingleRouteToGlobe(route, targetGlobe = globe) {
 window.targetCameraPos = null;
 
 window.filterGlobeRoutes = function(regionId, rutas = []) {
-  if (!window.globeRouteMeshes) return;
+  if (!window.globeRouteMeshes) window.globeRouteMeshes = [];
+
+  // Limpiar rutas y marcadores anteriores
   window.globeRouteMeshes.forEach(item => {
-    const isVisible = regionId === 'all' || item.regions.includes(regionId);
-    item.line.visible = isVisible;
-    item.sprite.visible = isVisible;
+    if (globe) {
+      globe.remove(item.line);
+      globe.remove(item.sprite);
+    }
+    if (item.line.geometry) item.line.geometry.dispose();
+    if (item.line.material) item.line.material.dispose();
+    if (item.sprite.material) item.sprite.material.dispose();
   });
+  window.globeRouteMeshes = [];
+  vehicles.length = 0;
   
   if (window.globeMarkerMeshes) {
     window.globeMarkerMeshes.forEach(item => {
-      const isVisible = regionId === 'all' || item.regions.includes(regionId) || item.isBolivia;
-      item.mesh.visible = isVisible;
+      if (!item.isBolivia) {
+        if (globe) globe.remove(item.mesh);
+        if (item.mesh.geometry) item.mesh.geometry.dispose();
+        if (item.mesh.material) item.mesh.material.dispose();
+      }
+    });
+    window.globeMarkerMeshes = window.globeMarkerMeshes.filter(m => m.isBolivia);
+  }
+
+  // Dibujar exactamente lo que viene de la base de datos
+  if (rutas && rutas.length > 0) {
+    rutas.forEach(r => {
+      if (r.lat_destino !== null && r.lng_destino !== null) {
+        const targetCoords = [parseFloat(r.lat_destino), parseFloat(r.lng_destino)];
+        const transportStr = (r.tipo_transporte_es || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        let globeRouteType = 'air';
+        let globeRouteColor = 0x38bdf8; // azul cielo
+        
+        if (transportStr.includes('terrestre') || transportStr.includes('truck') || transportStr.includes('road')) {
+          globeRouteType = 'land';
+          globeRouteColor = 0x10b981; // emerald
+        } else if (transportStr.includes('mar') || transportStr.includes('sea') || transportStr.includes('ocean')) {
+          globeRouteType = 'sea';
+          globeRouteColor = 0x34d399; // verde mar claro
+        }
+
+        addSingleRouteToGlobe({
+          start: [-17.7833, -63.1821], // Bolivia (Santa Cruz)
+          end: targetCoords,
+          type: globeRouteType,
+          color: globeRouteColor,
+          regions: [regionId === 'all' ? r.region : regionId]
+        });
+      }
     });
   }
 
   // Fly to region
   const regionsTarget = {
-    'na': [30, -95],     // Norteamérica (Miami/Houston/LA)
+    'na': [30, -95],     // Norteamérica
     'eu': [45, 10],      // Europa
-    'asia': [25, 115],   // Asia (China/Singapur)
+    'asia': [25, 115],   // Asia
     'all': [-17, -63]    // Bolivia
   };
 
   let targetCoords = null;
-
-  // Priorizar las coordenadas dinámicas provenientes de la base de datos
+  // Priorizar las coordenadas de la base de datos para el enfoque de la cámara
   if (rutas && rutas.length > 0 && rutas[0].lat_destino !== null && rutas[0].lng_destino !== null) {
     targetCoords = [parseFloat(rutas[0].lat_destino), parseFloat(rutas[0].lng_destino)];
-    
-    // Generar la ruta visual al vuelo si no existe para esta región
-    const hasMesh = window.globeRouteMeshes.some(m => m.regions.includes(regionId));
-    if (!hasMesh && typeof addSingleRouteToGlobe === 'function') {
-      const transportStr = (rutas[0].tipo_transporte_es || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      let globeRouteType = 'air';
-      let globeRouteColor = 0x38bdf8; // azul cielo
-      
-      if (transportStr.includes('terrestre') || transportStr.includes('truck') || transportStr.includes('road')) {
-        globeRouteType = 'land';
-        globeRouteColor = 0x10b981; // emerald
-      } else if (transportStr.includes('mar') || transportStr.includes('sea') || transportStr.includes('ocean')) {
-        globeRouteType = 'sea';
-        globeRouteColor = 0x34d399; // verde mar claro
-      }
-
-      addSingleRouteToGlobe({
-        start: [-17.7833, -63.1821], // Bolivia (Santa Cruz)
-        end: targetCoords,
-        type: globeRouteType,
-        color: globeRouteColor,
-        regions: [regionId]
-      });
-      // Asegurar que la nueva ruta sea visible de inmediato
-      window.globeRouteMeshes[window.globeRouteMeshes.length - 1].line.visible = true;
-      window.globeRouteMeshes[window.globeRouteMeshes.length - 1].sprite.visible = true;
-    }
   } else {
-    // Fallback a las coordenadas quemadas o a Bolivia por defecto
     targetCoords = regionsTarget[regionId] || [-17, -63];
   }
 

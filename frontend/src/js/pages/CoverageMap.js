@@ -211,6 +211,7 @@ export async function initCoverageMap() {
   // Siempre tiene al menos el "all" virtual
   renderFilterButtons(allRutas, currentRegionId);
   updateInfoPanel(ALL_ROUTE);
+  if (window.filterGlobeRoutes) window.filterGlobeRoutes('all', allRutas);
 
   if (window.i18next && !window.coverageLangListenerAdded) {
     window.i18next.on('languageChanged', () => {
@@ -236,7 +237,7 @@ export async function initCoverageMap() {
     // Determinar qué datos mostrar en el panel
     if (regionId === 'all') {
       updateInfoPanel(ALL_ROUTE);
-      if (window.filterGlobeRoutes) window.filterGlobeRoutes('all');
+      if (window.filterGlobeRoutes) window.filterGlobeRoutes('all', allRutas);
     } else {
       const rutasDeRegion = allRutas.filter(r => r.region === regionId);
       if (rutasDeRegion.length) {
