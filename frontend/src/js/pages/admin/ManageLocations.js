@@ -5,7 +5,7 @@ import { showAlert, showConfirm } from '../../components/UI.js';
 export async function renderManageLocations(container) {
   container.innerHTML = `
     <header class="glass-card-admin h-auto min-h-16 flex items-center justify-between px-6 py-3 gap-3">
-
+      <h1 class="hidden md:block text-xl font-heading font-black text-white">Gestión de Ubicaciones</h1>
       <button id="btn-add-location" class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-sm font-bold rounded-xl transition-all shadow-lg">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
         Nueva Ubicación

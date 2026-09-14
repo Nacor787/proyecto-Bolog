@@ -383,8 +383,8 @@ function renderNewsView(container) {
   resetNewsEditor(); // Reset editor instance since DOM is being recreated
   container.innerHTML = `
     <header data-aos="fade-down" data-aos-duration="500" class="glass-card-admin h-auto min-h-16 flex flex-col sm:flex-row items-start sm:items-center justify-between px-6 py-3 gap-3">
+      <h1 class="hidden md:block text-xl font-heading font-black text-white">Gestión de Noticias</h1>
 
-      
       <div class="flex items-center gap-2 flex-wrap">
         <button id="btn-tab-news" onclick="switchNewsTab('news')" class="news-tab-btn px-4 py-2 rounded-lg text-sm font-bold transition-all bg-primary-600 text-white shadow">Noticias</button>
         <button id="btn-tab-cats" onclick="switchNewsTab('cats')" class="news-tab-btn px-4 py-2 rounded-lg text-sm font-bold transition-all bg-white/10 text-white hover:bg-white/10">Categorías</button>
@@ -649,8 +649,8 @@ if (!window.hasNewsSubmitListener) {
 function renderUsersView(container) {
   container.innerHTML = `
     <header data-aos="fade-down" data-aos-duration="500" class="glass-card-admin h-auto min-h-16 flex flex-col sm:flex-row items-start sm:items-center justify-between px-6 py-3 gap-3">
+      <h1 class="hidden md:block text-xl font-heading font-black text-white">Gestión de Usuarios</h1>
 
-      
       <div class="flex items-center gap-2 flex-wrap">
         <button id="btn-tab-users" onclick="switchUsersTab('users')" class="px-4 py-2 rounded-lg text-sm font-bold transition-all bg-primary-600 text-white shadow">Usuarios</button>
         <button id="btn-tab-roles" onclick="switchUsersTab('roles')" class="px-4 py-2 rounded-lg text-sm font-bold transition-all bg-white/10 text-white hover:bg-white/10">Tipos de Usuario</button>
