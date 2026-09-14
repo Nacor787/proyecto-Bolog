@@ -100,13 +100,23 @@ export async function renderManageCoverage(container) {
                 <div class="grid grid-cols-2 gap-4">
                   <div>
                     <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Tipo de Transporte (ES)</label>
-                    <input type="text" id="route-tipo-es" class="w-full bg-white/10 border border-white/5 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-sky-400 transition-all placeholder-white/40" placeholder="Marítimo FCL/LCL">
-                    <p class="text-[10px] text-slate-500 mt-1">Iconos auto: Aéreo, Terrestre, Marítimo</p>
+                    <select id="route-tipo-es" class="w-full bg-white/10 border border-white/5 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-sky-400 transition-all">
+                      <option value="" class="bg-slate-800">Seleccionar...</option>
+                      <option value="Aéreo" class="bg-slate-800">Aéreo</option>
+                      <option value="Terrestre" class="bg-slate-800">Terrestre</option>
+                      <option value="Marítimo" class="bg-slate-800">Marítimo</option>
+                      <option value="Multimodal" class="bg-slate-800">Multimodal</option>
+                    </select>
                   </div>
                   <div>
                     <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Tipo de Transporte (EN)</label>
-                    <input type="text" id="route-tipo-en" class="w-full bg-white/10 border border-white/5 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-sky-400 transition-all placeholder-white/40" placeholder="Maritime FCL/LCL">
-                    <p class="text-[10px] text-slate-500 mt-1">Auto icons: Air, Truck, Road, Sea, Ocean</p>
+                    <select id="route-tipo-en" class="w-full bg-white/10 border border-white/5 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-sky-400 transition-all">
+                      <option value="" class="bg-slate-800">Select...</option>
+                      <option value="Air" class="bg-slate-800">Air</option>
+                      <option value="Truck" class="bg-slate-800">Truck</option>
+                      <option value="Sea" class="bg-slate-800">Sea</option>
+                      <option value="Multimodal" class="bg-slate-800">Multimodal</option>
+                    </select>
                   </div>
                 </div>
 
@@ -233,6 +243,17 @@ function setupRouteEvents() {
   document.getElementById('btn-add-route')?.addEventListener('click', () => fillModal());
   document.getElementById('close-route-modal')?.addEventListener('click', closeModal);
   document.getElementById('cancel-route-btn')?.addEventListener('click', closeModal);
+
+  document.getElementById('route-tipo-es')?.addEventListener('change', (e) => {
+    const val = e.target.value;
+    const enSelect = document.getElementById('route-tipo-en');
+    if (!enSelect) return;
+    if (val === 'Aéreo') enSelect.value = 'Air';
+    else if (val === 'Terrestre') enSelect.value = 'Truck';
+    else if (val === 'Marítimo') enSelect.value = 'Sea';
+    else if (val === 'Multimodal') enSelect.value = 'Multimodal';
+    else enSelect.value = '';
+  });
 
   document.getElementById('route-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
