@@ -70,7 +70,7 @@ export const About = `
           </div>
           
           <div class="mt-12 text-center">
-            <p class="font-extrabold text-xl md:text-2xl text-white mb-8 whitespace-pre-line">Hoy, con más de 20 años de trayectoria, no somos simplemente tu agente de carga:<br/><strong id="about-hist4" class="text-sky-400" data-i18n="about.hist4">Somos el motor que impulsa tu logística global.</strong></p>
+            <p id="about-hist4" class="font-extrabold text-xl md:text-2xl text-white mb-8 whitespace-pre-line" data-i18n="about.hist4"></p>
             ${Stats}
           </div>
         </div>
