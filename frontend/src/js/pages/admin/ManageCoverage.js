@@ -101,10 +101,12 @@ export async function renderManageCoverage(container) {
                   <div>
                     <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Tipo de Transporte (ES)</label>
                     <input type="text" id="route-tipo-es" class="w-full bg-white/10 border border-white/5 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-sky-400 transition-all placeholder-white/40" placeholder="Marítimo FCL/LCL">
+                    <p class="text-[10px] text-slate-500 mt-1">Iconos auto: Aéreo, Terrestre, Marítimo</p>
                   </div>
                   <div>
                     <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Tipo de Transporte (EN)</label>
                     <input type="text" id="route-tipo-en" class="w-full bg-white/10 border border-white/5 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-sky-400 transition-all placeholder-white/40" placeholder="Maritime FCL/LCL">
+                    <p class="text-[10px] text-slate-500 mt-1">Auto icons: Air, Truck, Trunk, Road, Sea, Ocean</p>
                   </div>
                 </div>
 
@@ -155,13 +157,13 @@ export async function renderManageCoverage(container) {
   setupRouteEvents();
 }
 
-const getTransportIcon = (type = '') => {
-  const t = type.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+const getTransportIcon = (type) => {
+  const t = (type || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   if (t.includes('aereo') || t.includes('air')) {
     return `<svg class="inline-block w-4 h-4 mr-0.5 align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>`;
-  } else if (t.includes('terrestre') || t.includes('truck') || t.includes('road')) {
+  } else if (t.includes('terrestre') || t.includes('truck') || t.includes('trunk') || t.includes('road')) {
     return `<svg class="inline-block w-4 h-4 mr-0.5 align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path></svg>`;
-  } else if (t.includes('maritimo') || t.includes('sea') || t.includes('ocean')) {
+  } else if (t.includes('maritimo') || t.includes('sea') || t.includes('ocean') || t.includes('mar')) {
     return `<svg class="inline-block w-4 h-4 mr-0.5 align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10V8a8 8 0 0116 0v2m-8-2v12m0 0a2 2 0 110-4 2 2 0 010 4zm0 0H8m4 0h4"></path></svg>`;
   }
   return `<svg class="inline-block w-4 h-4 mr-0.5 align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>`;
