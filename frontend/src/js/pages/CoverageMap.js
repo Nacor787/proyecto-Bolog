@@ -162,14 +162,27 @@ function renderFilterButtons(rutas, activeRegion = 'all') {
 
 const getTransportIcon = (type) => {
   const t = (type || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  if (t.includes('aereo') || t.includes('air')) {
-    return `<svg class="inline-block w-3.5 h-3.5 mr-1 align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>`;
+  
+  const planeSvg = `<svg class="inline-block w-4 h-4 mr-0.5 align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>`;
+  const truckSvg = `<svg class="inline-block w-4 h-4 mr-0.5 align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path></svg>`;
+  const shipSvg = `<svg class="inline-block w-4 h-4 mr-0.5 align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10V8a8 8 0 0116 0v2m-8-2v12m0 0a2 2 0 110-4 2 2 0 010 4zm0 0H8m4 0h4"></path></svg>`;
+  
+  if (t.includes('multimodal')) {
+    return planeSvg + truckSvg + shipSvg;
+  } else if ((t.includes('mar') || t.includes('sea')) && (t.includes('aereo') || t.includes('air'))) {
+    return shipSvg + planeSvg;
+  } else if ((t.includes('terrestre') || t.includes('truck') || t.includes('road')) && (t.includes('aereo') || t.includes('air'))) {
+    return truckSvg + planeSvg;
+  } else if ((t.includes('mar') || t.includes('sea')) && (t.includes('terrestre') || t.includes('truck') || t.includes('road'))) {
+    return shipSvg + truckSvg;
+  } else if (t.includes('aereo') || t.includes('air')) {
+    return planeSvg;
   } else if (t.includes('terrestre') || t.includes('truck') || t.includes('road')) {
-    return `<svg class="inline-block w-3.5 h-3.5 mr-1 align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path></svg>`;
+    return truckSvg;
   } else if (t.includes('maritimo') || t.includes('sea') || t.includes('ocean') || t.includes('mar')) {
-    return `<svg class="inline-block w-3.5 h-3.5 mr-1 align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10V8a8 8 0 0116 0v2m-8-2v12m0 0a2 2 0 110-4 2 2 0 010 4zm0 0H8m4 0h4"></path></svg>`;
+    return shipSvg;
   }
-  return `<svg class="inline-block w-3.5 h-3.5 mr-1 align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>`;
+  return `<svg class="inline-block w-4 h-4 mr-0.5 align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>`;
 };
 
 function updateInfoPanel(ruta) {
@@ -212,6 +225,14 @@ export async function initCoverageMap() {
   renderFilterButtons(allRutas, currentRegionId);
   updateInfoPanel(ALL_ROUTE);
   if (window.filterGlobeRoutes) window.filterGlobeRoutes('all', allRutas);
+
+  // Re-dibujar cuando el globo termine de cargar asíncronamente
+  window.addEventListener('globe-ready', () => {
+    if (window.filterGlobeRoutes) {
+      const rutasDeRegion = currentRegionId === 'all' ? allRutas : allRutas.filter(r => r.region === currentRegionId);
+      window.filterGlobeRoutes(currentRegionId, rutasDeRegion);
+    }
+  });
 
   if (window.i18next && !window.coverageLangListenerAdded) {
     window.i18next.on('languageChanged', () => {

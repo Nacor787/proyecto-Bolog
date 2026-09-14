@@ -219,6 +219,9 @@ export function initMundo3D() {
 
   // Connect UI zoom buttons initially
   window.setupGlobeZoomButtons();
+  
+  // Avisar que el globo ya está instanciado y listo para recibir rutas
+  window.dispatchEvent(new Event('globe-ready'));
 
   // (Parallax eliminado para no interferir con OrbitControls)
   } catch (err) {
@@ -283,7 +286,14 @@ function addSingleRouteToGlobe(route, targetGlobe = globe) {
   if (!targetGlobe) return;
   const isAir = route.type === 'air';
   const isLand = route.type === 'land';
-  const curve = getSplineFromCoords(route.start[0], route.start[1], route.end[0], route.end[1], 1.01, isAir);
+  const isMultimodal = route.type === 'multimodal';
+  const isSeaAir = route.type === 'sea_air';
+  const isTruckAir = route.type === 'truck_air';
+  const isSeaTruck = route.type === 'sea_truck';
+  
+  const useAirCurve = isAir || isMultimodal || isSeaAir || isTruckAir;
+
+  const curve = getSplineFromCoords(route.start[0], route.start[1], route.end[0], route.end[1], 1.01, useAirCurve);
   
   const points = curve.getPoints(50);
   const geometry = new THREE.BufferGeometry().setFromPoints(points);
@@ -291,8 +301,8 @@ function addSingleRouteToGlobe(route, targetGlobe = globe) {
     color: route.color,
     linewidth: 1,
     scale: 1,
-    dashSize: isAir ? 0.05 : 0.03,
-    gapSize: isAir ? 0.04 : 0.02,
+    dashSize: useAirCurve ? 0.05 : 0.03,
+    gapSize: useAirCurve ? 0.04 : 0.02,
     transparent: true,
     opacity: 0.6
   });
@@ -301,37 +311,55 @@ function addSingleRouteToGlobe(route, targetGlobe = globe) {
   line.computeLineDistances();
   targetGlobe.add(line);
 
-  let activeTexture = shipTexture;
-  if (isAir) activeTexture = planeTexture;
-  if (isLand) activeTexture = truckTexture;
+  const createVehicle = (tex, speed, isA, isL, offset) => {
+    const spriteMaterial = new THREE.SpriteMaterial({
+      map: tex,
+      transparent: true,
+      opacity: 0.9,
+      color: 0xffffff
+    });
+    
+    const sprite = new THREE.Sprite(spriteMaterial);
+    const spriteSize = isA ? 0.08 : 0.06;
+    sprite.scale.set(spriteSize, spriteSize, 1);
+    
+    targetGlobe.add(sprite);
 
-  const spriteMaterial = new THREE.SpriteMaterial({
-    map: activeTexture,
-    transparent: true,
-    opacity: 0.9,
-    color: 0xffffff
-  });
-  
-  const sprite = new THREE.Sprite(spriteMaterial);
-  const spriteSize = isAir ? 0.08 : 0.06;
-  sprite.scale.set(spriteSize, spriteSize, 1);
-  
-  targetGlobe.add(sprite);
+    vehicles.push({
+      sprite,
+      curve,
+      progress: (Math.random() + offset) % 1.0,
+      speed: speed,
+      isAir: isA,
+      isLand: isL
+    });
 
-  vehicles.push({
-    sprite,
-    curve,
-    progress: Math.random(),
-    speed: isAir ? 0.15 : 0.08,
-    isAir,
-    isLand
-  });
+    window.globeRouteMeshes.push({
+      line,
+      sprite,
+      regions: route.regions || []
+    });
+  };
 
-  window.globeRouteMeshes.push({
-    line,
-    sprite,
-    regions: route.regions || []
-  });
+  if (isMultimodal) {
+    createVehicle(planeTexture, 0.15, true, false, 0);
+    createVehicle(truckTexture, 0.10, false, true, 0.33);
+    createVehicle(shipTexture, 0.07, false, false, 0.66);
+  } else if (isSeaAir) {
+    createVehicle(planeTexture, 0.15, true, false, 0);
+    createVehicle(shipTexture, 0.07, false, false, 0.5);
+  } else if (isTruckAir) {
+    createVehicle(planeTexture, 0.15, true, false, 0);
+    createVehicle(truckTexture, 0.10, false, true, 0.5);
+  } else if (isSeaTruck) {
+    createVehicle(truckTexture, 0.10, false, true, 0);
+    createVehicle(shipTexture, 0.07, false, false, 0.5);
+  } else {
+    let activeTexture = shipTexture;
+    if (isAir) activeTexture = planeTexture;
+    if (isLand) activeTexture = truckTexture;
+    createVehicle(activeTexture, isAir ? 0.15 : 0.08, isAir, isLand, 0);
+  }
 
   addMarker(targetGlobe, route.start[0], route.start[1], route.color, route.regions || []);
   addMarker(targetGlobe, route.end[0], route.end[1], route.color, route.regions || []);
@@ -377,7 +405,19 @@ window.filterGlobeRoutes = function(regionId, rutas = []) {
         let globeRouteType = 'air';
         let globeRouteColor = 0x38bdf8; // azul cielo
         
-        if (transportStr.includes('terrestre') || transportStr.includes('truck') || transportStr.includes('road')) {
+        if (transportStr.includes('multimodal')) {
+          globeRouteType = 'multimodal';
+          globeRouteColor = 0xa855f7; // purple-500
+        } else if ((transportStr.includes('mar') || transportStr.includes('sea')) && (transportStr.includes('aereo') || transportStr.includes('air'))) {
+          globeRouteType = 'sea_air';
+          globeRouteColor = 0x8b5cf6; // violet
+        } else if ((transportStr.includes('terrestre') || transportStr.includes('truck') || transportStr.includes('road')) && (transportStr.includes('aereo') || transportStr.includes('air'))) {
+          globeRouteType = 'truck_air';
+          globeRouteColor = 0x6366f1; // indigo
+        } else if ((transportStr.includes('mar') || transportStr.includes('sea')) && (transportStr.includes('terrestre') || transportStr.includes('truck') || transportStr.includes('road'))) {
+          globeRouteType = 'sea_truck';
+          globeRouteColor = 0x0ea5e9; // sky
+        } else if (transportStr.includes('terrestre') || transportStr.includes('truck') || transportStr.includes('road')) {
           globeRouteType = 'land';
           globeRouteColor = 0x10b981; // emerald
         } else if (transportStr.includes('mar') || transportStr.includes('sea') || transportStr.includes('ocean')) {
@@ -405,8 +445,11 @@ window.filterGlobeRoutes = function(regionId, rutas = []) {
   };
 
   let targetCoords = null;
-  // Priorizar las coordenadas de la base de datos para el enfoque de la cámara
-  if (rutas && rutas.length > 0 && rutas[0].lat_destino !== null && rutas[0].lng_destino !== null) {
+  // Si es la vista global ('all'), enfocar siempre a Bolivia.
+  // Sino, priorizar las coordenadas de la base de datos de la región.
+  if (regionId === 'all') {
+    targetCoords = [-17, -63]; // Bolivia
+  } else if (rutas && rutas.length > 0 && rutas[0].lat_destino !== null && rutas[0].lng_destino !== null) {
     targetCoords = [parseFloat(rutas[0].lat_destino), parseFloat(rutas[0].lng_destino)];
   } else {
     targetCoords = regionsTarget[regionId] || [-17, -63];

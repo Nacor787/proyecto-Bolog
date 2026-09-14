@@ -2,8 +2,10 @@
 import { fetchWithAuth } from '../../utils/api.js';
 import { showAlert, showConfirm } from '../../components/UI.js';
 
+const globeSvg = `<svg class="w-6 h-6 text-sky-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+
 const REGION_ICONS = {
-  asia: '🌏', eu: '🌍', na: '🌎', sa: '🌎', africa: '🌍', oceania: '🌏', me: '🌍'
+  asia: globeSvg, eu: globeSvg, na: globeSvg, sa: globeSvg, africa: globeSvg, oceania: globeSvg, me: globeSvg
 };
 
 export async function renderManageCoverage(container) {
@@ -105,7 +107,10 @@ export async function renderManageCoverage(container) {
                       <option value="Aéreo" class="bg-slate-800">Aéreo</option>
                       <option value="Terrestre" class="bg-slate-800">Terrestre</option>
                       <option value="Marítimo" class="bg-slate-800">Marítimo</option>
-                      <option value="Multimodal" class="bg-slate-800">Multimodal</option>
+                      <option value="Marítimo/Aéreo" class="bg-slate-800">Marítimo/Aéreo</option>
+                      <option value="Terrestre/Aéreo" class="bg-slate-800">Terrestre/Aéreo</option>
+                      <option value="Marítimo/Terrestre" class="bg-slate-800">Marítimo/Terrestre</option>
+                      <option value="Multimodal" class="bg-slate-800">Multimodal (Todos)</option>
                     </select>
                   </div>
                   <div>
@@ -115,7 +120,10 @@ export async function renderManageCoverage(container) {
                       <option value="Air" class="bg-slate-800">Air</option>
                       <option value="Truck" class="bg-slate-800">Truck</option>
                       <option value="Sea" class="bg-slate-800">Sea</option>
-                      <option value="Multimodal" class="bg-slate-800">Multimodal</option>
+                      <option value="Sea/Air" class="bg-slate-800">Sea/Air</option>
+                      <option value="Truck/Air" class="bg-slate-800">Truck/Air</option>
+                      <option value="Sea/Truck" class="bg-slate-800">Sea/Truck</option>
+                      <option value="Multimodal" class="bg-slate-800">Multimodal (All)</option>
                     </select>
                   </div>
                 </div>
@@ -193,7 +201,7 @@ async function loadRoutes() {
     list.innerHTML = rutas.map(r => `
       <div class="glass-card-admin rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3" data-route-id="${r.id}">
         <div class="flex items-center gap-3">
-          <span class="text-2xl">${REGION_ICONS[r.region] || '🌐'}</span>
+          ${REGION_ICONS[r.region] || globeSvg}
           <div>
             <div class="flex items-center gap-2">
               <h4 class="text-sm font-bold text-white">${r.titulo_es}</h4>
@@ -251,6 +259,9 @@ function setupRouteEvents() {
     if (val === 'Aéreo') enSelect.value = 'Air';
     else if (val === 'Terrestre') enSelect.value = 'Truck';
     else if (val === 'Marítimo') enSelect.value = 'Sea';
+    else if (val === 'Marítimo/Aéreo') enSelect.value = 'Sea/Air';
+    else if (val === 'Terrestre/Aéreo') enSelect.value = 'Truck/Air';
+    else if (val === 'Marítimo/Terrestre') enSelect.value = 'Sea/Truck';
     else if (val === 'Multimodal') enSelect.value = 'Multimodal';
     else enSelect.value = '';
   });
