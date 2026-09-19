@@ -202,13 +202,24 @@ function resetTurnstile() {
 
 // ── Carga del script de Turnstile (una sola vez) ──────────────────────────────
 function loadTurnstileScript() {
-  if (document.getElementById('cf-turnstile-script')) return;
-  const s = document.createElement('script');
-  s.id  = 'cf-turnstile-script';
-  s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
-  s.async = true;
-  s.defer = true;
-  document.head.appendChild(s);
+  if (!document.getElementById('cf-turnstile-script')) {
+    const s = document.createElement('script');
+    s.id  = 'cf-turnstile-script';
+    s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+    s.async = true;
+    s.defer = true;
+    document.head.appendChild(s);
+  } else if (window.turnstile) {
+    setTimeout(() => {
+      document.querySelectorAll('#turnstile-container').forEach(el => {
+        if (!el.hasChildNodes()) {
+          window.turnstile.render(el);
+        } else {
+          window.turnstile.reset(el);
+        }
+      });
+    }, 100);
+  }
 }
 
 // ── Lógica de búsqueda ────────────────────────────────────────────────────────
@@ -356,9 +367,10 @@ export function initTracking() {
 
   if (!btn || !input) return;
 
-  const search = () => doSearch(
-    input.value.trim(), btn, input, area, loading, dataView, iframeWrapper, iframeEl, rateMsgEl, cooldownEl
-  );
+  const search = () => {
+    if (btn.disabled) return; // Prevent spam if already searching or in cooldown
+    doSearch(input.value.trim(), btn, input, area, loading, dataView, iframeWrapper, iframeEl, rateMsgEl, cooldownEl);
+  };
 
   btn.addEventListener('click', search);
 
