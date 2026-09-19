@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 // Clave pública del sitio (Cloudflare Turnstile - site key)
-const TURNSTILE_SITE_KEY = '0x4AAAAAAEus0lx4TY32QfMWUdyYpnBjq6s';
+const TURNSTILE_SITE_KEY = '0x4AAAAAAEus0m6ijYSpZUVl';
 
 export const TrackingPage = `
   <section id="tracking-page" class="min-h-screen pt-40 pb-20 bg-transparent text-white font-sans relative overflow-hidden">
