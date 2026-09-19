@@ -3,6 +3,9 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
+// Clave pública del sitio (Cloudflare Turnstile - site key)
+const TURNSTILE_SITE_KEY = '0x4AAAAAAEus0lx4TY32QfMWUdyYpnBjq6s';
+
 export const TrackingPage = `
   <section id="tracking-page" class="min-h-screen pt-40 pb-20 bg-transparent text-white font-sans relative overflow-hidden">
 
@@ -50,10 +53,21 @@ export const TrackingPage = `
               <div class="flex flex-col sm:flex-row gap-3">
                 <input type="text" id="tracking-input" placeholder="Ej. BLG-123456" data-i18n-placeholder="trackingPage.inputPlaceholder"
                   class="flex-1 bg-white/10 border border-white/20 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all placeholder-white/50 font-mono text-lg" />
-                <button id="tracking-btn" class="bg-primary-600 hover:bg-primary-500 text-white font-bold py-3 px-8 rounded-lg shadow-[0_0_15px_rgba(6,182,212,0.4)] hover:shadow-[0_0_25px_rgba(6,182,212,0.6)] transition-all flex items-center justify-center gap-2">
+                <button id="tracking-btn" class="bg-primary-600 hover:bg-primary-500 text-white font-bold py-3 px-8 rounded-lg shadow-[0_0_15px_rgba(6,182,212,0.4)] hover:shadow-[0_0_25px_rgba(6,182,212,0.6)] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                  <span data-i18n="trackingPage.searchBtn">BUSCAR</span>
+                  <span id="tracking-btn-text" data-i18n="trackingPage.searchBtn">BUSCAR</span>
                 </button>
+              </div>
+
+              <!-- Cloudflare Turnstile CAPTCHA -->
+              <div class="mt-4">
+                <div id="turnstile-container" class="cf-turnstile" data-sitekey="${TURNSTILE_SITE_KEY}" data-theme="dark" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired"></div>
+              </div>
+
+              <!-- Rate-limit feedback -->
+              <div id="rate-limit-msg" class="hidden mt-3 flex items-center gap-2 text-amber-400 text-sm font-semibold">
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span id="rate-limit-text">Demasiados intentos. Espera <span id="rate-cooldown">60</span>s.</span>
               </div>
             </div>
           </div>
@@ -90,6 +104,7 @@ export const TrackingPage = `
             <p class="text-slate-300 font-medium" data-i18n="trackingPage.loading">Buscando información...</p>
          </div>
          
+         <!-- Resultado: datos JSON -->
          <div id="tracking-data" class="hidden">
             <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-3">
               <span class="bg-sky-500 w-2 h-8 rounded-full"></span>
@@ -111,20 +126,193 @@ export const TrackingPage = `
               </div>
             </div>
          </div>
+
+         <!-- Resultado: modo iframe (sistema externo HTML) -->
+         <div id="tracking-iframe-wrapper" class="hidden">
+           <div class="flex items-center justify-between mb-4">
+             <h3 class="text-xl font-bold text-white flex items-center gap-3">
+               <span class="bg-sky-500 w-2 h-8 rounded-full"></span>
+               <span data-i18n="trackingPage.resultsFor">Resultados para:</span>
+               <span id="res-iframe-code" class="text-sky-400 font-mono"></span>
+             </h3>
+             <a id="res-open-link" href="#" target="_blank" rel="noopener noreferrer"
+               class="flex items-center gap-1.5 text-xs font-bold text-sky-400 hover:text-sky-300 transition-colors border border-sky-500/30 px-3 py-1.5 rounded-lg">
+               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+               Abrir en nueva pestaña
+             </a>
+           </div>
+           <iframe id="tracking-iframe" src="" title="Resultado tracking BLG"
+             class="w-full rounded-xl border border-white/10 bg-white"
+             style="height: 600px; min-height: 400px;"
+             sandbox="allow-scripts allow-same-origin allow-forms">
+           </iframe>
+         </div>
       </div>
 
     </div>
   </section>
 `;
 
-export function initTracking() {
-  const btn = document.getElementById('tracking-btn');
-  const input = document.getElementById('tracking-input');
-  const area = document.getElementById('tracking-result-area');
-  const loading = document.getElementById('tracking-loading');
-  const dataView = document.getElementById('tracking-data');
+// ── Estado del rate-limiting en cliente ───────────────────────────────────────
+const CLIENT_RATE_LIMIT = 5; // max intentos locales antes de bloqueo visual
+const CLIENT_WINDOW_MS  = 60_000; // 60 segundos
+let _attempts = [];
+let _cooldownTimer = null;
 
-  // ── GSAP: entrada escalonada al cargar la vista ─────────────
+function isRateLimited() {
+  const now = Date.now();
+  _attempts = _attempts.filter(t => now - t < CLIENT_WINDOW_MS);
+  return _attempts.length >= CLIENT_RATE_LIMIT;
+}
+
+function registerAttempt() {
+  _attempts.push(Date.now());
+}
+
+function startCooldownUI(btn, rateMsgEl, cooldownEl) {
+  if (_cooldownTimer) return;
+  const endTime = Date.now() + CLIENT_WINDOW_MS;
+  btn.disabled = true;
+  rateMsgEl.classList.remove('hidden');
+
+  _cooldownTimer = setInterval(() => {
+    const remaining = Math.ceil((endTime - Date.now()) / 1000);
+    if (remaining <= 0) {
+      clearInterval(_cooldownTimer);
+      _cooldownTimer = null;
+      _attempts = [];
+      btn.disabled = false;
+      rateMsgEl.classList.add('hidden');
+    } else {
+      cooldownEl.textContent = remaining;
+    }
+  }, 1000);
+}
+
+// ── Token Turnstile ────────────────────────────────────────────────────────────
+let _turnstileToken = null;
+
+window.onTurnstileSuccess = (token) => { _turnstileToken = token; };
+window.onTurnstileExpired = ()      => { _turnstileToken = null; };
+
+function resetTurnstile() {
+  _turnstileToken = null;
+  if (window.turnstile) window.turnstile.reset('#turnstile-container');
+}
+
+// ── Carga del script de Turnstile (una sola vez) ──────────────────────────────
+function loadTurnstileScript() {
+  if (document.getElementById('cf-turnstile-script')) return;
+  const s = document.createElement('script');
+  s.id  = 'cf-turnstile-script';
+  s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+  s.async = true;
+  s.defer = true;
+  document.head.appendChild(s);
+}
+
+// ── Lógica de búsqueda ────────────────────────────────────────────────────────
+async function doSearch(code, btn, input, area, loading, dataView, iframeWrapper, iframeEl, rateMsgEl, cooldownEl) {
+  if (!code) {
+    import('../components/UI.js').then(m => m.showAlert('Por favor, ingrese un código de seguimiento.', 'error'));
+    return;
+  }
+
+  // Rate limit cliente
+  if (isRateLimited()) {
+    startCooldownUI(btn, rateMsgEl, cooldownEl);
+    return;
+  }
+
+  // Verificar CAPTCHA
+  if (!_turnstileToken) {
+    import('../components/UI.js').then(m => m.showAlert('Completa la verificación de seguridad primero.', 'error'));
+    return;
+  }
+
+  registerAttempt();
+  if (isRateLimited()) startCooldownUI(btn, rateMsgEl, cooldownEl);
+
+  // Mostrar loading
+  area.classList.remove('hidden');
+  loading.classList.remove('hidden');
+  dataView.classList.add('hidden');
+  iframeWrapper.classList.add('hidden');
+  btn.disabled = true;
+  document.getElementById('tracking-btn-text').textContent = 'Buscando...';
+
+  const captchaToken = _turnstileToken;
+  resetTurnstile(); // consumir token
+
+  try {
+    const response = await fetch('/tracking', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tracking_number: code, captcha_token: captchaToken }),
+    });
+
+    loading.classList.add('hidden');
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({ detail: 'Error desconocido.' }));
+      area.classList.add('hidden');
+      import('../components/UI.js').then(m => m.showAlert(err.detail || 'Error al buscar el tracking.', 'error'));
+      return;
+    }
+
+    const data = await response.json();
+
+    if (data.html_mode) {
+      // Mostrar en iframe
+      const link = document.getElementById('res-open-link');
+      const codeEl = document.getElementById('res-iframe-code');
+      codeEl.textContent = data.tracking_number;
+      link.href = data.source_url;
+      iframeEl.src = data.source_url;
+      iframeWrapper.classList.remove('hidden');
+
+      gsap.fromTo('#tracking-iframe-wrapper', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' });
+    } else {
+      // Mostrar tarjetas de datos
+      document.getElementById('res-tracking-number').innerText = data.tracking_number;
+      document.getElementById('res-status').innerText   = data.status   || '—';
+      document.getElementById('res-location').innerText = data.location  || '—';
+      document.getElementById('res-date').innerText     = data.estimated_delivery || '—';
+
+      dataView.classList.remove('hidden');
+      gsap.fromTo('.result-card',
+        { y: 30, opacity: 0, scale: 0.96 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.6, stagger: 0.12, ease: 'power3.out' }
+      );
+      gsap.from('#tracking-data h3', { y: 15, opacity: 0, duration: 0.4, ease: 'power2.out' });
+    }
+
+  } catch {
+    loading.classList.add('hidden');
+    area.classList.add('hidden');
+    import('../components/UI.js').then(m => m.showAlert('Error de red. Comprueba tu conexión e intenta de nuevo.', 'error'));
+  } finally {
+    btn.disabled = isRateLimited() ? true : false;
+    document.getElementById('tracking-btn-text').textContent = 'BUSCAR';
+  }
+}
+
+// ── Init principal ─────────────────────────────────────────────────────────────
+export function initTracking() {
+  const btn           = document.getElementById('tracking-btn');
+  const input         = document.getElementById('tracking-input');
+  const area          = document.getElementById('tracking-result-area');
+  const loading       = document.getElementById('tracking-loading');
+  const dataView      = document.getElementById('tracking-data');
+  const iframeWrapper = document.getElementById('tracking-iframe-wrapper');
+  const iframeEl      = document.getElementById('tracking-iframe');
+  const rateMsgEl     = document.getElementById('rate-limit-msg');
+  const cooldownEl    = document.getElementById('rate-cooldown');
+
+  // Cargar Turnstile
+  loadTurnstileScript();
+
+  // ── GSAP: entrada escalonada ───────────────────────────────────────────────
   ScrollTrigger.getAll().forEach(t => t.kill());
 
   const ease = 'power3.out';
@@ -162,56 +350,60 @@ export function initTracking() {
     scrollTrigger: { trigger: '.tracking-card', start: 'top 88%' }
   });
 
-  // ── GSAP: movimiento continuo sutil en la decoración de fondo ──
+  // ── Decoración continua ────────────────────────────────────────────────────
   gsap.to('.tracking-deco-1', { y: 35, duration: 6, ease: 'sine.inOut', yoyo: true, repeat: -1 });
   gsap.to('.tracking-deco-2', { y: -35, duration: 7, ease: 'sine.inOut', yoyo: true, repeat: -1 });
 
-  if (btn && input) {
-    btn.addEventListener('click', async () => {
-      const val = input.value.trim();
-      if (!val) {
-        import('../components/UI.js').then(module => {
-          module.showAlert('Por favor, ingrese un código de seguimiento.', 'error');
-        });
-        return;
-      }
+  if (!btn || !input) return;
 
-      area.classList.remove('hidden');
-      loading.classList.remove('hidden');
-      dataView.classList.add('hidden');
+  const search = () => doSearch(
+    input.value.trim(), btn, input, area, loading, dataView, iframeWrapper, iframeEl, rateMsgEl, cooldownEl
+  );
 
-      try {
-        const response = await fetch('/tracking?tracking_number=' + encodeURIComponent(val));
-        const data = await response.json();
+  btn.addEventListener('click', search);
 
-        document.getElementById('res-tracking-number').innerText = data.tracking_number;
-        document.getElementById('res-status').innerText = data.status;
-        document.getElementById('res-location').innerText = data.location;
-        document.getElementById('res-date').innerText = data.estimated_delivery;
+  // Enter sin repetición continua con tecla presionada
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.repeat) search();
+  });
 
-        loading.classList.add('hidden');
-        dataView.classList.remove('hidden');
+  // ── Leer parámetro GET ?codigo= de la URL hash ─────────────────────────────
+  // La app usa hash routing: #tracking?codigo=BLG-123
+  // También soportamos ?codigo= en la URL directa (si el backend redirige)
+  function getCodigoFromUrl() {
+    // Revisar query string directo: https://...?codigo=XXX
+    const urlParams = new URLSearchParams(window.location.search);
+    const fromQuery = urlParams.get('codigo');
+    if (fromQuery) return fromQuery;
 
-        // GSAP: animar la entrada de los resultados
-        gsap.fromTo('.result-card',
-          { y: 30, opacity: 0, scale: 0.96 },
-          { y: 0, opacity: 1, scale: 1, duration: 0.6, stagger: 0.12, ease: 'power3.out' }
+    // Revisar dentro del hash: #tracking?codigo=XXX
+    const hash = window.location.hash; // ej: "#tracking?codigo=38E3UE"
+    const hashQuery = hash.includes('?') ? hash.split('?')[1] : '';
+    const hashParams = new URLSearchParams(hashQuery);
+    return hashParams.get('codigo') || null;
+  }
+
+  const codigoAuto = getCodigoFromUrl();
+  if (codigoAuto) {
+    input.value = codigoAuto;
+    // Esperar a que Turnstile cargue y resuelva (max ~3s) antes de auto-buscar
+    const MAX_WAIT = 6000;
+    const CHECK_INTERVAL = 300;
+    let waited = 0;
+    const waitForToken = setInterval(() => {
+      waited += CHECK_INTERVAL;
+      if (_turnstileToken) {
+        clearInterval(waitForToken);
+        // Pequeña pausa visual para que el usuario vea que hay código prellenado
+        setTimeout(() => search(), 400);
+      } else if (waited >= MAX_WAIT) {
+        clearInterval(waitForToken);
+        // Si no llega token automáticamente, al menos dejar el input prellenado
+        // y notificar que el usuario debe completar el CAPTCHA
+        import('../components/UI.js').then(m =>
+          m.showAlert(`Código prellenado: ${codigoAuto}. Completa la verificación y presiona BUSCAR.`, 'info')
         );
-        gsap.from('#tracking-data h3', { y: 15, opacity: 0, duration: 0.4, ease: 'power2.out' });
-
-      } catch (error) {
-        loading.classList.add('hidden');
-        area.classList.add('hidden');
-        import('../components/UI.js').then(module => {
-          module.showAlert('Error al buscar el tracking. Intente de nuevo.', 'error');
-        });
       }
-    });
-
-    input.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        btn.click();
-      }
-    });
+    }, CHECK_INTERVAL);
   }
 }
