@@ -38,17 +38,17 @@ export const TrackingPage = `
         <div class="flex flex-col lg:flex-row">
           
           <!-- Izquierda: Logo y Buscador -->
-          <div class="tracking-card-left flex-1 p-8 lg:p-12 flex flex-col md:flex-row items-center gap-8 lg:gap-12 relative bg-[#0B192C]">
+          <div class="tracking-card-left flex-1 p-6 lg:p-10 flex flex-col md:flex-row items-center gap-6 lg:gap-10 relative bg-[#0B192C]">
             <!-- Barra decorativa izquierda -->
             <div class="accent-bar absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-sky-400 to-sky-600"></div>
 
             <div class="shrink-0">
               <a href="#">
-                <img src="${logoSrc}" alt="BOLOG Logo" class="w-64 sm:w-80 md:w-96 object-contain drop-shadow-md hover:scale-105 transition-transform duration-300" />
+                <img src="${logoSrc}" alt="BOLOG Logo" class="w-48 sm:w-56 md:w-64 lg:w-72 object-contain drop-shadow-md hover:scale-105 transition-transform duration-300 mx-auto md:mx-0" />
               </a>
             </div>
             
-            <div class="flex-1 w-full max-w-md">
+            <div class="flex-1 w-full max-w-lg">
               <label for="tracking-input" class="block text-sm font-bold text-white mb-2 tracking-wide" data-i18n="trackingPage.inputLabel">Código o Nro. de Documento</label>
               <div class="flex flex-col sm:flex-row gap-3">
                 <input type="text" id="tracking-input" placeholder="Ej. BLG-123456" data-i18n-placeholder="trackingPage.inputPlaceholder"
@@ -60,7 +60,7 @@ export const TrackingPage = `
               </div>
 
               <!-- Cloudflare Turnstile CAPTCHA -->
-              <div class="mt-4">
+              <div class="mt-4 transform scale-90 xl:scale-100 origin-left">
                 <div id="turnstile-container" class="cf-turnstile" data-sitekey="${TURNSTILE_SITE_KEY}" data-theme="dark" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired"></div>
               </div>
 
@@ -73,7 +73,7 @@ export const TrackingPage = `
           </div>
 
           <!-- Derecha: Panel de Información -->
-          <div class="tracking-card-right w-full lg:w-1/3 bg-gradient-to-br from-sky-600 to-primary-700 p-8 text-white relative overflow-hidden flex flex-col justify-center shadow-inner">
+          <div class="tracking-card-right w-full lg:w-[28%] xl:w-1/4 bg-gradient-to-br from-sky-600 to-primary-700 p-6 lg:p-8 text-white relative overflow-hidden flex flex-col justify-center shadow-inner">
             <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full translate-x-10 -translate-y-10 blur-xl"></div>
             
             <div class="flex items-start gap-4 relative z-10">
@@ -256,7 +256,7 @@ async function doSearch(code, btn, input, area, loading, dataView, iframeWrapper
   resetTurnstile(); // consumir token
 
   try {
-    const response = await fetch('/tracking', {
+    const response = await fetch('/api/tracking', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ tracking_number: code, captcha_token: captchaToken }),

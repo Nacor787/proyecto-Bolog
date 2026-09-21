@@ -46,7 +46,7 @@ app.add_middleware(
 BASE_DIR = Path(__file__).parent
 app.mount("/uploads", StaticFiles(directory=str(BASE_DIR / "uploads")), name="uploads")
 
-app.include_router(tracking.router, tags=["Tracking"])
+app.include_router(tracking.router, prefix="/api", tags=["Tracking"])
 app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
 app.include_router(noticias.router, prefix="/api/noticias", tags=["Noticias"])
 app.include_router(exchange_rate.router, prefix="/api/exchange-rate", tags=["Exchange Rate"])
