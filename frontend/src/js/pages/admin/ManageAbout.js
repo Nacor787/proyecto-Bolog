@@ -151,22 +151,22 @@ async function loadAboutForm() {
     setVal('about-video-url', d.video_url);
     setVal('about-mision-es', d.mision_es);
     setVal('about-mision-en', d.mision_en);
-    const mb_es = (d.mision_bullets_es || '').split('\n');
-    const mb_en = (d.mision_bullets_en || '').split('\n');
+    const mb_es = (d.mision_bullets_es || 'Cobertura puerta a puerta personalizada\\nTrazabilidad y respaldo normativo').split('\\n');
+    const mb_en = (d.mision_bullets_en || 'Personalized door-to-door coverage\\nTraceability and regulatory compliance').split('\\n');
     setVal('about-mision-b1-es', mb_es[0]); setVal('about-mision-b1-en', mb_en[0]);
     setVal('about-mision-b2-es', mb_es[1]); setVal('about-mision-b2-en', mb_en[1]);
 
     setVal('about-vision-es', d.vision_es);
     setVal('about-vision-en', d.vision_en);
-    const vb_es = (d.vision_bullets_es || '').split('\n');
-    const vb_en = (d.vision_bullets_en || '').split('\n');
+    const vb_es = (d.vision_bullets_es || 'Innovación tecnológica continua\\nExpansión de alianzas estratégicas').split('\\n');
+    const vb_en = (d.vision_bullets_en || 'Continuous technological innovation\\nExpansion of strategic alliances').split('\\n');
     setVal('about-vision-b1-es', vb_es[0]); setVal('about-vision-b1-en', vb_en[0]);
     setVal('about-vision-b2-es', vb_es[1]); setVal('about-vision-b2-en', vb_en[1]);
 
     setVal('about-valores-es', d.valores_es);
     setVal('about-valores-en', d.valores_en);
-    const valb_es = (d.valores_bullets_es || '').split('\n');
-    const valb_en = (d.valores_bullets_en || '').split('\n');
+    const valb_es = (d.valores_bullets_es || 'Transparencia y honestidad comercial\\nSeguridad y compromiso sin excepciones').split('\\n');
+    const valb_en = (d.valores_bullets_en || 'Commercial transparency and honesty\\nSecurity and uncompromising commitment').split('\\n');
     setVal('about-valores-b1-es', valb_es[0]); setVal('about-valores-b1-en', valb_en[0]);
     setVal('about-valores-b2-es', valb_es[1]); setVal('about-valores-b2-en', valb_en[1]);
     setVal('about-politicas-es', d.politicas_es);

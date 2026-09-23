@@ -108,9 +108,9 @@ export function initLogin() {
   if (!form) return;
 
   // Cargar script de Turnstile dinámicamente si no existe
-  if (!document.getElementById('turnstile-script')) {
+  if (!document.getElementById('cf-turnstile-script')) {
     const script = document.createElement('script');
-    script.id = 'turnstile-script';
+    script.id = 'cf-turnstile-script';
     script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
     script.async = true;
     script.defer = true;
