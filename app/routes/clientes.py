@@ -85,7 +85,14 @@ def update_cliente(
     if not cliente:
         raise HTTPException(status_code=404, detail="Cliente no encontrado")
 
-    for key, value in cliente_update.model_dump(exclude_unset=True).items():
+    update_data = cliente_update.model_dump(exclude_unset=True)
+
+    # Si se actualiza el logo, borrar el logo anterior de Cloudinary
+    if "logo_url" in update_data and update_data["logo_url"] != cliente.logo_url:
+        if cliente.logo_url:
+            delete_image(cliente.logo_url)
+
+    for key, value in update_data.items():
         setattr(cliente, key, value)
 
     db.commit()

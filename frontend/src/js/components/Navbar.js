@@ -43,38 +43,38 @@ export const Navbar = `
             <a id="nav-logo" href="#" class="relative flex items-center group opacity-0 -translate-y-2 pointer-events-none transition-all duration-300">
               <!-- Glow desplazado a la izquierda -->
               <div class="absolute -left-4 w-16 h-8 bg-white/20 blur-[16px] rounded-full z-0 pointer-events-none transition-all duration-300 group-hover:bg-white/30"></div>
-              <img src="${logoSrc}" alt="BOLOG Logo" class="relative z-10 h-16 md:h-20 lg:h-24 w-auto object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] transition-all duration-300" />
+              <img src="${logoSrc}" alt="BOLOG Logo" class="relative z-10 h-20 md:h-24 lg:h-28 w-auto object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] transition-all duration-300" />
             </a>
           </div>
 
           <!-- Desktop Menu - Glassmorph Pill (Centro Absoluto) -->
           <div class="hidden lg:flex flex-none justify-center items-center">
             <div class="flex items-center lg:space-x-2 xl:space-x-4 px-3 xl:px-5 py-2.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
-              <a href="#home" class="nav-link text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
+              <a href="#home" class="nav-link text-[10px] xl:text-xs font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
                 <span data-i18n="nav.home">INICIO</span>
               </a>
-              <a href="#coverage" class="nav-link text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
+              <a href="#coverage" class="nav-link text-[10px] xl:text-xs font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
                 <span data-i18n="nav.coverage">COBERTURA</span>
               </a>
-              <a href="#services" class="nav-link text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
+              <a href="#services" class="nav-link text-[10px] xl:text-xs font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
                 <span data-i18n="nav.services">SERVICIOS</span>
               </a>
-              <a href="#clients" class="nav-link text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
+              <a href="#clients" class="nav-link text-[10px] xl:text-xs font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
                 <span>CLIENTES</span>
               </a>
-              <a href="#contact" class="nav-link text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
+              <a href="#contact" class="nav-link text-[10px] xl:text-xs font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
                 <span data-i18n="nav.contact">CONTACTO</span>
               </a>
-              <a href="#location" class="nav-link text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
+              <a href="#location" class="nav-link text-[10px] xl:text-xs font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
                 <span data-i18n="nav.location">UBICACIÓN</span>
               </a>
-              <a href="#about" class="nav-link text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
+              <a href="#about" class="nav-link text-[10px] xl:text-xs font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
                 <span data-i18n="nav.about">NOSOTROS</span>
               </a>
-              <a href="#news/all" class="nav-link text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
+              <a href="#news/all" class="nav-link text-[10px] xl:text-xs font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
                 <span>NOTICIAS</span>
               </a>
-              <a href="#tracking" class="nav-link text-[10px] xl:text-[11px] font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
+              <a href="#tracking" class="nav-link text-[10px] xl:text-xs font-bold text-white/70 hover:text-white transition-colors tracking-widest uppercase whitespace-nowrap">
                 <span>SEGUIMIENTO BLG</span>
               </a>
               <a id="nav-dashboard" href="#dashboard" class="hidden bg-brand-accent hover:bg-yellow-400 text-brand-dark px-3 xl:px-4 py-1.5 text-[10px] xl:text-xs font-bold transition-colors shadow uppercase tracking-widest whitespace-nowrap">
